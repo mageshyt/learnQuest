@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { Nunito, Open_Sans } from "next/font/google";
 import "./globals.css";
+
 import { ThemeProvider } from "@/components/providers/theme-providers";
+import { Toaster } from "@/components/ui/sonner";
+import { ClerkProvider } from "@clerk/nextjs";
 
 const font = Nunito({ subsets: ["vietnamese"] });
 
@@ -21,11 +24,14 @@ export default function RootLayout({
       <body className={font.className}>
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem={true}
+          defaultTheme="light"
+          enableSystem={false}
           storageKey="learn-quest-theme"
         >
-          {children}
+          <ClerkProvider>
+            <Toaster />
+            {children}
+          </ClerkProvider>
         </ThemeProvider>
       </body>
     </html>
