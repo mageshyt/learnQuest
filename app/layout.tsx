@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
-import { Nunito, Open_Sans } from "next/font/google";
+import { Nunito, Inter } from "next/font/google";
 import "./globals.css";
 
 import { ThemeProvider } from "@/components/providers/theme-providers";
 import { Toaster } from "@/components/ui/sonner";
 import { ClerkProvider } from "@clerk/nextjs";
+import { cn } from "@/lib/utils";
 
-const font = Nunito({ subsets: ["vietnamese"] });
+import { neobrutalism } from "@clerk/themes";
+const font = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Learn Quest",
@@ -21,12 +23,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={font.className}>
+      <body className={cn(font.className, "h-screen")}>
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
           enableSystem={false}
-          storageKey="learn-quest-theme"
+          // storageKey="learn-quest-theme"
         >
           <ClerkProvider>
             <Toaster />
