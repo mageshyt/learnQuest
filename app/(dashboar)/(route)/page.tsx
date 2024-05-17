@@ -1,10 +1,9 @@
-import { UserButton } from "@clerk/nextjs";
+import { ModeToggle } from "@/components/mode-toggle";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1 className="text-4xl font-bold">Welcome to Learn Quest</h1>
-      <UserButton />
+    <main className="p-4">
+      <ModeToggle />
     </main>
   );
 }

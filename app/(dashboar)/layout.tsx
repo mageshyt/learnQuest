@@ -8,6 +8,10 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
       <SidebarWrapper>
         <Sidebar />
       </SidebarWrapper>
+
+      {/* content */}
+
+      <main className="md:pl-64 h-full">{children}</main>
     </Wrapper>
   );
 };

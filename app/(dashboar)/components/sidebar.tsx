@@ -19,6 +19,6 @@ const Sidebar = () => {
 
 export default Sidebar;
 
-const Wrapper = tw.div`h-full border-r flex flex-col overflow-y-auto bg-white shadow-sm `;
+const Wrapper = tw.div`h-full border-r flex flex-col overflow-y-auto  shadow-sm `;
 
 const Routes = tw.div`flex flex-col w-full`;
