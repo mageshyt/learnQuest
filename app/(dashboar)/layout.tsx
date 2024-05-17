@@ -1,9 +1,14 @@
 import tw from "tailwind-styled-components";
 import Sidebar from "./components/sidebar";
+import Navbar from "./components/navbar";
 
 const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <Wrapper>
+      {/* navbar */}
+      <div className="h-[80px] md:pl-64 fixed inset-y-0 w-full z-50">
+        <Navbar />
+      </div>
       {/* sidebar */}
       <SidebarWrapper>
         <Sidebar />
