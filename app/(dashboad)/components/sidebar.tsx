@@ -2,12 +2,15 @@ import tw from "tailwind-styled-components";
 import React from "react";
 import Logo from "@/components/logo";
 import SidebarRoutes from "./sidebar-routes";
+import Link from "next/link";
 
 const Sidebar = () => {
   return (
     <Wrapper>
       <div className="p-6">
-        <Logo height={150} width={180} />
+        <Link href="/dashboard">
+          <Logo height={150} width={180} />
+        </Link>
       </div>
 
       <Routes>

@@ -11,12 +11,12 @@ const guestRoutes = [
   {
     icon: Layout,
     title: "Dashboard",
-    href: "/",
+    href: "/dashboard",
   },
   {
     icon: Compass,
     title: "Browse",
-    href: "/search",
+    href: "/dashboard/search",
   },
 ];
 
@@ -24,18 +24,18 @@ const teachersRoutes = [
   {
     icon: List,
     title: "Courses",
-    href: "/teacher/courses",
+    href: "/dashboard/teacher/courses",
   },
   {
     icon: BarChart,
     title: "Analytics",
-    href: "/teacher/analytics",
+    href: "/dashboard/teacher/analytics",
   },
 ];
 const SidebarRoutes = () => {
   const pathname = usePathname();
 
-  const isTeacherPage = pathname?.startsWith("/teacher");
+  const isTeacherPage = pathname?.startsWith("/dashboard/teacher");
   const routes = isTeacherPage ? teachersRoutes : guestRoutes;
 
   return (

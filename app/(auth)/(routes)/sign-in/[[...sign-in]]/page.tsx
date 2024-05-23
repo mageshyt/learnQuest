@@ -20,7 +20,7 @@ export default function SignInPage() {
         {/* card */}
         <div className="flex items-center justify-center mt-8 col-start-2">
           <ClerkLoaded>
-            <SignIn path="/sign-in" />
+            <SignIn path="/sign-in" forceRedirectUrl={"/dashboard"} />
           </ClerkLoaded>
           <ClerkLoading>
             <Loader2 className="animate-spin text-muted-foreground" />
