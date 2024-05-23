@@ -6,12 +6,15 @@ import { Spotlight } from "@/components/ui/spotlight";
 
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import Link from "next/link";
 
 gsap.registerPlugin(useGSAP);
 
 const LandingPage = () => {
+  // -------------------------------------- state --------------------------------------
   const words = ["Best", "Greatest", "Awesome", "Amazing"];
 
+  // -------------------------------------- hooks --------------------------------------
   const ref = useRef(null);
 
   useGSAP(() => {
