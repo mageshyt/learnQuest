@@ -52,55 +52,55 @@ const CreateCoursePage = () => {
   };
 
   return (
-    <div className="p-6 max-w-5xl mx-auto flex flex-col md:items-center md:justify-center h-full">
+    <div className="p-6 max-w-5xl mx-auto w-full flex flex-col md:items-center md:justify-center h-full">
       <div>
         <h1 className="text-2xl">Name Your Course</h1>
         <p className="text-sm text-slate-700 dark:text-slate-300">
           What would you like to call your course? Don't worry, you can change
         </p>
-      </div>
 
-      <Form {...form}>
-        <form
-          className="mt-6 space-y-8"
-          onSubmit={form.handleSubmit(handleSubmit)}
-        >
-          {/* Title */}
-          <FormField
-            control={form.control}
-            name="title"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel htmlFor="title">Title</FormLabel>
-                <FormControl>
-                  <Input
-                    {...field}
-                    disabled={isSubmitted}
-                    placeholder="e.g. Introduction to JavaScript"
-                  />
-                </FormControl>
+        <Form {...form}>
+          <form
+            className="mt-6 space-y-8 "
+            onSubmit={form.handleSubmit(handleSubmit)}
+          >
+            {/* Title */}
+            <FormField
+              control={form.control}
+              name="title"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel htmlFor="title">Title</FormLabel>
+                  <FormControl>
+                    <Input
+                      {...field}
+                      disabled={isSubmitted}
+                      placeholder="e.g. Introduction to JavaScript"
+                    />
+                  </FormControl>
 
-                <FormDescription>
-                  What will students learn in your course?
-                </FormDescription>
+                  <FormDescription>
+                    What will students learn in your course?
+                  </FormDescription>
 
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <div className="flex items-center gap-x-2">
-            <Link href={"/"}>
-              <Button type="button" variant={"ghost"}>
-                Cancel
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <div className="flex items-center gap-x-2">
+              <Link href={"/"}>
+                <Button type="button" variant={"ghost"}>
+                  Cancel
+                </Button>
+              </Link>
+
+              <Button type="submit" disabled={!isValid || isSubmitted}>
+                Continue
               </Button>
-            </Link>
-
-            <Button type="submit" disabled={!isValid || isSubmitted}>
-              Continue
-            </Button>
-          </div>
-        </form>
-      </Form>
+            </div>
+          </form>
+        </Form>
+      </div>
     </div>
   );
 };
