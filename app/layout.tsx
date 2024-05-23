@@ -3,9 +3,9 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 
 import { ThemeProvider } from "@/components/providers/theme-providers";
-import { Toaster } from "@/components/ui/sonner";
 import { ClerkProvider } from "@clerk/nextjs";
 import { cn } from "@/lib/utils";
+import ToastProvider from "@/components/providers/toast-provider";
 
 const font = Inter({ subsets: ["latin"] });
 
@@ -30,7 +30,7 @@ export default function RootLayout({
           // storageKey="learn-quest-theme"
         >
           <ClerkProvider>
-            <Toaster />
+            <ToastProvider />
             {children}
           </ClerkProvider>
         </ThemeProvider>
