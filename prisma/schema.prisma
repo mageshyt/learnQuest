@@ -12,3 +12,144 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+enum Role {
+  USER
+  TEACHER
+  ADMIN
+}
+
+model User {
+  id             String           @id @default(uuid())
+  email          String           @unique
+  name           String?
+  password       String
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+  role           Role             @default(USER)
+  Course         Course[]
+  UserProgress   UserProgress[]
+  Purchase       Purchase[]
+  stripeCustomer stripeCustomer[]
+}
+
+model Course {
+  id          String  @id @default(uuid())
+  title       String
+  description String
+  imageUrl    String?
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  price       Float?
+  isPublished Boolean @default(false)
+
+  categoryId String?
+  Category   Category? @relation(fields: [categoryId], references: [id])
+
+  chapters   Chapter[]
+  Purchase   Purchase[]
+  attachment Attachment[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Category {
+  id        String   @id @default(uuid())
+  name      String
+  courses   Course[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Attachment {
+  id        String   @id @default(uuid())
+  name      String
+  url       String   @db.Text
+  courseId  String
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([courseId])
+}
+
+model Chapter {
+  id          String  @id @default(uuid())
+  title       String
+  description String? @db.Text
+  videoUrl    String? @db.Text
+  position    Int
+  ispublished Boolean @default(false)
+  isFree      Boolean @default(false)
+
+  muxData MuxData?
+
+  courseId String
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
+
+  userProgress UserProgress[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([courseId])
+}
+
+model MuxData {
+  id         String  @id @default(uuid())
+  playbackId String?
+  assetId    String
+
+  chapterId String  @unique
+  chapter   Chapter @relation(fields: [chapterId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([chapterId])
+}
+
+model UserProgress {
+  id        String  @id @default(uuid())
+  chapterId String
+  chapter   Chapter @relation(fields: [chapterId], references: [id])
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  isCompleted Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId, chapterId])
+}
+
+model Purchase {
+  id       String @id @default(uuid())
+  courseId String
+  course   Course @relation(fields: [courseId], references: [id])
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId, courseId])
+}
+
+model stripeCustomer {
+  id               String @id @default(uuid())
+  stripeCustomerId String @unique
+
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+}

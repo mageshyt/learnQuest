@@ -1,4 +1,30 @@
+# Learn Quest 📔
+
+Learn Quest is a platform that provides educational resources, courses, and expert insights. It is a platform that allows users to take control of their learning journey and achieve their goals.
+
+## Features 🚀
+
+- **Courses**: Learn Quest provides a wide range of courses on various topics. Users can enroll in these courses and learn at their own pace.
+
+- **Expert Insights**: Learn Quest provides expert insights on various topics. Users can read these insights and learn from the experts.
+
+- **Resources**: Learn Quest provides educational resources on various topics. Users can access these resources and learn from them.
+
+- **User Dashboard**: Learn Quest provides a user dashboard where users can track their progress, view their enrolled courses, and access their certificates.
+
+## Development 🛠
+
+**Database**: Learn Quest uses a PostgreSQL database to store data. The database schema is as follows:
+![](/assets/db-schema.png)
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+
+**Tech Stack**:
+
+- Next.js
+- TypeScript
+- PostgreSQL
+- Prisma
+- clerk
 
 ## Getting Started
 

@@ -1,10 +1,8 @@
-import { Account, Client, OAuthProvider } from "appwrite";
-const client = new Client();
+import { PrismaClient } from "@prisma/client";
 
-client
-  .setEndpoint("https://cloud.appwrite.io/v1")
-  .setProject("6644cf900012760a372a");
+declare global {
+  var prisma: PrismaClient | undefined;
+}
+export const db = globalThis.prisma || new PrismaClient();
 
-const account = new Account(client);
-
-export { client, account };
+if (process.env.NODE_ENV !== "production") globalThis.prisma = db;
