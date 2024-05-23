@@ -1,1 +1,1 @@
-export const PROTECTED_ROUTES = ["/"];
+export const PROTECTED_ROUTES = ["/dashboard"];
