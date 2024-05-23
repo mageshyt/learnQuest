@@ -28,8 +28,6 @@ export default function SignUpPage() {
         </div>
       </div>
 
-      {/* image */}
-      {/* image */}
       <div className="h-full pattern-bg hidden lg:block "></div>
     </div>
   );
