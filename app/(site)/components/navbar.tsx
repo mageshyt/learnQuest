@@ -1,16 +1,39 @@
+"use client";
 import tw from "tailwind-styled-components";
 import Link from "next/link";
 import Logo from "@/components/logo";
 
-import { currentUser } from "@clerk/nextjs/server";
-import { UserButton } from "@clerk/nextjs";
+import { UserButton, useUser } from "@clerk/nextjs";
 
 import { MenuIcon } from "lucide-react";
 
-const Navbar = async () => {
-  const user = await currentUser();
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { useRef } from "react";
+
+gsap.registerPlugin(useGSAP);
+
+const Navbar = () => {
+  const user = useUser().isSignedIn;
+
+  // -------------------------------------- hooks --------------------------------------
+  const ref = useRef(null);
+
+  useGSAP(() => {
+    //  make the container to come from under the screen
+
+    gsap
+      .from(ref.current, {
+        y: -100,
+        autoAlpha: 0,
+        duration: 2,
+        opacity: 0,
+      })
+      .delay(0.6);
+  });
+
   return (
-    <HeaderWrapper>
+    <HeaderWrapper ref={ref}>
       <aside className="flex  items-center gap-[2px]">
         <Logo mode="dark" height={150} width={150} />
       </aside>
@@ -54,7 +77,7 @@ const Navbar = async () => {
 
 export default Navbar;
 
-const HeaderWrapper = tw.header`fixed right-0 left-0 top-0 p-4 z-[100]  flex items-center justify-between max-w-5xl mx-auto`;
+const HeaderWrapper = tw.header`  relative   p-4 z-[100]  flex items-center  justify-between max-w-7xl mx-auto `;
 
 const NavItems = tw.nav`absolute left-[50%] top-[50%] transform translate-x-[-50%] translate-y-[-50%] hidden md:block`;
 

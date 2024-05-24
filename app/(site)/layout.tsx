@@ -3,7 +3,7 @@ import Navbar from "./components/navbar";
 
 const LandingPageLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="h-full relative">
+    <div className="h-screen w-full bg-neutral-950 ">
       {/* navbar */}
       <Navbar />
       {children}
