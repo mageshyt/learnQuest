@@ -1,5 +1,5 @@
 "use client";
-import ListView from "@/components/list-view";
+import ListView from "@/components/global/list-view";
 import { BarChart, Compass, icons, Layout, List } from "lucide-react";
 import Link from "next/link";
 import React from "react";

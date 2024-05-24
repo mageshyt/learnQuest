@@ -6,12 +6,11 @@ import { Spotlight } from "@/components/ui/spotlight";
 
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { ContainerScroll } from "@/components/ui/container-scroll-animation";
-import Image from "next/image";
-import Navbar from "./components/navbar";
-import { InfiniteMovingCards } from "@/components/ui/infinite-moving-cards";
-import { clients } from "@/lib";
-import { Button } from "@/components/ui/button";
+
+import { ContainerScroll } from "@/components/global/container-scroll-animation";
+import { InfiniteMovingCards } from "@/components/global/infinite-moving-cards";
+import { clients, products } from "@/lib";
+import { HeroParallax } from "@/components/global/connect-parellax";
 
 gsap.registerPlugin(useGSAP);
 
@@ -42,7 +41,7 @@ const LandingPage = () => {
     >
       <section>
         <Spotlight
-          className="-top-20 left-0 md:left-44 md:-top-96"
+          className=" left-0 md:left-44 -top-[40rem] md:-top-[55rem]"
           fill="white"
         />
 
@@ -62,7 +61,6 @@ const LandingPage = () => {
           </p>
         </div>
       </section>
-
       <div className="flex flex-col h-full mt-[-300px] md:mt-[-180px]">
         <ContainerScroll
           titleComponent={
@@ -74,13 +72,17 @@ const LandingPage = () => {
           }
         />
       </div>
-
+      {/* infinite moving card */}
       <InfiniteMovingCards
         className="mt-[-350px] md:mt-[2rem]"
         items={clients}
         direction="right"
         speed="slow"
       />
+      {/*--------------------------- parallax--------------------- */}
+      <section className="overflow-hidden">
+        <HeroParallax products={products} />;
+      </section>
     </main>
   );
 };

@@ -1,6 +1,6 @@
 import tw from "tailwind-styled-components";
 import React from "react";
-import Logo from "@/components/logo";
+import Logo from "@/components/global/logo";
 import SidebarRoutes from "./sidebar-routes";
 import Link from "next/link";
 

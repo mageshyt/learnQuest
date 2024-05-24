@@ -1,7 +1,7 @@
 "use client";
 import tw from "tailwind-styled-components";
 import Link from "next/link";
-import Logo from "@/components/logo";
+import Logo from "@/components/global/logo";
 
 import { UserButton, useUser } from "@clerk/nextjs";
 
