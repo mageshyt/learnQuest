@@ -13,7 +13,7 @@ const HeroSection = () => {
       />
       <motion.div
         initial={{ opacity: 0, z: 1, scale: 0.6 }}
-        whileInView={{ opacity: 1, z: 0, scale: 1 }}
+        animate={{ opacity: 1, z: 0, scale: 1 }}
         transition={{
           delay: 1.2,
           duration: 0.8,
