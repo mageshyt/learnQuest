@@ -41,3 +41,5 @@ export const products = [
       "https://aceternity.com/images/products/thumbnails/new/pixelperfect.png",
   },
 ];
+
+
