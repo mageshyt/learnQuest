@@ -18,7 +18,7 @@ const SidebarItem: FC<SidebarItemProps> = ({ icon: Icon, title, href }) => {
   const isActive =
     (pathname === "/dashboard" && href === "/dashboard") ||
     pathname === href ||
-    pathname?.startsWith(`/dashboard${href}/`);
+    pathname?.startsWith(`/dashboard/${href}/`);
 
   // ------------------------ handlers------------------------
   const handleClick = () => {

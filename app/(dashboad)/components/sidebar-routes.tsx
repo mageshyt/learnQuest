@@ -1,9 +1,7 @@
 "use client";
 import ListView from "@/components/global/list-view";
 import { BarChart, Compass, icons, Layout, List } from "lucide-react";
-import Link from "next/link";
 import React from "react";
-import tw from "tailwind-styled-components";
 import SidebarItem from "./sidebar-item";
 import { usePathname } from "next/navigation";
 

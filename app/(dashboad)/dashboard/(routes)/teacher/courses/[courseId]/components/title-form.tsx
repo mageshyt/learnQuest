@@ -1,8 +1,5 @@
 "use client";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-
-import { toast } from "react-hot-toast";
+import React, { FC } from "react";
 
 import * as z from "zod";
 import axios from "axios";
@@ -22,58 +19,76 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { createCourseSchema } from "@/schema";
+import { Pencil } from "lucide-react";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
-const CreateCoursePage = () => {
+interface TitleFormProps {
+  initialData: {
+    title: string;
+  };
+  courseId: string;
+}
+const TitleForm: FC<TitleFormProps> = ({ initialData, courseId }) => {
   // ---------------------------------------hooks---------------------------------------
   const form = useForm<z.infer<typeof createCourseSchema>>({
     resolver: zodResolver(createCourseSchema),
     defaultValues: {
-      title: "",
+      title: initialData.title,
     },
   });
 
   const router = useRouter();
 
   // ---------------------------------------state---------------------------------------
-
   const { isSubmitted, isValid } = form.formState;
+  const [isEditing, setIsEditing] = React.useState(false);
 
-  // ---------------------------------------handlers---------------------------------------
+  //   ---------------------------------------handlers---------------------------------------
+
+  const toggleEdit = () => setIsEditing(!isEditing);
 
   const handleSubmit = async (data: z.infer<typeof createCourseSchema>) => {
     try {
-      const res = await axios.post("/api/courses/", data);
-      router.push(`/dashboard/teacher/courses/${res.data.id}`);
-      toast.success("Course created");
+      await axios.patch(`/api/courses/${courseId}`, data);
+
+      router.refresh();
+      toggleEdit();
+      toast.success("Course updated");
     } catch (err) {
       // Handle error
       toast.error("Something went wrong");
-    } finally {
-      form.reset();
     }
   };
-
   return (
-    <div className="p-6 max-w-5xl mx-auto w-full flex flex-col md:items-center md:justify-center h-full">
-      <div>
-        <h1 className="text-2xl">Name Your Course</h1>
-        <p className="text-sm text-slate-700 dark:text-slate-300">
-          What would you like to call your course? Don&apos;t worry, you can
-          change
-        </p>
+    <div className="mt-6   bg-slate-100 dark:bg-neutral-800 rounded-md p-4">
+      <div className="font-medium flex items-center justify-between">
+        Course Title
+        <Button onClick={toggleEdit} variant={"ghost"}>
+          {isEditing ? (
+            <>Cancel</>
+          ) : (
+            <>
+              {" "}
+              <Pencil className="iconsmright" />
+              Edit
+            </>
+          )}
+        </Button>
+      </div>
+      {!isEditing && <p className="text-sm mt-2">{initialData.title}</p>}
 
+      {isEditing && (
         <Form {...form}>
           <form
-            className="mt-6 space-y-8 "
+            className="mt-4 space-y-4"
             onSubmit={form.handleSubmit(handleSubmit)}
           >
-            {/* Title */}
             <FormField
-              control={form.control}
               name="title"
+              control={form.control}
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel htmlFor="title">Title</FormLabel>
                   <FormControl>
                     <Input
                       {...field}
@@ -81,31 +96,20 @@ const CreateCoursePage = () => {
                       placeholder="e.g. Introduction to JavaScript"
                     />
                   </FormControl>
-
-                  <FormDescription>
-                    What will students learn in your course?
-                  </FormDescription>
-
-                  <FormMessage />
+                  <FormMessage {...field} />
                 </FormItem>
               )}
             />
             <div className="flex items-center gap-x-2">
-              <Link href={"/"}>
-                <Button type="button" variant={"ghost"}>
-                  Cancel
-                </Button>
-              </Link>
-
               <Button type="submit" disabled={!isValid || isSubmitted}>
-                Continue
+                Save
               </Button>
             </div>
           </form>
         </Form>
-      </div>
+      )}
     </div>
   );
 };
 
-export default CreateCoursePage;
+export default TitleForm;
