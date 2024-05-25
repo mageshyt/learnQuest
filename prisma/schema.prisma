@@ -19,28 +19,28 @@ enum Role {
   ADMIN
 }
 
-model User {
-  id             String           @id @default(uuid())
-  email          String           @unique
-  name           String?
-  password       String
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
-  role           Role             @default(USER)
-  Course         Course[]
-  UserProgress   UserProgress[]
-  Purchase       Purchase[]
-  stripeCustomer stripeCustomer[]
-}
+// model User {
+//   id             String           @id @default(uuid())
+//   email          String           @unique
+//   name           String?
+//   password       String
+//   createdAt      DateTime         @default(now())
+//   updatedAt      DateTime         @updatedAt
+//   role           Role             @default(USER)
+//   Course         Course[]
+//   UserProgress   UserProgress[]
+//   Purchase       Purchase[]
+//   stripeCustomer stripeCustomer[]
+// }
 
 model Course {
   id          String  @id @default(uuid())
-  title       String
-  description String
+  title       String  @db.Text
+  description String? @db.Text
   imageUrl    String?
 
   userId String
-  user   User   @relation(fields: [userId], references: [id])
+  // user   User   @relation(fields: [userId], references: [id])
 
   price       Float?
   isPublished Boolean @default(false)
@@ -118,7 +118,7 @@ model UserProgress {
   chapter   Chapter @relation(fields: [chapterId], references: [id])
 
   userId String
-  user   User   @relation(fields: [userId], references: [id])
+  // user   User   @relation(fields: [userId], references: [id])
 
   isCompleted Boolean @default(false)
 
@@ -134,7 +134,7 @@ model Purchase {
   course   Course @relation(fields: [courseId], references: [id])
 
   userId String
-  user   User   @relation(fields: [userId], references: [id])
+  // user   User   @relation(fields: [userId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -147,7 +147,7 @@ model stripeCustomer {
   stripeCustomerId String @unique
 
   userId    String   @unique
-  user      User     @relation(fields: [userId], references: [id])
+  // user      User     @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
