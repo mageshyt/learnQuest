@@ -1,5 +1,6 @@
 import React from "react";
 import Navbar from "./components/navbar";
+import Footer from "./components/footer";
 
 const LandingPageLayout = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -7,6 +8,9 @@ const LandingPageLayout = ({ children }: { children: React.ReactNode }) => {
       {/* navbar */}
       <Navbar />
       {children}
+
+      {/* footer */}
+      <Footer />
     </div>
   );
 };
