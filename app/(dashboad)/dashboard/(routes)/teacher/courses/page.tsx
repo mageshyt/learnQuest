@@ -36,7 +36,9 @@ const CoursesPage = async () => {
               </p>
             </div>
             <Link href={`/dashboard/teacher/courses/${course.id}`}>
-              <Button>View</Button>
+              <Button variant={"outline"} size="sm">
+                View
+              </Button>
             </Link>
           </div>
         )}

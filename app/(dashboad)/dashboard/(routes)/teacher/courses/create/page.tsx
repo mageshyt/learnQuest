@@ -36,7 +36,7 @@ const CreateCoursePage = () => {
 
   // ---------------------------------------state---------------------------------------
 
-  const { isSubmitted, isValid } = form.formState;
+  const { isSubmitting, isValid } = form.formState;
 
   // ---------------------------------------handlers---------------------------------------
 
@@ -77,7 +77,7 @@ const CreateCoursePage = () => {
                   <FormControl>
                     <Input
                       {...field}
-                      disabled={isSubmitted}
+                      disabled={isSubmitting}
                       placeholder="e.g. Introduction to JavaScript"
                     />
                   </FormControl>
@@ -97,7 +97,7 @@ const CreateCoursePage = () => {
                 </Button>
               </Link>
 
-              <Button type="submit" disabled={!isValid || isSubmitted}>
+              <Button type="submit" disabled={!isValid || isSubmitting}>
                 Continue
               </Button>
             </div>

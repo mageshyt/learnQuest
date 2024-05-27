@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 const NavbarRoutes = () => {
   const pathname = usePathname();
 
-  const isTeacherPage = pathname?.startsWith("/teacher");
+  const isTeacherPage = pathname?.startsWith("/dashboard/teacher");
   const isPlayerPage = pathname?.includes("/chapter");
 
   return (
@@ -21,7 +21,7 @@ const NavbarRoutes = () => {
       {isTeacherPage || isPlayerPage ? (
         <Link href="/dashboard">
           <Button size="sm" variant="ghost">
-            <LogOut className="iconsmleft" />
+            <LogOut className="iconsmright" />
             Exit
           </Button>
         </Link>

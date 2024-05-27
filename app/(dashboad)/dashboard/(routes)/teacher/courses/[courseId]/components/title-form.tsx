@@ -41,7 +41,7 @@ const TitleForm: FC<TitleFormProps> = ({ initialData, courseId }) => {
   const router = useRouter();
 
   // ---------------------------------------state---------------------------------------
-  const { isSubmitted, isValid } = form.formState;
+  const { isSubmitting, isValid } = form.formState;
   const [isEditing, setIsEditing] = React.useState(false);
 
   //   ---------------------------------------handlers---------------------------------------
@@ -92,7 +92,7 @@ const TitleForm: FC<TitleFormProps> = ({ initialData, courseId }) => {
                   <FormControl>
                     <Input
                       {...field}
-                      disabled={isSubmitted}
+                      disabled={isSubmitting}
                       placeholder="e.g. Introduction to JavaScript"
                     />
                   </FormControl>
@@ -101,7 +101,7 @@ const TitleForm: FC<TitleFormProps> = ({ initialData, courseId }) => {
               )}
             />
             <div className="flex items-center gap-x-2">
-              <Button type="submit" disabled={!isValid || isSubmitted}>
+              <Button type="submit" disabled={!isValid || isSubmitting}>
                 Save
               </Button>
             </div>

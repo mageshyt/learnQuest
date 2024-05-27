@@ -5,8 +5,8 @@ import React from "react";
 const StartJourneyHero = () => {
   return (
     <motion.div
-      initial={{ opacity: 0.1, y: 100 }}
-      animate={{ opacity: 1, y: 0 }}
+      initial={{ opacity: 0, y: 100, scale: 0.9 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{
         delay: 1.6,
         duration: 0.8,
