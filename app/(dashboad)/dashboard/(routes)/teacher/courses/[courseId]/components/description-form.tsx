@@ -6,7 +6,14 @@ import axios from "axios";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
+import { Pencil } from "lucide-react";
 
+import { Course } from "@prisma/client";
+
+import { descriptionSchema } from "@/schema";
+import { cn } from "@/lib";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -15,17 +22,11 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
-import { descriptionSchema } from "@/schema";
-import { Pencil } from "lucide-react";
-import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
+
 import { Textarea } from "@/components/ui/textarea";
-import { cn } from "@/lib";
 
 interface DescriptionFormProps {
-  initialData: {
-    description?: string | null;
-  };
+  initialData: Course;
   courseId: string;
 }
 const DescriptionForm: FC<DescriptionFormProps> = ({
@@ -65,7 +66,7 @@ const DescriptionForm: FC<DescriptionFormProps> = ({
   return (
     <div className="mt-6   bg-slate-100 dark:bg-neutral-800 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
-        Editing
+        Course Description
         <Button onClick={toggleEdit} variant={"ghost"}>
           {isEditing ? (
             <>Cancel</>
