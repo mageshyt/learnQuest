@@ -7,7 +7,16 @@ export const createCourseSchema = z.object({
 });
 
 export const descriptionSchema = z.object({
-  description: z.string().min(1, {
-    message: "Description is required",
-  }).optional(),
+  description: z
+    .string()
+    .min(1, {
+      message: "Description is required",
+    })
+    .optional(),
+});
+
+export const imageUploadSchema = z.object({
+  imageUrl: z.string().url({
+    message: "Image is required",
+  }),
 });
