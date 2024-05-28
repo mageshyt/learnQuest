@@ -4,26 +4,16 @@ import React, { FC } from "react";
 import * as z from "zod";
 import axios from "axios";
 
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import { ImageIcon, Pencil, Plus, PlusCircle } from "lucide-react";
+
+import { ImageIcon, Pencil, PlusCircle } from "lucide-react";
 
 import { Course } from "@prisma/client";
 
 import { imageUploadSchema } from "@/schema";
-import { cn } from "@/lib";
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
 
-import { Textarea } from "@/components/ui/textarea";
 import Image from "next/image";
 import { FileUpload } from "@/components/global/file-upload";
 
@@ -33,17 +23,9 @@ interface ImageFormProps {
 }
 const ImageForm: FC<ImageFormProps> = ({ initialData, courseId }) => {
   // ---------------------------------------hooks---------------------------------------
-  const form = useForm<z.infer<typeof imageUploadSchema>>({
-    resolver: zodResolver(imageUploadSchema),
-    defaultValues: {
-      imageUrl: initialData.imageUrl || "",
-    },
-  });
-
   const router = useRouter();
 
   // ---------------------------------------state---------------------------------------
-  const { isSubmitting, isValid } = form.formState;
   const [isEditing, setIsEditing] = React.useState(false);
 
   //   ---------------------------------------handlers---------------------------------------
@@ -108,6 +90,9 @@ const ImageForm: FC<ImageFormProps> = ({ initialData, courseId }) => {
               }
             }}
           />
+          <div className="text-xs text-muted-foreground mt-4">
+            16:9 aspect ration recommended
+          </div>
         </div>
       )}
     </div>
