@@ -20,3 +20,7 @@ export const imageUploadSchema = z.object({
     message: "Image is required",
   }),
 });
+
+export const categorySchema = z.object({
+  categoryId: z.string().min(1),
+});
