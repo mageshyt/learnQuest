@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 import TitleForm from "./components/title-form";
 import DescriptionForm from "./components/description-form";
 import ImageForm from "./components/image-form";
+import CategoryForm from "./components/category-form";
 
 const CoursePage = async ({
   params,
@@ -14,6 +15,7 @@ const CoursePage = async ({
     courseId: string;
   };
 }) => {
+  // TODO: add react tan query
   const { userId } = auth();
   // Redirect if not logged in
   if (!userId) {
@@ -26,6 +28,19 @@ const CoursePage = async ({
       userId,
     },
   });
+
+  const categories = await db.category.findMany({
+    orderBy: {
+      name: "asc",
+    },
+  });
+
+
+  const normalizedCategories = categories.map((category) => ({
+    label: category.name,
+    value: category.id,
+  }));
+
 
   if (!course) {
     return redirect("/dashboard/teacher/courses");
@@ -70,6 +85,12 @@ const CoursePage = async ({
           <DescriptionForm initialData={course} courseId={course.id} />
 
           <ImageForm initialData={course} courseId={course.id} />
+
+          <CategoryForm
+            initialData={course}
+            courseId={course.id}
+            options={normalizedCategories}
+          />
         </div>
       </div>
     </div>

@@ -1,27 +1,36 @@
+"use client";
 import React from "react";
 import Link from "next/link";
 
-import { redirect } from "next/navigation";
-import { auth } from "@clerk/nextjs/server";
+import { Course } from "@prisma/client";
+import { useQuery } from "@tanstack/react-query";
 
-import { db } from "@/lib";
 import { Button } from "@/components/ui/button";
 import ListView from "@/components/global/list-view";
 import Image from "next/image";
-import { Course } from "@prisma/client";
+import { getAllUserCourses } from "@/actions/getAllUserCourses";
+import Loader from "@/components/global/loader";
 
-const CoursesPage = async () => {
-  const { userId } = auth();
-  // Redirect if not logged in
-  if (!userId) {
-    return redirect("/");
-  }
-  // fetch course data
-  const courses = await db.course.findMany({
-    where: {
-      userId,
-    },
+const CoursesPage = () => {
+  // Fetch courses
+  const {
+    data: courses,
+    isError,
+    isPending,
+    error,
+  } = useQuery<Course[] | { error: string }>({
+    queryKey: ["courses"],
+    queryFn: () => getAllUserCourses(),
   });
+
+  if (isPending) return <Loader />;
+  
+  if (isError)
+    return (
+      <div>{error instanceof Error ? error.message : "An error occurred"}</div>
+    );
+
+  if ("error" in courses) return <div>{courses.error}</div>;
 
   return (
     <div className="p-6">
