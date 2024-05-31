@@ -35,12 +35,10 @@ const CoursePage = async ({
     },
   });
 
-
   const normalizedCategories = categories.map((category) => ({
     label: category.name,
     value: category.id,
   }));
-
 
   if (!course) {
     return redirect("/dashboard/teacher/courses");
