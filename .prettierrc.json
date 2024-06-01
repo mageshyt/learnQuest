@@ -1,9 +1,0 @@
-{
-  "tailwindConfig": "./tailwind.config.ts",
-  "tailwindPreserveDuplicates": true,
-
-  "tailwindFunctions": ["clsx", "myClassList", "tw"],
-  "tailwindPreserveWhitespace": true,
-
-  "plugins": ["prettier-plugin-tailwindcss"]
-}
