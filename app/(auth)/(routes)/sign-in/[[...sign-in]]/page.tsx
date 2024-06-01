@@ -4,21 +4,21 @@ import Image from "next/image";
 
 export default function SignInPage() {
   return (
-    <div className="min-h-screen grid grid-cols-1 lg:grid-cols-3">
+    <div className="grid min-h-screen grid-cols-1 lg:grid-cols-3">
       {/* image */}
-      <div className="relative block h-16 lg:hidden pattern-bg   "></div>
+      <div className="pattern-bg relative block h-16 lg:hidden   "></div>
       {/* sign-in */}
-      <div className="h-full lg:flex flex-col items-center justify-center px-4 col-span-2">
-        <div className="text-center space-y-4 pt-16">
-          <h1 className="font-bold text-3xl text-muted-[#2E2A47] dark:text-white">
+      <div className="col-span-2 h-full flex-col items-center justify-center px-4 lg:flex">
+        <div className="space-y-4 pt-16 text-center">
+          <h1 className="text-muted-[#2E2A47] text-3xl font-bold dark:text-white">
             Welcome to Learn Quest
           </h1>
-          <p className="text-base text-[#7E8CA0]">
+          <p className="text-base  text-[#7E8CA0]">
             Log in or Create account to get back to your learning journey
           </p>
         </div>
         {/* card */}
-        <div className="flex items-center justify-center mt-8 col-start-2">
+        <div className="col-start-2 mt-8 flex items-center justify-center">
           <ClerkLoaded>
             <SignIn path="/sign-in" forceRedirectUrl={"/dashboard"} />
           </ClerkLoaded>
@@ -29,7 +29,7 @@ export default function SignInPage() {
       </div>
 
       {/* image */}
-      <div className="h-full pattern-bg hidden lg:block "></div>
+      <div className="pattern-bg hidden h-full lg:block "></div>
     </div>
   );
 }
