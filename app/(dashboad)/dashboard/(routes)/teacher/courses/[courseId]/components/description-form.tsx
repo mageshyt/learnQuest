@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
-import { Pencil } from "lucide-react";
+import { Pencil, Sparkles, Undo, Undo2 } from "lucide-react";
 
 import { Course } from "@prisma/client";
 
@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/form";
 
 import { Textarea } from "@/components/ui/textarea";
+import { getCourseDescription } from "@/lib/ai-heper";
 
 interface DescriptionFormProps {
   initialData: Course;
@@ -46,6 +47,10 @@ const DescriptionForm: FC<DescriptionFormProps> = ({
   // ---------------------------------------state---------------------------------------
   const { isSubmitting, isValid } = form.formState;
   const [isEditing, setIsEditing] = React.useState(false);
+  const [description, setDescription] = React.useState({
+    description: initialData.description || "",
+    AiDescription: "",
+  });
 
   //   ---------------------------------------handlers---------------------------------------
 
@@ -57,27 +62,53 @@ const DescriptionForm: FC<DescriptionFormProps> = ({
 
       router.refresh();
       toggleEdit();
+
       toast.success("Course updated");
     } catch (err) {
       // Handle error
       toast.error("Something went wrong");
     }
   };
+
+  const generate = async () => {
+    const res = await getCourseDescription(initialData.title);
+    if (!res) return;
+    setDescription({ ...description, AiDescription: res });
+    form.setValue("description", res);
+
+    form.trigger("description");
+
+    toast.success("Description generated");
+  };
+
+  const undo = () => {
+    form.setValue("description", description.description);
+    setDescription({ ...description, AiDescription: "" });
+    form.trigger("description");
+  };
   return (
     <div className="mt-6   bg-slate-100 dark:bg-neutral-800 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
         Course Description
-        <Button onClick={toggleEdit} variant={"ghost"}>
-          {isEditing ? (
-            <>Cancel</>
-          ) : (
-            <>
-              {" "}
-              <Pencil className="iconsmright" />
-              Edit
-            </>
+        <div className="flex items-center">
+          <Button onClick={toggleEdit} variant={"ghost"}>
+            {isEditing ? (
+              <>Cancel</>
+            ) : (
+              <>
+                {" "}
+                <Pencil className="iconsmright" />
+                Edit
+              </>
+            )}
+          </Button>
+          {/* undo */}
+          {description.AiDescription && (
+            <Button type="button" variant="ghost" size="icon" onClick={undo}>
+              <Undo2 />
+            </Button>
           )}
-        </Button>
+        </div>
       </div>
       {!isEditing && (
         <p
@@ -112,9 +143,15 @@ const DescriptionForm: FC<DescriptionFormProps> = ({
                 </FormItem>
               )}
             />
+
             <div className="flex items-center gap-x-2">
               <Button type="submit" disabled={!isValid || isSubmitting}>
                 Save
+              </Button>
+              {/* write with Ai */}
+              <Button type="button" variant="outline" onClick={generate}>
+                <Sparkles className="iconsmright" />
+                Write with AI
               </Button>
             </div>
           </form>
