@@ -24,3 +24,9 @@ export const imageUploadSchema = z.object({
 export const categorySchema = z.object({
   categoryId: z.string().min(1),
 });
+
+export const priceFormSchema = z.object({
+  price: z.coerce.number().min(1, {
+    message: "Price is required",
+  }),
+});

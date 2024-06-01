@@ -6,12 +6,12 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "lint-fix": "npx prettier --config ./.prettierrc.json --write . --cache"
+    "lint": "next lint"
   },
   "dependencies": {
     "@clerk/nextjs": "^5.0.10",
     "@clerk/themes": "^2.1.4",
+    "@google/generative-ai": "^0.12.0",
     "@gsap/react": "^2.1.1",
     "@hookform/resolvers": "^3.4.2",
     "@prisma/client": "^5.14.0",

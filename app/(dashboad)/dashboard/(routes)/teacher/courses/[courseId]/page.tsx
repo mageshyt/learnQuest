@@ -1,12 +1,18 @@
 import { IconBadge } from "@/components/global/icon-badge";
 import { db } from "@/lib";
 import { auth } from "@clerk/nextjs/server";
-import { LayoutDashboard } from "lucide-react";
+import {
+  CheckCheckIcon,
+  CheckCircleIcon,
+  DollarSign,
+  LayoutDashboard,
+} from "lucide-react";
 import { redirect } from "next/navigation";
 import TitleForm from "./components/title-form";
 import DescriptionForm from "./components/description-form";
 import ImageForm from "./components/image-form";
 import CategoryForm from "./components/category-form";
+import PriceForm from "./components/price-form";
 
 const CoursePage = async ({
   params,
@@ -72,7 +78,8 @@ const CoursePage = async ({
 
       {/* ------------form section------------- */}
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
+      <div className="mt-16  grid grid-cols-1 gap-6 md:grid-cols-2">
+        {/* Course Setup */}
         <div>
           <div className="flex items-center gap-x-2">
             <IconBadge icon={LayoutDashboard} variant={"success"} />
@@ -89,6 +96,25 @@ const CoursePage = async ({
             courseId={course.id}
             options={normalizedCategories}
           />
+        </div>
+        <div className="space-y-6 ">
+          <div className="">
+            <div className="flex items-center gap-x-2  ">
+              <IconBadge icon={CheckCircleIcon} variant={"success"} />
+              <h2 className="text-xl font-semibold">Course Chapter</h2>
+            </div>
+            TODO: Add chapter form
+          </div>
+          <div>
+            <div className="flex items-center gap-x-2  ">
+              <IconBadge icon={DollarSign} variant={"success"} />
+              <h2 className="text-xl font-semibold">
+                Course Pricing & Options
+              </h2>
+            </div>
+
+            <PriceForm initialData={course} courseId={course.id} />
+          </div>
         </div>
       </div>
     </div>
