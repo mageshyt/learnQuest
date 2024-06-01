@@ -6,7 +6,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <Wrapper>
       {/* navbar */}
-      <div className="h-[80px] md:pl-64 fixed inset-y-0 w-full z-50">
+      <div className="fixed inset-y-0 z-50 h-[80px] w-full dark:bg-neutral-950 bg-white md:pl-64">
         <Navbar />
       </div>
       {/* sidebar */}
@@ -16,7 +16,7 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
 
       {/* content */}
 
-      <main className="md:pl-64 pt-[80px] h-full ">{children}</main>
+      <main className="h-full pt-[80px] md:pl-64 ">{children}</main>
     </Wrapper>
   );
 };
@@ -25,4 +25,4 @@ export default DashboardLayout;
 
 const Wrapper = tw.div`h-full`;
 
-const SidebarWrapper = tw.div`hidden md:flex h-full w-64 flex-col fixed inset-y-0 z-50 `;
+const SidebarWrapper = tw.div`fixed inset-y-0 z-50 hidden h-full w-64 flex-col md:flex `;
