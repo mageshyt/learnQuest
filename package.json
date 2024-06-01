@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint-fix": "npx prettier --config ./.prettierrc.json --write . --cache"
   },
   "dependencies": {
     "@clerk/nextjs": "^5.0.10",
@@ -44,6 +45,7 @@
     "react-spinners": "^0.13.8",
     "sonner": "^1.4.41",
     "tailwind-merge": "^2.3.0",
+    "tailwind-scrollbar-hide": "^1.1.7",
     "tailwind-styled-components": "^2.2.0",
     "tailwindcss-animate": "^1.0.7",
     "uploadthing": "^6.12.0",
@@ -56,6 +58,8 @@
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
     "postcss": "^8",
+    "prettier": "^3.2.5",
+    "prettier-plugin-tailwindcss": "^0.6.1",
     "prisma": "^5.14.0",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"

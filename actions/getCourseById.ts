@@ -2,21 +2,12 @@
 
 import { db } from "@/lib";
 import { ERROR_MESSAGE } from "@/lib/error-message";
-import { auth } from "@clerk/nextjs/server";
 
-export const getAllUserCourses = async () => {
+export const getCourseById = async (id: string) => {
   try {
-    const { userId } = auth();
-
-    if (!userId) {
-      return {
-        error: ERROR_MESSAGE.UNAUTHORIZED,
-      };
-    }
-
-    const course = await db.course.findMany({
+    const course = await db.course.findUnique({
       where: {
-        userId,
+        id,
       },
     });
 
@@ -30,7 +21,7 @@ export const getAllUserCourses = async () => {
   } catch (err) {
     console.log("[ERROR] app/api/courses/route.ts: GET()", err);
     return {
-      error: ERROR_MESSAGE.INTERNAL_ERROR,
+      error: "Internal Error",
     };
   }
 };
