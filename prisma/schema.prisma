@@ -48,12 +48,19 @@ model Course {
   categoryId String?
   Category   Category? @relation(fields: [categoryId], references: [id])
 
+  courseType COURSE_TYPE @default(FREE)
+
   chapters    Chapter[]
   Purchase    Purchase[]
   attachments Attachment[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+enum COURSE_TYPE {
+  FREE
+  PAID
 }
 
 model Category {

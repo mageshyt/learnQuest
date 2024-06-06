@@ -28,6 +28,9 @@ import { getCourseDescription } from "@/lib/ai-heper";
 import { Input } from "@/components/ui/input";
 import { LoadingButton } from "@/components/ui/loading-button";
 import { createCourseChapter } from "@/actions/courses/create-chapter";
+import ChaptersList from "./chapters-list";
+import { ReOrderCourseChapters } from "@/actions/courses/reorder-course-chapter";
+import Loader from "@/components/global/loader";
 
 interface ChaptersFormProps {
   initialData: Course & {
@@ -75,8 +78,35 @@ const ChaptersForm: FC<ChaptersFormProps> = ({ initialData, courseId }) => {
     }
   };
 
+  const onReadOrder = async (
+    updateDate: { id: string; position: number }[]
+  ) => {
+    try {
+      setIsUpdating(true);
+      const res = await ReOrderCourseChapters(courseId, updateDate);
+      if (res?.error) {
+        throw new Error(res.error);
+      }
+      router.refresh();
+      toast.success("Chapters reordered");
+    } catch (err) {
+      toast.error("Something went wrong");
+    } finally {
+      setIsUpdating(false);
+    }
+  };
+
+  const onEdit = (chapterId: string) => {
+    router.push(`/dashboard/routes/teacher/courses/${courseId}/chapters/${chapterId}`);
+  };
+
   return (
-    <div className="mt-6   bg-slate-100 dark:bg-neutral-800 rounded-md p-4">
+    <div className="mt-6 relative  bg-slate-100 dark:bg-neutral-800 rounded-md p-4">
+      {isUpdating && (
+        <div className="absolute h-full flex items-center justify-center w-full bg-slate-500/20 top-0 right-0 rounded-md">
+          <Loader />
+        </div>
+      )}
       <div className="font-medium flex items-center justify-between">
         Course Chapters
         <div className="flex items-center">
@@ -139,6 +169,12 @@ const ChaptersForm: FC<ChaptersFormProps> = ({ initialData, courseId }) => {
           )}
         >
           {!initialData.chapters.length && "No Chapters"}
+
+          <ChaptersList
+            onEdit={onEdit}
+            onReadOrder={onReadOrder}
+            items={initialData.chapters || []}
+          />
         </div>
       )}
       {!isCreating && (
