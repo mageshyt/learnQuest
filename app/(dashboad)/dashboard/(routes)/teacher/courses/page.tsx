@@ -8,8 +8,9 @@ import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import ListView from "@/components/global/list-view";
 import Image from "next/image";
-import { getAllUserCourses } from "@/actions/getAllUserCourses";
 import Loader from "@/components/global/loader";
+import { getAllUserCourses } from "@/actions/courses/getAllUserCourses";
+import LoadingScreen from "@/components/global/loading-screen";
 
 const CoursesPage = () => {
   // Fetch courses
@@ -23,8 +24,8 @@ const CoursesPage = () => {
     queryFn: () => getAllUserCourses(),
   });
 
-  if (isPending) return <Loader />;
-  
+  if (isPending) return <LoadingScreen />;
+
   if (isError)
     return (
       <div>{error instanceof Error ? error.message : "An error occurred"}</div>
