@@ -16,8 +16,8 @@ export const descriptionSchema = z.object({
 });
 
 export const imageUploadSchema = z.object({
-  imageUrl: z.string().url({
-    message: "Image is required",
+  url: z.string().url({
+    message: "Invalid URL",
   }),
 });
 
