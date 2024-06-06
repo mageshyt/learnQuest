@@ -2,7 +2,7 @@
 const { GoogleGenerativeAI } = require("@google/generative-ai");
 // dotenv.config();
 
-const gemini_api_key = "AIzaSyDFS-bqfda7Wb0cReBdXmMy4oF_HbAV2-k";
+const gemini_api_key = "";
 const googleAI = new GoogleGenerativeAI(gemini_api_key);
 const geminiConfig = {
   temperature: 0.9,
@@ -18,11 +18,16 @@ const geminiModel = googleAI.getGenerativeModel({
 
 const generate = async () => {
   try {
-    const option = "description";
-    const title = "Advanced JavaScript Course";
-    const prompt = `Assume Your  are a helper in making course setup for a teacher.
-    the want to write the  ${option} of the ${title} course. please write the ${option} of the course.
-    `;
+    const title = "Nest JS ";
+    const prompt = `Create a compelling course description that highlights
+      the key takeaways, practical applications, and benefits of ${title}.
+        Use a tone that is engaging, informative, and concise.
+       Please provide a 1-2 sentence summary of what students can expect to learn in this course
+       and use joyful language to inspire them to take action.
+
+       output requirements: 1-2 sentences
+       
+       `;
     const result = await geminiModel.generateContent(prompt);
     const response = result.response;
     console.log(response.text());
