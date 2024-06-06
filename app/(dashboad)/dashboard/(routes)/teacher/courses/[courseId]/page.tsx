@@ -6,6 +6,7 @@ import {
   CheckCircleIcon,
   DollarSign,
   LayoutDashboard,
+  NotebookPen,
 } from "lucide-react";
 import { redirect } from "next/navigation";
 import TitleForm from "./components/title-form";
@@ -13,6 +14,7 @@ import DescriptionForm from "./components/description-form";
 import ImageForm from "./components/image-form";
 import CategoryForm from "./components/category-form";
 import PriceForm from "./components/price-form";
+import AttachmentForm from "./components/attachment-form";
 
 const CoursePage = async ({
   params,
@@ -32,6 +34,13 @@ const CoursePage = async ({
     where: {
       id: params.courseId,
       userId,
+    },
+    include: {
+      attachments: {
+        orderBy: {
+          createdAt: "asc",
+        },
+      },
     },
   });
 
@@ -114,6 +123,29 @@ const CoursePage = async ({
             </div>
 
             <PriceForm initialData={course} courseId={course.id} />
+          </div>
+
+          <div>
+            <div className="flex items-center gap-x-2  ">
+              <IconBadge icon={DollarSign} variant={"success"} />
+              <h2 className="text-xl font-semibold">
+                Course Pricing & Options
+              </h2>
+            </div>
+
+            <PriceForm initialData={course} courseId={course.id} />
+          </div>
+          {/*  Resources of the course*/}
+          <div>
+            <div className="flex items-center gap-x-2  ">
+              <IconBadge icon={NotebookPen} variant={"success"} />
+              <h2 className="text-xl font-semibold">Resources & Attachments</h2>
+            </div>
+
+            <AttachmentForm
+              initialData={course}
+              courseId={course.id}
+             />
           </div>
         </div>
       </div>

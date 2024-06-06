@@ -48,9 +48,9 @@ model Course {
   categoryId String?
   Category   Category? @relation(fields: [categoryId], references: [id])
 
-  chapters   Chapter[]
-  Purchase   Purchase[]
-  attachment Attachment[]
+  chapters    Chapter[]
+  Purchase    Purchase[]
+  attachments Attachment[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -66,7 +66,7 @@ model Category {
 
 model Attachment {
   id        String   @id @default(uuid())
-  name      String
+  name      String?
   url       String   @db.Text
   courseId  String
   course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
