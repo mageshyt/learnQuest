@@ -18,6 +18,9 @@ export const getAllUserCourses = async () => {
       where: {
         userId,
       },
+      include: {
+        chapters: true,
+      },
     });
 
     if (!course) {

@@ -3,7 +3,7 @@
 import { db } from "@/lib";
 import { ERROR_MESSAGE } from "@/lib/error-message";
 import { auth } from "@clerk/nextjs/server";
-export const DeleteCourseAttachment = async (
+export const deleteCourseAttachment = async (
   attachmentId: string,
   courseId: string
 ) => {

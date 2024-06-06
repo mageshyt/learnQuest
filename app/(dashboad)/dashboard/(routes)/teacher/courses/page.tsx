@@ -55,9 +55,9 @@ const CoursesPage = () => {
                 )}
                 <div className="mt-4">
                   <h2 className="text-sm font-medium">{course.title}</h2>
-                  <p className="text-xs text-slate-700 dark:text-muted-foreground">
-                    {course.description}
+                  {/* <p className="text-xs text-slate-700 dark:text-muted-foreground">
                   </p>
+                    {course.description} */}
                 </div>
               </div>
               <Link href={`/dashboard/teacher/courses/${course.id}`}>

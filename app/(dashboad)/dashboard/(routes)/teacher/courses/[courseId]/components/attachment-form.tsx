@@ -11,15 +11,15 @@ import { File, ImageIcon, Pencil, PlusCircle, Trash, X } from "lucide-react";
 
 import { Attachment, Course } from "@prisma/client";
 
-import { imageUploadSchema } from "@/schema";
+import { attachmentForm } from "@/schema";
 import { Button } from "@/components/ui/button";
 
 import Image from "next/image";
 import { FileUpload } from "@/components/global/file-upload";
-import { createCourseAttachment } from "@/actions/courses/createAttachments";
+import { createCourseAttachment } from "@/actions/courses/create-attachments";
 import ListView from "@/components/global/list-view";
 import Loader from "@/components/global/loader";
-import { DeleteCourseAttachment } from "@/actions/courses/DeleteAttachments";
+import { deleteCourseAttachment } from "@/actions/courses/delete-attachments";
 
 interface AttachmentFormProps {
   initialData: Course & {
@@ -39,7 +39,7 @@ const AttachmentForm: FC<AttachmentFormProps> = ({ initialData, courseId }) => {
 
   const toggleEdit = () => setIsEditing(!isEditing);
 
-  const handleSubmit = async (data: z.infer<typeof imageUploadSchema>) => {
+  const handleSubmit = async (data: z.infer<typeof attachmentForm>) => {
     try {
       await createCourseAttachment(courseId, data.url);
 
@@ -56,7 +56,7 @@ const AttachmentForm: FC<AttachmentFormProps> = ({ initialData, courseId }) => {
     try {
       setDeletingId(id);
 
-      await DeleteCourseAttachment(id, courseId);
+      await deleteCourseAttachment(id, courseId);
       router.refresh();
       toast.success("Attachment deleted");
     } catch (err) {
@@ -97,7 +97,7 @@ const AttachmentForm: FC<AttachmentFormProps> = ({ initialData, courseId }) => {
             <ListView
               items={initialData.attachments}
               render={(attachment) => (
-                <div className="flex p-3 w-full bg-sky-100 border items-center gap-x-2 text-emerald-700 rounded-md border-emerald-200 bg-emerald-400/20">
+                <div className="flex p-3 w-full  border items-center gap-x-2 text-emerald-700 rounded-md border-emerald-200 bg-emerald-100">
                   <File className="iconsmright flex-shrink-0" />
                   <p className="text-sm line-clamp-1">{attachment.name}</p>
 

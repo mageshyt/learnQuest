@@ -15,6 +15,7 @@ import ImageForm from "./components/image-form";
 import CategoryForm from "./components/category-form";
 import PriceForm from "./components/price-form";
 import AttachmentForm from "./components/attachment-form";
+import ChaptersForm from "./components/chatpers-form";
 
 const CoursePage = async ({
   params,
@@ -36,6 +37,11 @@ const CoursePage = async ({
       userId,
     },
     include: {
+      chapters: {
+        orderBy: {
+          position: "asc",
+        },
+      },
       attachments: {
         orderBy: {
           createdAt: "asc",
@@ -66,6 +72,7 @@ const CoursePage = async ({
     course.price,
     course.imageUrl,
     course.categoryId,
+    course.chapters.some((chapter) => chapter.isPublished),
   ];
 
   const totalFields = requiredFields.length;
@@ -107,13 +114,15 @@ const CoursePage = async ({
           />
         </div>
         <div className="space-y-6 ">
+          {/* ------------------------------------ chapters--------------------- */}
           <div className="">
             <div className="flex items-center gap-x-2  ">
               <IconBadge icon={CheckCircleIcon} variant={"success"} />
               <h2 className="text-xl font-semibold">Course Chapter</h2>
             </div>
-            TODO: Add chapter form
+            <ChaptersForm initialData={course} courseId={course.id} />
           </div>
+          {/* -------------------------------------- pricing-------------- */}
           <div>
             <div className="flex items-center gap-x-2  ">
               <IconBadge icon={DollarSign} variant={"success"} />
@@ -125,16 +134,6 @@ const CoursePage = async ({
             <PriceForm initialData={course} courseId={course.id} />
           </div>
 
-          <div>
-            <div className="flex items-center gap-x-2  ">
-              <IconBadge icon={DollarSign} variant={"success"} />
-              <h2 className="text-xl font-semibold">
-                Course Pricing & Options
-              </h2>
-            </div>
-
-            <PriceForm initialData={course} courseId={course.id} />
-          </div>
           {/*  Resources of the course*/}
           <div>
             <div className="flex items-center gap-x-2  ">
@@ -142,10 +141,7 @@ const CoursePage = async ({
               <h2 className="text-xl font-semibold">Resources & Attachments</h2>
             </div>
 
-            <AttachmentForm
-              initialData={course}
-              courseId={course.id}
-             />
+            <AttachmentForm initialData={course} courseId={course.id} />
           </div>
         </div>
       </div>
