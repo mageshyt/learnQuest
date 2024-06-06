@@ -22,6 +22,7 @@ import { createCourseSchema } from "@/schema";
 import { Pencil } from "lucide-react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { LoadingButton } from "@/components/ui/loading-button";
 
 interface TitleFormProps {
   initialData: {
@@ -101,9 +102,13 @@ const TitleForm: FC<TitleFormProps> = ({ initialData, courseId }) => {
               )}
             />
             <div className="flex items-center gap-x-2">
-              <Button type="submit" disabled={!isValid || isSubmitting}>
+              <LoadingButton
+                loading={isSubmitting}
+                type="submit"
+                disabled={!isValid || isSubmitting}
+              >
                 Save
-              </Button>
+              </LoadingButton>
             </div>
           </form>
         </Form>
