@@ -52,7 +52,7 @@ const CategoryForm: FC<CategoryFormProps> = ({
   const selectedOption = options.find(
     (option) => option.value === initialData.categoryId
   );
-
+  console.log(options);
   //   ---------------------------------------handlers---------------------------------------
 
   const toggleEdit = () => setIsEditing(!isEditing);
