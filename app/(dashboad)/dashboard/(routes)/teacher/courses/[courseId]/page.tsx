@@ -98,7 +98,7 @@ const CoursePage = async ({
         {/* Course Setup */}
         <div>
           <div className="flex items-center gap-x-2">
-            <IconBadge icon={LayoutDashboard} variant={"success"} />
+            <IconBadge icon={LayoutDashboard} variant={"primary"} />
             <h2 className="text-xl font-semibold">Customize Your Course</h2>
           </div>
           <TitleForm initialData={course} courseId={course.id} />
@@ -117,7 +117,7 @@ const CoursePage = async ({
           {/* ------------------------------------ chapters--------------------- */}
           <div className="">
             <div className="flex items-center gap-x-2  ">
-              <IconBadge icon={CheckCircleIcon} variant={"success"} />
+              <IconBadge icon={CheckCircleIcon} variant={"primary"} />
               <h2 className="text-xl font-semibold">Course Chapter</h2>
             </div>
             <ChaptersForm initialData={course} courseId={course.id} />
@@ -125,7 +125,7 @@ const CoursePage = async ({
           {/* -------------------------------------- pricing-------------- */}
           <div>
             <div className="flex items-center gap-x-2  ">
-              <IconBadge icon={DollarSign} variant={"success"} />
+              <IconBadge icon={DollarSign} variant={"primary"} />
               <h2 className="text-xl font-semibold">
                 Course Pricing & Options
               </h2>
@@ -137,7 +137,7 @@ const CoursePage = async ({
           {/*  Resources of the course*/}
           <div>
             <div className="flex items-center gap-x-2  ">
-              <IconBadge icon={NotebookPen} variant={"success"} />
+              <IconBadge icon={NotebookPen} variant={"primary"} />
               <h2 className="text-xl font-semibold">Resources & Attachments</h2>
             </div>
 
