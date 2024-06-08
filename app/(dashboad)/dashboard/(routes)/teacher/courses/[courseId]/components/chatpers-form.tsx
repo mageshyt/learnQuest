@@ -6,7 +6,7 @@ import axios from "axios";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { Pencil, Sparkles, Undo, Undo2 } from "lucide-react";
 
@@ -29,7 +29,7 @@ import { Input } from "@/components/ui/input";
 import { LoadingButton } from "@/components/ui/loading-button";
 import { createCourseChapter } from "@/actions/courses/create-chapter";
 import ChaptersList from "./chapters-list";
-import { ReOrderCourseChapters } from "@/actions/courses/reorder-course-chapter";
+import { ReOrderCourseChapters } from "@/actions/courses/chapters/reorder-course-chapter";
 import Loader from "@/components/global/loader";
 
 interface ChaptersFormProps {
@@ -48,6 +48,7 @@ const ChaptersForm: FC<ChaptersFormProps> = ({ initialData, courseId }) => {
   });
 
   const router = useRouter();
+  const pathname = usePathname();
 
   // ---------------------------------------state---------------------------------------
   const { isSubmitting, isValid } = form.formState;
@@ -97,7 +98,7 @@ const ChaptersForm: FC<ChaptersFormProps> = ({ initialData, courseId }) => {
   };
 
   const onEdit = (chapterId: string) => {
-    router.push(`/dashboard/routes/teacher/courses/${courseId}/chapters/${chapterId}`);
+    router.push(`${pathname}/chapters/${chapterId}`);
   };
 
   return (
