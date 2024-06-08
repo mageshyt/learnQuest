@@ -67,3 +67,7 @@
     @apply w-4 h-4 mr-2;
   }
 }
+
+.ql-container {
+  font-size: 16px !important;
+}

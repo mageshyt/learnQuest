@@ -7,6 +7,8 @@ import Link from "next/link";
 import { ArrowLeft, LayoutDashboard } from "lucide-react";
 import { IconBadge } from "@/components/global/icon-badge";
 import ChapterTitleForm from "./components/chapter-title-form";
+import { Editor } from "@/components/global/editor";
+import ChapterDescriptionForm from "./components/chapter-description-form";
 
 const ChapterIdPage = async ({
   params,
@@ -44,8 +46,8 @@ const ChapterIdPage = async ({
         <div className="w-full">
           {/* ------------------------- back button----------------------- */}
           <Link
-            href={`teachers/courses/${params.courseId}`}
-            className="flex items-center text-sm  transition mb-6 hover:opacity-70"
+            href={`/dashboard/teacher/courses/${params.courseId}`}
+            className="flex items-center text-sm w-fit  transition mb-6 hover:opacity-70"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
             Back to course setup
@@ -72,8 +74,14 @@ const ChapterIdPage = async ({
 
             {/* chapter title form */}
             <ChapterTitleForm
-                initialData={chapter}
-                courseId={params.courseId}
+              initialData={chapter}
+              courseId={params.courseId}
+            />
+
+            {/* editor */}
+            <ChapterDescriptionForm
+              initialData={chapter}
+              courseId={params.courseId}
             />
           </div>
         </div>
