@@ -7,7 +7,6 @@ import Link from "next/link";
 import { ArrowLeft, LayoutDashboard } from "lucide-react";
 import { IconBadge } from "@/components/global/icon-badge";
 import ChapterTitleForm from "./components/chapter-title-form";
-import { Editor } from "@/components/global/editor";
 import ChapterDescriptionForm from "./components/chapter-description-form";
 
 const ChapterIdPage = async ({
