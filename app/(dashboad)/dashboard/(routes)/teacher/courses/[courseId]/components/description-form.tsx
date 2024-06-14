@@ -13,7 +13,7 @@ import { Pencil, Sparkles, Undo, Undo2 } from "lucide-react";
 import { Course } from "@prisma/client";
 
 import { descriptionSchema } from "@/schema";
-import { cn } from "@/lib";
+import { cn, markdownToHtml } from "@/lib";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -25,6 +25,8 @@ import {
 
 import { Textarea } from "@/components/ui/textarea";
 import { getCourseDescription } from "@/lib/ai-heper";
+import { Editor } from "@/components/global/editor";
+import { Preview } from "@/components/global/preview";
 
 interface DescriptionFormProps {
   initialData: Course;
@@ -73,8 +75,11 @@ const DescriptionForm: FC<DescriptionFormProps> = ({
   const generate = async () => {
     const res = await getCourseDescription(initialData.title);
     if (!res) return;
-    setDescription({ ...description, AiDescription: res });
-    form.setValue("description", res);
+    // convert the md to html
+    const parsed_result = markdownToHtml(res);
+    console.log(parsed_result);
+    setDescription({ ...description, AiDescription: parsed_result });
+    form.setValue("description", parsed_result);
 
     form.trigger("description");
 
@@ -111,14 +116,20 @@ const DescriptionForm: FC<DescriptionFormProps> = ({
         </div>
       </div>
       {!isEditing && (
-        <p
-          className={cn(
-            "text-sm mt-2",
-            !initialData.description && "text-slate-500 italic"
+        <div>
+          {initialData.description ? (
+            <Preview value={initialData.description} />
+          ) : (
+            <p
+              className={cn(
+                "text-sm mt-2",
+                !initialData.description && "text-slate-500 italic"
+              )}
+            >
+              {"No description provided"}
+            </p>
           )}
-        >
-          {initialData.description || "No description provided"}
-        </p>
+        </div>
       )}
 
       {isEditing && (
@@ -133,11 +144,8 @@ const DescriptionForm: FC<DescriptionFormProps> = ({
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Textarea
-                      {...field}
-                      disabled={isSubmitting}
-                      placeholder="e.g. Learn the basics of JavaScript and build your first project."
-                    />
+                    {/*  @ts-ignore */}
+                    <Editor {...field} />
                   </FormControl>
                   <FormMessage {...field} />
                 </FormItem>

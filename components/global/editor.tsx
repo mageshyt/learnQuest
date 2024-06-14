@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { useMemo } from "react";
+
 import "react-quill/dist/quill.snow.css";
 
 interface EditorProps {
@@ -35,8 +36,22 @@ export const Editor = ({ value, onChange }: EditorProps) => {
             ["link", "image", "video"],
             ["clean"],
             ["code-block"],
+            // add markdown support
           ],
         }}
+        formats={[
+          "header",
+          "bold",
+          "italic",
+          "underline",
+          "strike",
+          "blockquote",
+          "list",
+          "bullet",
+          "indent",
+          "link",
+          "image",
+        ]}
       />
     </div>
   );
