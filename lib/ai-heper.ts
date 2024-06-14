@@ -35,4 +35,26 @@ const getCourseDescription = async (title: string) => {
     return "";
   }
 };
-export { geminiModel, getCourseDescription };
+
+const getCourseChapterDescription = async (title: string,courseTitle:string) => {
+  try {
+    const prompt = `Create a compelling course description that highlights
+        the key takeaways, practical applications, and benefits of ${title}.
+            Use a tone that is engaging, informative, and concise.
+         Please provide a 1-2 sentence summary of what students can expect to learn in this course
+         and use joyful language to inspire them to take action.
+    
+         output requirements: 1-2 sentences
+         
+         `;
+    const result = await geminiModel.generateContent(prompt);
+    const response = result.response;
+
+    return response.text();
+  } catch (error) {
+    console.log("response error", error);
+
+    return "";
+  }
+};
+export { geminiModel, getCourseDescription, getCourseChapterDescription };

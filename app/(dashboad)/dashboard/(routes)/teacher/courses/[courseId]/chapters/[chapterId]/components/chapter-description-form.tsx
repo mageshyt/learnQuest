@@ -12,7 +12,7 @@ import { Pencil } from "lucide-react";
 import { Chapter } from "@prisma/client";
 
 import { descriptionSchema } from "@/schema";
-import { cn } from "@/lib";
+import { cn, markdownToHtml } from "@/lib";
 import { Button } from "@/components/ui/button";
 
 import {
@@ -98,7 +98,7 @@ const ChapterDescriptionForm: FC<ChapterDescriptionFormProps> = ({
                 !initialData.description && "text-slate-500 italic"
               )}
             >
-              {initialData.description || "No description provided"}
+              {"No description provided"}
             </p>
           )}
         </div>
