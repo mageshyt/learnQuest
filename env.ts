@@ -5,6 +5,7 @@ export const env = createEnv({
   server: {
     GEMINI_API_KEY: z.string(),
     DATABASE_URL: z.string(),
+    WEBHOOK_SECRET: z.string(),
   },
   client: {
     NEXT_PUBLIC_GEMINI_API_KEY: z.string(),
@@ -14,5 +15,6 @@ export const env = createEnv({
     GEMINI_API_KEY: process.env.GEMINI_API_KEY,
     DATABASE_URL: process.env.DATABASE_URL,
     NEXT_PUBLIC_GEMINI_API_KEY: process.env.NEXT_PUBLIC_GEMINI_API_KEY,
+    WEBHOOK_SECRET: process.env.WEBHOOK_SECRET,
   },
 });
