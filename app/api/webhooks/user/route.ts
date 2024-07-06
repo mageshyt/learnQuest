@@ -1,4 +1,3 @@
-import { createUser } from "@/actions/create-user";
 import { db } from "@/lib";
 import { IncomingHttpHeaders } from "http";
 import { headers } from "next/headers";
@@ -32,25 +31,38 @@ async function handler(request: Request) {
 
   const eventType: EventType = evt.type;
   if (eventType === "user.created" || eventType === "user.updated") {
-    const { id, ...attributes } = evt.data;
-    console.log("[WEB HOOK]", id, attributes);
+    const { id, email_addresses, ...attributes } = evt.data;
+    console.log("[WEB HOOK]", id, email_addresses);
 
-    await createUser(id.toString(), attributes);
+    // await createUser(id.toString(), attributes);
     // console.log("[WEB HOOK DB] User created", db);
-    // const user = await db.user.create({
-    //   data: {
-    //     id: id.toString(),
-    //     attributes,
-    //   },
-    // });
 
+    // check if the user already exist
+    const user = await db.user.upsert({
+      where: { id: id as string },
+      create: {
+        id: id as string,
+        attributes,
+        email: email_addresses[0].email_address,
+        name: `${attributes?.first_name} ${attributes?.last_name}`,
+      },
+      update: {
+        attributes,
+        email: email_addresses[0].email_address,
+        name: `${attributes?.first_name} ${attributes?.last_name}`,
+      },
+    });
+
+    console.log("[WEB HOOK DB] User created", user);
+
+    return NextResponse.json(user);
     // console.log("[WEB HOOK] User created", user);
   }
 }
 type EventType = "user.created" | "user.updated" | "*";
 
 type Event = {
-  data: Record<string, string | number>;
+  data: Record<string, string | any>;
   object: "event";
   type: EventType;
 };
