@@ -22,7 +22,7 @@ model User {
   id             String           @id @default(uuid())
   email          String?          @unique
   name           String?
-  attributes     Json
+  attributes     Json?
   createdAt      DateTime         @default(now())
   updatedAt      DateTime         @updatedAt
   role           Role             @default(USER)
