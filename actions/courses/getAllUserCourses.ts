@@ -20,6 +20,7 @@ export const getAllUserCourses = async () => {
       },
       include: {
         chapters: true,
+        Category: true,
       },
     });
 
@@ -28,6 +29,8 @@ export const getAllUserCourses = async () => {
         error: ERROR_MESSAGE.NO_RECORD_FOUND,
       };
     }
+
+    console.log("[INFO] app/api/courses/route.ts: GET()", userId);
 
     return course;
   } catch (err) {

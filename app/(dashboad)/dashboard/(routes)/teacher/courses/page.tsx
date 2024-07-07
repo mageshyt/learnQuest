@@ -6,11 +6,24 @@ import { Course } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
 
 import { Button } from "@/components/ui/button";
-import ListView from "@/components/global/list-view";
-import Image from "next/image";
-import Loader from "@/components/global/loader";
+
 import { getAllUserCourses } from "@/actions/courses/getAllUserCourses";
 import LoadingScreen from "@/components/global/loading-screen";
+// import { DataTable } from "@/components/ui/data-table";
+import { columns } from "./components/columns";
+
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetDescription,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import CreateCoursePage from "./create/page";
+import { DataTable } from "@/components/ui/data-table";
 
 const CoursesPage = () => {
   // Fetch courses
@@ -37,42 +50,27 @@ const CoursesPage = () => {
     <div className="p-6">
       {/* list of coursed */}
       <h1 className="text-2xl font-medium">Courses</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-center">
-        <ListView
-          items={courses}
-          render={(course: Course) => (
-            <div className="flex m-4 gap-4 justify-between flex-col">
-              <div>
-                {course.imageUrl && (
-                  <div className="aspect-video relative max-w-lg ">
-                    <Image
-                      alt="course-image"
-                      src={course.imageUrl}
-                      fill
-                      className="rounded-md object-cover"
-                    />
-                  </div>
-                )}
-                <div className="mt-4">
-                  <h2 className="text-sm font-medium">{course.title}</h2>
-                  {/* <p className="text-xs text-slate-700 dark:text-muted-foreground">
-                  </p>
-                    {course.description} */}
-                </div>
-              </div>
-              <Link href={`/dashboard/teacher/courses/${course.id}`}>
-                <Button variant={"default"} size="sm" className="w-full">
-                  View
-                </Button>
-              </Link>
-            </div>
-          )}
-        />
-      </div>
+      <DataTable columns={columns} data={courses} searchKey="title" />
 
-      <Link href="/dashboard/teacher/courses/create">
-        <Button>New Course</Button>
-      </Link>
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button>Create a Course</Button>
+        </SheetTrigger>
+        <SheetContent>
+          <SheetHeader>
+            <SheetTitle>Create a new course</SheetTitle>
+            <SheetDescription>
+              Fill in the form below to create a new course. You can always edit
+            </SheetDescription>
+          </SheetHeader>
+          <CreateCoursePage />
+          <SheetFooter className="mt-4">
+            <SheetClose asChild>
+              <Button type="submit">Create Course</Button>
+            </SheetClose>
+          </SheetFooter>
+        </SheetContent>
+      </Sheet>
     </div>
   );
 };
