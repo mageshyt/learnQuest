@@ -87,7 +87,7 @@ const AttachmentForm: FC<AttachmentFormProps> = ({ initialData, courseId }) => {
         </Button>
       </div>
       {!isEditing &&
-        (initialData.attachments.length < 0 ? (
+        (initialData.attachments.length <= 0 ? (
           <p className="text-sm mt-1 text-slate-500 italic">
             No attachments found. Please add attachments to the course to make
             it more engaging.

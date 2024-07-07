@@ -42,6 +42,7 @@ export const createCourseChapter = async (courseId: string, title: string) => {
         courseId,
         title,
         position: position,
+        isFree: true,
       },
     });
 
@@ -49,6 +50,7 @@ export const createCourseChapter = async (courseId: string, title: string) => {
       `[INFO] actions/courses/create-chapter.ts: createCourseChapter()`,
       chapter
     );
+    return chapter;
   } catch (err) {
     console.log(
       "[ERROR] actions/courses/create-chapter.ts: createCourseChapter()",
