@@ -17,7 +17,7 @@ const NavbarRoutes = () => {
   const isPlayerPage = pathname?.includes("/chapter");
 
   return (
-    <div className="flex gap-x-2 ml-auto">
+    <div className="flex gap-4 ml-auto">
       {isTeacherPage || isPlayerPage ? (
         <Link href="/dashboard">
           <Button size="sm" variant="ghost">
@@ -32,8 +32,9 @@ const NavbarRoutes = () => {
           </Button>
         </Link>
       )}
-
-      <UserButton afterSignOutUrl="/" />
+      <div className="">
+        <UserButton afterSignOutUrl="/" />
+      </div>
       <ModeToggle />
     </div>
   );
