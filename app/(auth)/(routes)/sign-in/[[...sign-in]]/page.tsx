@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function SignInPage() {
   return (
-    <div className="grid min-h-screen grid-cols-1 lg:grid-cols-3">
+    <div className="grid min-h-screen overflow-hidden grid-cols-1 lg:grid-cols-3">
       {/* image */}
       <div className="pattern-bg relative block h-16 lg:hidden   "></div>
       {/* sign-in */}
