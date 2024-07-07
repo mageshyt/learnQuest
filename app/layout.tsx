@@ -7,6 +7,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { cn } from "@/lib/utils";
 import ToastProvider from "@/components/providers/toast-provider";
 import QueryProvider from "@/components/providers/query-provider";
+import { ModalProvider } from "@/components/providers/modal-provider";
 
 const font = Inter({ subsets: ["latin"] });
 
@@ -32,6 +33,7 @@ export default function RootLayout({
             // storageKey="learn-quest-theme"
           >
             <ClerkProvider>
+              <ModalProvider />
               <ToastProvider />
               {children}
             </ClerkProvider>
