@@ -26,6 +26,8 @@ import {
 import { Editor } from "@/components/global/editor";
 import { updateChapter } from "@/actions/courses/chapters/update-chapter";
 import { Preview } from "@/components/global/preview";
+import { useModal } from "@/hooks/use-modal";
+import ChapterDescriptionHelperModal from "@/components/modals/chapter-description-helper-modal";
 
 interface ChapterDescriptionFormProps {
   initialData: Chapter;
@@ -128,6 +130,13 @@ const ChapterDescriptionForm: FC<ChapterDescriptionFormProps> = ({
               <Button type="submit" disabled={!isValid || isSubmitting}>
                 Save
               </Button>
+
+              <ChapterDescriptionHelperModal
+                chapterTitle={initialData.title}
+                updateDescription={(description) => {
+                  form.setValue("description", description);
+                }}
+              />
             </div>
           </form>
         </Form>

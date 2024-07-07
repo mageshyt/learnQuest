@@ -21,9 +21,9 @@ const getCourseDescription = async (title: string) => {
             Use a tone that is engaging, informative, and concise.
          Please provide a 1-2 sentence summary of what students can expect to learn in this course
          and use joyful language to inspire them to take action.
-    
+
          output requirements: 1-2 sentences
-         
+
          `;
     const result = await geminiModel.generateContent(prompt);
     const response = result.response;
@@ -36,16 +36,16 @@ const getCourseDescription = async (title: string) => {
   }
 };
 
-const getCourseChapterDescription = async (title: string,courseTitle:string) => {
+const getCourseChapterDescription = async (description: string) => {
   try {
     const prompt = `Create a compelling course description that highlights
-        the key takeaways, practical applications, and benefits of ${title}.
+        the key takeaways, practical applications, and benefits from this info ${description}.
             Use a tone that is engaging, informative, and concise.
-         Please provide a 1-2 sentence summary of what students can expect to learn in this course
-         and use joyful language to inspire them to take action.
-    
-         output requirements: 1-2 sentences
-         
+         Please provide a 4-5 sentence summary of what students can expect to learn in this course
+         and use joyful language to inspire them to take action use emoji to make it more engaging.
+
+         output requirements: 4-5 sentences that summarize the chapter content and inspire students to take action
+
          `;
     const result = await geminiModel.generateContent(prompt);
     const response = result.response;
