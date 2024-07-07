@@ -48,3 +48,9 @@ export const createChapterForm = z.object({
 export const chapterAccessForm = z.object({
   isFree: z.boolean().default(false),
 });
+
+export const chapterVideoForm = z.object({
+  videoUrl: z.string().min(1, {
+    message: "Video URL is required",
+  }),
+});
