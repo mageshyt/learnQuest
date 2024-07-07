@@ -23,8 +23,6 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-import { Textarea } from "@/components/ui/textarea";
-import { getCourseDescription } from "@/lib/ai-heper";
 import { Input } from "@/components/ui/input";
 import { LoadingButton } from "@/components/ui/loading-button";
 import { createCourseChapter } from "@/actions/courses/create-chapter";
@@ -65,12 +63,16 @@ const ChaptersForm: FC<ChaptersFormProps> = ({ initialData, courseId }) => {
     try {
       const res = await createCourseChapter(courseId, data.title);
 
-      if (res?.error) {
+      if ("error" in res) {
         throw new Error(res.error);
       }
 
-      router.refresh();
+      // add chapter to the list
+      // initialData.chapters.push(res);
+
       toggleCreate();
+      router.refresh();
+      form.reset();
 
       toast.success("Course updated");
     } catch (err) {
@@ -161,7 +163,8 @@ const ChaptersForm: FC<ChaptersFormProps> = ({ initialData, courseId }) => {
           </form>
         </Form>
       )}
-      {!isCreating && (
+
+      {
         <div
           className={cn(
             "text-sm mt-2 ",
@@ -177,9 +180,9 @@ const ChaptersForm: FC<ChaptersFormProps> = ({ initialData, courseId }) => {
             items={initialData.chapters || []}
           />
         </div>
-      )}
-      {!isCreating && (
-        <p className="text-sm text-slate-500 dark:text-slate-400">
+      }
+      {initialData.chapters.length > 0 && (
+        <p className="text-sm mt-2 text-slate-500 dark:text-slate-400">
           Drag and drop chapters here to add them to the course
         </p>
       )}
