@@ -9,21 +9,33 @@ export const createUser = async (
   try {
     console.log("[INFO] actions/create-user.ts: createUser()", id, attributes);
 
-    // create the user
-
-    const user = await db.user.upsert({
-      where: { id },
-
-      create: {
+    // check if the user already exist
+    const user = await db.user.findUnique({
+      where: {
         id,
-        attributes,
-        // email: attributes.email_address[0].email_address,
-        name: attributes?.first_name + " " + attributes?.last_name,
       },
-      update: {
-        attributes: attributes,
-        // email: attributes.email_address[0].email_address,
-        name: attributes?.first_name + " " + attributes?.last_name,
+    });
+    console.log(
+      "[INFO] actions/create-user.ts: createUser()",
+      user ? "User already exist" : "User does not exist"
+    );
+    if (!user) {
+      // create user
+      await db.user.create({
+        data: {
+          id: id,
+          attributes,
+        },
+      });
+    }
+
+    // update user
+    await db.user.update({
+      where: {
+        id,
+      },
+      data: {
+        ...attributes,
       },
     });
 

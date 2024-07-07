@@ -16,6 +16,7 @@ import CategoryForm from "./components/category-form";
 import PriceForm from "./components/price-form";
 import AttachmentForm from "./components/attachment-form";
 import ChaptersForm from "./components/chatpers-form";
+import { getUserCourseById } from "@/actions/courses/getUserCourseById";
 
 const CoursePage = async ({
   params,
@@ -31,24 +32,8 @@ const CoursePage = async ({
     return redirect("/");
   }
   // fetch course data
-  const course = await db.course.findFirst({
-    where: {
-      id: params.courseId,
-      userId,
-    },
-    include: {
-      chapters: {
-        orderBy: {
-          position: "asc",
-        },
-      },
-      attachments: {
-        orderBy: {
-          createdAt: "asc",
-        },
-      },
-    },
-  });
+  const course = await getUserCourseById(params.courseId);
+
 
   const categories = await db.category.findMany({
     orderBy: {
@@ -61,7 +46,7 @@ const CoursePage = async ({
     value: category.id,
   }));
 
-  if (!course) {
+  if (!course || "error" in course) {
     return redirect("/dashboard/teacher/courses");
   }
 

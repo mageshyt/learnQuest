@@ -13,9 +13,9 @@ import {
 import ClientWrapper from "@/components/global/client-wrapper";
 import ListView from "@/components/global/list-view";
 import { cn } from "@/lib";
-import { DotsVerticalIcon } from "@radix-ui/react-icons";
-import { Grip, GripVertical, Pencil } from "lucide-react";
+import { Grip, Pencil } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import ActionTooltip from "@/components/global/action-tooltip";
 
 interface ChaptersListProps {
   onEdit: (chapterId: string) => void;
@@ -31,7 +31,9 @@ const ChaptersList: FC<ChaptersListProps> = ({
   // ---------------------------------------state---------------------------------------
   const [chapters, setChapters] = React.useState<Chapter[]>(items);
   // ---------------------------------------hooks---------------------------------------
-
+  useEffect(() => {
+    setChapters(items);
+  }, [items]);
   // ---------------------------------------handlers---------------------------------------
 
   const onDragEnd = (result: DropResult) => {
@@ -99,7 +101,6 @@ const ChaptersList: FC<ChaptersListProps> = ({
                         {/* badge */}
                         <div className="ml-auto pr-2 flex items-center gap-x-2">
                           {chapter.isFree && <Badge>Free</Badge>}
-
                           <Badge
                             className={cn(
                               "bg-slate-500 text-white",
