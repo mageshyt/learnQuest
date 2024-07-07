@@ -1,3 +1,4 @@
+import { COURSE_TYPE } from "@prisma/client";
 import { z } from "zod";
 
 export const createCourseSchema = z.object({
@@ -35,6 +36,7 @@ export const priceFormSchema = z.object({
   price: z.coerce.number().min(1, {
     message: "Price is required",
   }),
+  courseType: z.nativeEnum(COURSE_TYPE).default(COURSE_TYPE.FREE),
 });
 
 export const createChapterForm = z.object({
