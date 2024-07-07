@@ -4,10 +4,11 @@ import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { getChapterById } from "@/actions/courses/chapters/getChapterById";
 import Link from "next/link";
-import { ArrowLeft, LayoutDashboard } from "lucide-react";
+import { ArrowLeft, Eye, LayoutDashboard, Video } from "lucide-react";
 import { IconBadge } from "@/components/global/icon-badge";
 import ChapterTitleForm from "./components/chapter-title-form";
 import ChapterDescriptionForm from "./components/chapter-description-form";
+import ChapterAccessForm from "./components/chapter-access-form";
 
 const ChapterIdPage = async ({
   params,
@@ -66,6 +67,7 @@ const ChapterIdPage = async ({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
         <div className="space-y-4">
           <div>
+            {/* CHapter Title */}
             <div className="flex items-center gap-x-2">
               <IconBadge icon={LayoutDashboard} variant={"primary"} />
               <h2 className="text-xl font-semibold">Chapter Details</h2>
@@ -83,6 +85,33 @@ const ChapterIdPage = async ({
               courseId={params.courseId}
             />
           </div>
+
+          {/* ------------------------- Accessibility------------------------------ */}
+          <div>
+            <div className="flex items-center gap-x-2">
+              <IconBadge icon={Eye} variant={"primary"} />
+              <h2 className="text-xl font-semibold">Access Setting</h2>
+            </div>
+            {/* editor */}
+            <ChapterAccessForm
+              initialData={chapter}
+              courseId={params.courseId}
+              chapterId={params.chapterId}
+            />
+          </div>
+        </div>
+
+        <div>
+          <div className="flex items-center gap-x-2">
+            <IconBadge icon={Video} variant={"primary"} />
+            <h2 className="text-xl font-semibold">Add a Video </h2>
+          </div>
+          {/* editor */}
+          {/* <ChapterAccessForm
+            initialData={chapter}
+            courseId={params.courseId}
+            chapterId={params.chapterId}
+          /> */}
         </div>
       </div>
     </div>
