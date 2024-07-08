@@ -28,17 +28,12 @@ const ChapterDescriptionHelperModal: FC<ChapterDescriptionHelperModalProps> = ({
   updateDescription,
 }) => {
   // ------------------------- state -------------------------
-  const [open, setOpen] = React.useState(false);
   const [details, setDetails] = React.useState<string>("");
 
   const [generatedDescription, setGeneratedDescription] =
     React.useState<string>("");
 
   // ------------------------- handlers -------------------------
-
-  const onClose = () => {
-    setOpen(false);
-  };
 
   const generate = async () => {
     // clear the generated description
@@ -52,13 +47,12 @@ const ChapterDescriptionHelperModal: FC<ChapterDescriptionHelperModalProps> = ({
 
   const onSave = () => {
     updateDescription(generatedDescription);
-    onClose();
   };
 
   return (
     <CustomModal>
       <CustomModalTrigger asChild>
-        <Button type="button" onClick={() => setOpen(true)}>
+        <Button type="button">
           <Sparkle className="mr-2 h-4 w-4" />
           Generate
         </Button>

@@ -9,6 +9,7 @@ import { IconBadge } from "@/components/global/icon-badge";
 import ChapterTitleForm from "./components/chapter-title-form";
 import ChapterDescriptionForm from "./components/chapter-description-form";
 import ChapterAccessForm from "./components/chapter-access-form";
+import ChapterVideoForm from "./components/chapter-video-form";
 
 const ChapterIdPage = async ({
   params,
@@ -107,11 +108,11 @@ const ChapterIdPage = async ({
             <h2 className="text-xl font-semibold">Add a Video </h2>
           </div>
           {/* editor */}
-          {/* <ChapterAccessForm
+          <ChapterVideoForm
             initialData={chapter}
             courseId={params.courseId}
             chapterId={params.chapterId}
-          /> */}
+          />
         </div>
       </div>
     </div>
