@@ -6,25 +6,28 @@ import SponsorsMovingCards from "./components/moving-cards";
 import StartJourneyHero from "./components/start-journey-hero";
 import HeroSection from "./components/hero-section";
 import ProductGallery from "./components/product-gallery";
+import ClientWrapper from "@/components/global/client-wrapper";
 
 const LandingPage = () => {
   return (
-    <main className="bg-neutral-950   relative  antialiased ">
-      {/* hero section */}
-      <HeroSection />
+    <ClientWrapper>
+      <main className="bg-neutral-950   relative  antialiased ">
+        {/* hero section */}
+        <HeroSection />
 
-      {/* start journey Hero */}
-      <StartJourneyHero />
+        {/* start journey Hero */}
+        <StartJourneyHero />
 
-      {/* infinite moving card */}
-      <SponsorsMovingCards />
+        {/* infinite moving card */}
+        <SponsorsMovingCards />
 
-      {/* product gallery */}
-      <ProductGallery />
+        {/* product gallery */}
+        <ProductGallery />
 
-      {/* lamp - tech stack */}
-      <LampTechStack />
-    </main>
+        {/* lamp - tech stack */}
+        <LampTechStack />
+      </main>
+    </ClientWrapper>
   );
 };
 
