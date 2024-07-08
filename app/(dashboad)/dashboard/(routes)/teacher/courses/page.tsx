@@ -46,9 +46,9 @@ const CoursesPage = () => {
         data={courses}
         searchKey="title"
         actions={[
-          <Link href="/dashboard/teacher/courses/create" key="create">
-            <Button>New Course</Button>
-          </Link>,
+          // <Link href="/dashboard/teacher/courses/create" key="create">
+          //   <Button>New Course</Button>
+          // </Link>,
           <CreateCourse />,
         ]}
       />
