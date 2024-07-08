@@ -3,6 +3,8 @@
 import { db } from "@/lib";
 import { ERROR_MESSAGE } from "@/lib/error-message";
 import { auth } from "@clerk/nextjs/server";
+import { env } from "@/env";
+
 
 export const createCourseChapter = async (courseId: string, title: string) => {
   try {
