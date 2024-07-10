@@ -17,6 +17,7 @@ import AttachmentForm from "./components/attachment-form";
 import ChaptersForm from "./components/chatpers-form";
 import { getUserCourseById } from "@/actions/courses/getUserCourseById";
 import Banner from "@/components/ui/banner";
+import CourseActions from "../components/course-action";
 
 const CoursePage = async ({
   params,
@@ -86,7 +87,12 @@ const CoursePage = async ({
             </span>
           </div>
           {/* ----------------header------------------ */}
-          
+          <CourseActions
+            disabled={!isComplete}
+            courseId={course.id}
+            isPublished={course.isPublished}
+          />
+
         </div>
 
         {/* ------------form section------------- */}
