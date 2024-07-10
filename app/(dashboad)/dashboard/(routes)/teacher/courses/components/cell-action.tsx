@@ -22,10 +22,9 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { Course } from "@prisma/client";
 import { useRouter } from "next/navigation";
-import { SafeCourse } from "./columns";
 
 interface CellActionProps {
-  data: SafeCourse;
+  data: Course;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
