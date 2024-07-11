@@ -4,10 +4,12 @@ import { ColumnDef } from "@tanstack/react-table";
 import Image from "next/image";
 import { Category, Chapter, Course } from "@prisma/client";
 import { CellAction } from "./cell-action";
-import { HtmlToText, truncate } from "@/lib";
+import { cn, formatPrice, HtmlToText, truncate } from "@/lib";
 
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
+import { Button } from "@/components/ui/button";
+import { ArrowDownUp } from "lucide-react";
 
 // combine the corse tyoe and add category
 
@@ -49,15 +51,7 @@ export const columns: ColumnDef<Course>[] = [
       </span>
     ),
   },
-  //   {
-  //     accessorKey: "courseType",
-  //     header: "Category",
-  //     cell: ({ row }) => (
-  //       <Badge variant={"secondary"} className="text-sm">
-  //         {row.original.categoryId}
-  //       </Badge>
-  //     ),
-  //   },
+
   {
     accessorKey: "courseType",
     header: "Course Type",
@@ -70,18 +64,48 @@ export const columns: ColumnDef<Course>[] = [
 
   {
     accessorKey: "price",
-    header: "Price",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant={"ghost"}
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Price
+          <ArrowDownUp size={16} className="ml-2" />
+        </Button>
+      );
+    },
     cell: ({ row }) => (
-      <span className="text-sm text-muted-foreground">
-        {row.original.price ? row.original.price : "Free"}
+      <span className="text-sm  text-center text-muted-foreground">
+        {row.original.price ? formatPrice(row.original.price) : "Free"}
       </span>
     ),
   },
 
   {
     accessorKey: "isPublished",
-    header: "Published",
-    cell: ({ row }) => <Switch checked={row.original.isPublished}></Switch>,
+    header: ({ column }) => {
+      return (
+        <Button
+          variant={"ghost"}
+          className="flex items-center "
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Published
+          <ArrowDownUp size={16} className="ml-2" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => (
+      <Badge
+        className={cn(
+          "uppercase text-xs",
+          row.original.isPublished ? "bg-emerald-500" : "bg-slate-500"
+        )}
+      >
+        {row.original.isPublished ? "Published" : "Draft"}
+      </Badge>
+    ),
   },
 
   {
