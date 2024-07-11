@@ -33,16 +33,16 @@ interface CategoriesProps {
 }
 
 const Categories: FC<CategoriesProps> = ({ items }) => {
-
-
   return (
-    <div className="flex items-center gap-x-2 overflow-x-auto pb-2">
+    <div className="flex items-center gap-x-2  overflow-x-scroll pb-2">
       <ListView
         items={items}
         render={(item) => (
-          <CategoriesItem label={item.name} icon={IconMap[item.name]}
-          value={item.id}
-           />
+          <CategoriesItem
+            label={item.name}
+            icon={IconMap[item.name]}
+            value={item.id}
+          />
         )}
       />
     </div>
