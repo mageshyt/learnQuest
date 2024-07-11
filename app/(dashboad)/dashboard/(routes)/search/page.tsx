@@ -5,6 +5,7 @@ import { Category } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import Categories from "./components/categories";
+import Searchbar from "@/app/(dashboad)/components/searchbar";
 
 const SearchPage = () => {
   // Fetch courses
@@ -25,9 +26,14 @@ const SearchPage = () => {
     );
 
   return (
-    <div className="p-6">
-      <Categories items={categories as Category[]} />
-    </div>
+    <>
+      <div className="px-6 pt-6 md:mb-0 block md:hidden">
+        <Searchbar />
+      </div>
+      <div className="p-6">
+        <Categories items={categories as Category[]} />
+      </div>
+    </>
   );
 };
 
