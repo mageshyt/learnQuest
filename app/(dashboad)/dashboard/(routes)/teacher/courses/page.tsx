@@ -45,7 +45,7 @@ const CoursesPage = () => {
         columns={columns}
         data={courses}
         searchKey="title"
-        actions={[<CreateCourse />]}
+        actions={[<CreateCourse key={"create"} />]}
       />
     </div>
   );

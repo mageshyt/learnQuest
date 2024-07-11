@@ -4,6 +4,7 @@ import { deleteChapter } from "@/actions/courses/chapters/delete-chapter";
 import { publishChapter } from "@/actions/courses/chapters/publish-chapter";
 import { updateChapter } from "@/actions/courses/chapters/update-chapter";
 import { Button } from "@/components/ui/button";
+import { LoadingButton } from "@/components/ui/loading-button";
 import { useModal } from "@/hooks/use-modal";
 import { Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -25,6 +26,7 @@ const ChapterActions: FC<ChapterActionsProps> = ({
 }) => {
   const router = useRouter();
   const { openModal } = useModal();
+  const [loading, setLoading] = React.useState(false);
 
   //   ---------------------------------------functions---------------------------------------
 
@@ -43,6 +45,7 @@ const ChapterActions: FC<ChapterActionsProps> = ({
 
   const handlePublish = async () => {
     try {
+      setLoading(true);
       // publish chapter
       const chapter = await publishChapter(chapterId, courseId, !isPublished);
       if ("error" in chapter) {
@@ -55,19 +58,22 @@ const ChapterActions: FC<ChapterActionsProps> = ({
       // show
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="flex items-center gap-x-2">
-      <Button
+      <LoadingButton
+        loading={loading}
         size="sm"
         disabled={disabled}
         variant={"outline"}
         onClick={handlePublish}
       >
         {isPublished ? "Unpublish" : "Publish"}
-      </Button>
+      </LoadingButton>
 
       <Button
         size="sm"
