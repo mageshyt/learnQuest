@@ -1,8 +1,10 @@
 "use client";
 
 import { deleteCourse } from "@/actions/courses/delete-course";
-import { publishCourse } from "@/actions/courses/publish-course";
+import { toggleCoursePublishStatus } from "@/actions/courses/toogle-publish-course";
 import { Button } from "@/components/ui/button";
+import { LoadingButton } from "@/components/ui/loading-button";
+import { useConfettiStore } from "@/hooks/use-confetti-store";
 import { useModal } from "@/hooks/use-modal";
 import axios from "axios";
 import { Trash } from "lucide-react";
@@ -21,13 +23,20 @@ const CourseActions: FC<CourseActionsProps> = ({
   courseId,
   isPublished,
 }) => {
+  // ---------------------------------------hooks---------------------------------------
   const router = useRouter();
   const { openModal } = useModal();
+  const { toggleConfetti } = useConfettiStore();
+
+  //  ---------------------------------------states---------------------------------------
+
+  const [loading, setLoading] = React.useState(false);
 
   //   ---------------------------------------functions---------------------------------------
 
   const handleDelete = async () => {
     try {
+      setLoading(true);
       const res = await deleteCourse(courseId);
       if ("error" in res) {
         toast.error(res.error);
@@ -36,36 +45,44 @@ const CourseActions: FC<CourseActionsProps> = ({
       router.push(`/dashboard/teacher/courses/${courseId}/`);
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
 
   const handlePublish = async () => {
     try {
+      setLoading(true);
       // publish chapter
-      const res = await publishCourse(courseId, !isPublished);
-      //   if ("error" in res) {
-      //     toast.error(res.error);
-      //   }
-
+      const res = await toggleCoursePublishStatus(courseId, !isPublished);
+      if ("error" in res) {
+        toast.error(res.error);
+      }
+      if (!isPublished) {
+        toggleConfetti();
+      }
       toast.success("Chapter published successfully");
       router.refresh();
 
       // show
     } catch (err) {
       console.log(err);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="flex items-center gap-x-2">
-      <Button
+      <LoadingButton
         size="sm"
-        disabled={disabled}
+        loading={loading}
+        disabled={disabled || loading}
         variant={"outline"}
         onClick={handlePublish}
       >
         {isPublished ? "Unpublish" : "Publish"}
-      </Button>
+      </LoadingButton>
 
       <Button
         size="sm"
@@ -75,6 +92,7 @@ const CourseActions: FC<CourseActionsProps> = ({
             handleConfirm: handleDelete,
           })
         }
+        disabled={loading }
       >
         <Trash />
       </Button>

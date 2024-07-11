@@ -69,7 +69,7 @@ const CoursePage = async ({
   const completionText = ` ${completedFields}/${totalFields}`;
   return (
     <>
-      {!isComplete && (
+      {!course.isPublished && (
         <Banner
           label="Please complete all fields to continue"
           variant="warning"
@@ -92,7 +92,6 @@ const CoursePage = async ({
             courseId={course.id}
             isPublished={course.isPublished}
           />
-
         </div>
 
         {/* ------------form section------------- */}
