@@ -21,7 +21,7 @@ const NavbarRoutes = () => {
   return (
     <>
       {isSearchPage && (
-        <div className="hidden md:block">
+        <div className="hidden md:block ">
           <Searchbar />
         </div>
       )}
