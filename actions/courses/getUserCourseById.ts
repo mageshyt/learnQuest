@@ -37,6 +37,8 @@ export const getUserCourseById = async (id: string) => {
       };
     }
 
+    console.log("[INFO] app/api/courses/route.ts: GET()", course);
+
     return course;
   } catch (err) {
     console.log("[ERROR] app/api/courses/route.ts: GET()", err);

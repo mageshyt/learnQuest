@@ -20,7 +20,7 @@ export const getAllUserCourses = async () => {
       },
       include: {
         chapters: true,
-        Category: true,
+        category: true,
       },
     });
 
