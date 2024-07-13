@@ -31,9 +31,6 @@ const CreateCourse = () => {
         <div>
           <CourseForm />
         </div>
-        <SheetFooter className="mt-4">
-          <SheetClose asChild></SheetClose>
-        </SheetFooter>
       </SheetContent>
     </Sheet>
   );
