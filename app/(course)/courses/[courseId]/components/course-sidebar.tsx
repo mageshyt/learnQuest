@@ -28,7 +28,7 @@ export const CourseSidebar: FC<CourseSidebarProps> = async ({
   const purchase = await getUserCoursePurchaseById(course.id, userId);
   return (
     <div className="h-full border-r flex flex-col overflow-y-auto shadow-sm">
-      <div className="p-6 flex flex-col border-b">
+      <div className="p-6 h-20 flex flex-col border-b">
         <h1 className="font-semibold">{course.title}</h1>
 
         {/* progress and purchase check */}
