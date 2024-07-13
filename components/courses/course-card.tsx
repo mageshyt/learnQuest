@@ -57,7 +57,6 @@ const CourseCard = ({
                 {/* <IconBadge icon={BookOpen} size={"sm"} variant={"primary"} /> */}
                 <BookOpen className=" w-4 h-4" />
                 <span className=" text-sm">
-                  {chaptersLength}
                   {chaptersLength === 1
                     ? `${chaptersLength} chapter`
                     : `${chaptersLength} chapters`}
