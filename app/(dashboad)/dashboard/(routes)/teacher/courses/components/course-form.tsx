@@ -23,6 +23,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { createCourseSchema } from "@/schema";
 import { LoadingButton } from "@/components/ui/loading-button";
+import { SheetClose } from "@/components/ui/sheet";
 
 const CourseForm = () => {
   // ---------------------------------------hooks---------------------------------------
@@ -84,11 +85,11 @@ const CourseForm = () => {
           )}
         />
         <div className="flex items-center gap-x-2">
-          <Link href={"/"}>
+          <SheetClose asChild>
             <Button type="button" variant={"ghost"}>
               Cancel
             </Button>
-          </Link>
+          </SheetClose>
 
           <LoadingButton
             type="submit"
