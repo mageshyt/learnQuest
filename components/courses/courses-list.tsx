@@ -2,7 +2,6 @@ import { CourseWithProgressWithCategories } from "@/actions/general/get-courses"
 import React, { FC } from "react";
 import ListView from "../global/list-view";
 import CourseCard from "./course-card";
-import NoResultFound from "../exception/no-result-found";
 
 interface CoursesListProps {
   items: CourseWithProgressWithCategories[];
