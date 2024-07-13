@@ -26,7 +26,7 @@ const CourseCard = ({
 }: CourseCardProps) => {
   return (
     <Link href={`/courses/${id}`} passHref>
-      <div className="group bg-white hover:shadow-sm mt-4  transition overflow-hidden border rounded-lg  h-full">
+      <div className="group bg-white dark:bg-neutral-900 hover:shadow-sm mt-4  transition overflow-hidden border rounded-lg  h-full">
         {/* image */}
         <div
           className="relative

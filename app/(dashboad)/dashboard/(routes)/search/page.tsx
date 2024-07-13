@@ -27,7 +27,7 @@ const SearchPage: FC<SearchPageProps> = async ({ searchParams }) => {
       <div className="px-6 pt-6 md:mb-0 block md:hidden">
         <Searchbar />
       </div>
-      <div className="p-6 space-y-4 bg-[#f9fafb] h-full overflow-y-auto">
+      <div className="p-6 space-y-4 dark:bg-neutral-950 bg-[#f9fafb] h-full overflow-y-auto">
         <Categories items={categories} />
         <CoursesList items={courses} />
       </div>

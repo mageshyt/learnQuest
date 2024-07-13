@@ -32,12 +32,12 @@ const Searchbar = () => {
   }, [debouncedSearch, currentCategory, router, pathname]);
   return (
     <div className="relative">
-      <Search className="absolute  h-4 w-4 top-3 left-3 text-slate-600" />
+      <Search className="absolute  h-4 w-4 top-3 left-3 dark:text-slate-300 text-slate-600" />
 
       <Input
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="w-full   md:w-[400px] pl-9 rounded-md bg-slate-100 focus-visible:ring-slate-700"
+        className="w-full   md:w-[400px] pl-9 rounded-md dark:bg-neutral-900 bg-slate-100 dark:focus-visible:ring-slate-200 focus-visible:ring-slate-700"
         placeholder="Search for courses "
       />
     </div>
