@@ -54,10 +54,10 @@ const CoursePage = async ({
   const requiredFields = [
     course.title,
     course.description,
-    course.price,
+    course.courseType,
     course.imageUrl,
     course.categoryId,
-    course.chapters.some((chapter) => chapter.isPublished),
+    course.chapters.some((chapter) => chapter.isPublished == true),
   ];
 
   const totalFields = requiredFields.length;
