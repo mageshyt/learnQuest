@@ -85,7 +85,7 @@ const ChaptersList: FC<ChaptersListProps> = ({
                         {/* Icons */}
                         <div
                           className={cn(
-                            "px-2 py-3 border-r-slate-200 hover:bg-slate-300 rounded-l-md",
+                            "px-2 py-3 border-r-slate-200 border-r hover:bg-slate-300 rounded-l-md",
                             chapter.isPublished &&
                               "border-r-emerald-300 hover:bg-emerald-200"
                           )}
