@@ -56,10 +56,18 @@ export const updateChapter = async (
         },
       });
 
+      console.log(
+        `[INFO] actions/courses/chapters/updateChapter.ts: updateChapter()`,
+        existingMuxData
+      );
+
       // If there is an existing mux data, update it
       if (existingMuxData) {
         // delete the existing asset
         await video.assets.delete(existingMuxData.assetId);
+
+        // delete the existing mux data
+        console.log("Deleting existing mux data", existingMuxData.id);
 
         await db.muxData.delete({
           where: {
