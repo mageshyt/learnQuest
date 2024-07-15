@@ -37,7 +37,7 @@ const CourseCard = ({
             fill
             src={imageUrl || "/placeholder.jpg"}
             alt={title}
-            className="object-cover"
+            className="object-cover hover:scale-110 transition duration-300"
           />
         </div>
 
