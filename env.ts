@@ -8,6 +8,7 @@ export const env = createEnv({
     WEBHOOK_SECRET: z.string(),
     MUX_TOKEN_ID: z.string(),
     MUX_TOKEN_SECRET: z.string(),
+    STRIPE_API_KEY: z.string(),
   },
   client: {
     NEXT_PUBLIC_GEMINI_API_KEY: z.string(),
@@ -20,5 +21,6 @@ export const env = createEnv({
     WEBHOOK_SECRET: process.env.WEBHOOK_SECRET,
     MUX_TOKEN_ID: process.env.MUX_TOKEN_ID,
     MUX_TOKEN_SECRET: process.env.MUX_TOKEN_SECRET,
+    STRIPE_API_KEY: process.env.STRIPE_API_KEY,
   },
 });
