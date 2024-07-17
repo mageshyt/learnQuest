@@ -9,7 +9,7 @@ import { cva, VariantProps } from "class-variance-authority";
 const progressVariants = cva("h-full w-full flex-1 bg-primary transition-all", {
   variants: {
     variants: {
-      default: "bg-sky-100",
+      default: "bg-sky-600",
       success: "bg-emerald-700",
     },
   },
@@ -32,14 +32,17 @@ const Progress = React.forwardRef<
   <ProgressPrimitive.Root
     ref={ref}
     className={cn(
-      "bg-secondary relative rounded-full",
-      progressVariants({ variants }),
+      " relative rounded-full  w-full overflow-hidden bg-secondary h-4",
+
       className
     )}
     {...props}
   >
     <ProgressPrimitive.Indicator
-      className="h-full w-full flex-1 bg-gray-50 transition-all"
+      className={cn(
+        "h-full w-full flex-1 bg-secondary  transition-all",
+        progressVariants({ variants })
+      )}
       style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
     />
   </ProgressPrimitive.Root>
