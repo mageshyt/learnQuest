@@ -51,7 +51,7 @@ const ChapterIdPage = async ({
           variant="warning"
         />
       )}
-      <div className="p-6">
+      <div className="p-6 bg-white dark:bg-neutral-950">
         {/* ------------------------- Top Area------------------------------ */}
         <div className="flex items-center justify-between">
           <div className="w-full">

@@ -22,7 +22,7 @@ const SearchPage: FC<SearchPageProps> = async ({ searchParams }) => {
   const courses = await getCourses({ userId, ...searchParams });
 
   return (
-    <div>
+    <div className="">
       {/* search bar */}
       <div className="px-6 pt-6 md:mb-0 block md:hidden">
         <Searchbar />

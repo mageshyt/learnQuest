@@ -76,7 +76,7 @@ const CoursePage = async ({
         />
       )}
 
-      <div className="p-6">
+      <div className="p-6 bg-white dark:bg-neutral-950">
         <div className="flex items-center justify-between">
           {/* ----------------header------------------ */}
           <div className="flex flex-col gap-y-3">
