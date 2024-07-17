@@ -8,6 +8,10 @@ const backgroundVariant = cva("rounded-full flex items-center justify-center", {
       default: "bg-sky-100",
       primary: "bg-emerald-100",
     },
+    iconVariant: {
+      default: "text-sky-600",
+      primary: "text-emerald-500",
+    },
 
     size: {
       default: "p-2 w-12 h-12",
@@ -17,13 +21,14 @@ const backgroundVariant = cva("rounded-full flex items-center justify-center", {
   defaultVariants: {
     variant: "default",
     size: "default",
+    iconVariant: "default",
   },
 });
 
 const iconVariant = cva("", {
   variants: {
     variant: {
-      default: "text-sky-500",
+      default: "text-sky-600",
       primary: "text-emerald-500",
     },
     size: {
@@ -53,7 +58,7 @@ export const IconBadge: React.FC<IconBadgeProps> = ({
 }) => {
   return (
     <div className={cn(backgroundVariant({ size, variant }), className)}>
-      <Icon className={iconVariant({ size, variant })} />
+      <Icon className={iconVariant({  variant,size })} />
     </div>
   );
 };
