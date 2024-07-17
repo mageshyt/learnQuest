@@ -27,6 +27,7 @@ export const CourseSidebar: FC<CourseSidebarProps> = async ({
   }
 
   const purchase = await getUserCoursePurchaseById(course.id, userId);
+  console.log("PROGRESS", progressCount);
   return (
     <div className="h-full border-r flex flex-col overflow-y-auto shadow-sm">
       <div className="p-6  flex flex-col border-b">

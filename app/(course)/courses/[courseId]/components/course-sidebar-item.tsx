@@ -36,21 +36,24 @@ export const CourseSidebarItem: FC<CourseSidebarItemProps> = ({
       type="button"
       onClick={handleClick}
       className={cn(
-        "flex items-center gap-2 dark:text-slate-200 text-slate-500 font-[500] pl-6 transition-all hover:bg-slate-200/20 hover:text-slate-600",
+        "flex items-center gap-2 border-b dark:text-slate-200 text-slate-500 font-[500] pl-6 transition-all hover:bg-slate-200/20 hover:text-slate-600",
         isActive &&
           "text-slate-700 dark:text-slate-200 bg-slate-200/20 hover:bg-slate-200/20 hover:text-slate-700",
-        isCompleted && isActive && "text-emerald-500 hover:text-emerald-600"
+
+        isCompleted && "text-emerald-700  hover:text-emerald-600",
+        isCompleted && isActive && " bg-emerald-200/40 hover:bg-emerald-200/20 "
       )}
     >
-      <div className="flex gap-2 py-4 items-center">
+      <div className="flex gap-2 py-4 items-center text-sm">
         <Icon
           size={22}
           className={cn(
             "transition-all text-slate-500 dark:text-slate-200",
-            isCompleted && "text-emerald-500",
-            isActive && "text-slate-700 dark:text-slate-200"
+            isActive && "text-slate-700 dark:text-slate-200",
+            isCompleted && "text-emerald-700"
           )}
         />
+
         {label}
       </div>
 
