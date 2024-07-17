@@ -16,6 +16,7 @@ import {
   FcEngineering,
 } from "react-icons/fc";
 import { IconType } from "react-icons/lib";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 const IconMap: Record<Category["name"], IconType> = {
   Music: FcMusic,
@@ -34,18 +35,21 @@ interface CategoriesProps {
 
 const Categories: FC<CategoriesProps> = ({ items }) => {
   return (
-    <div className="flex items-center gap-x-2  overflow-x-scroll pb-2">
-      <ListView
-        items={items}
-        render={(item) => (
-          <CategoriesItem
-            label={item.name}
-            icon={IconMap[item.name]}
-            value={item.id}
-          />
-        )}
-      />
-    </div>
+    <ScrollArea>
+      <div className="flex items-center  gap-x-2">
+        <ListView
+          items={items}
+          render={(item) => (
+            <CategoriesItem
+              label={item.name}
+              icon={IconMap[item.name]}
+              value={item.id}
+            />
+          )}
+        />
+      </div>
+      <ScrollBar orientation="horizontal" />
+    </ScrollArea>
   );
 };
 

@@ -8,7 +8,6 @@ import Categories from "./components/categories";
 import Searchbar from "@/app/(dashboad)/components/searchbar";
 import CoursesList from "@/components/courses/courses-list";
 import { getCategories } from "@/actions/general/get-categories";
-import CoursesSkeleton from "@/components/skeletons/courses-skeleton";
 interface SearchPageProps {
   searchParams: {
     title?: string;
@@ -23,15 +22,19 @@ const SearchPage: FC<SearchPageProps> = async ({ searchParams }) => {
   const courses = await getCourses({ userId, ...searchParams });
 
   return (
-    <>
+    <div>
+      {/* search bar */}
       <div className="px-6 pt-6 md:mb-0 block md:hidden">
         <Searchbar />
       </div>
-      <div className="p-6 space-y-4 dark:bg-neutral-950 bg-[#f9fafb] h-full overflow-y-auto">
+      <div className=" mt-4 rounded-md mx-4 p-4 bg-white dark:bg-neutral-900 ">
+        {/* category */}
         <Categories items={categories} />
+      </div>
+      <div className="p-6  h-full overflow-y-auto">
         <CoursesList items={courses} />
       </div>
-    </>
+    </div>
   );
 };
 

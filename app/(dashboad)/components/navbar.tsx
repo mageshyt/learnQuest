@@ -4,7 +4,7 @@ import NavbarRoutes from "./navbar-routes";
 
 const Navbar = () => {
   return (
-    <div className="flex items-center p-4 border-b h-full shadow-sm">
+    <div className="flex items-center p-4 border-b h-full ">
       <MobileSidebar />
       <NavbarRoutes />
     </div>

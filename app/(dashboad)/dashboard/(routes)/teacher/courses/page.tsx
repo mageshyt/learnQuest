@@ -1,11 +1,8 @@
 "use client";
 import React from "react";
-import Link from "next/link";
 
 import { Course } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
-
-import { Button } from "@/components/ui/button";
 
 import { getAllUserCourses } from "@/actions/courses/getAllUserCourses";
 import LoadingScreen from "@/components/global/loading-screen";
@@ -15,6 +12,7 @@ import { columns } from "./components/columns";
 import CreateCoursePage from "./create/page";
 import { DataTable } from "@/components/ui/data-table";
 import CreateCourse from "./components/create-course";
+import { DashboardCardWrapper } from "@/components/global/dashboard-card-wrapper";
 
 const CoursesPage = () => {
   // Fetch courses
@@ -40,13 +38,17 @@ const CoursesPage = () => {
   return (
     <div className="p-6">
       {/* list of coursed */}
-      <h1 className="text-2xl font-medium">Courses</h1>
-      <DataTable
-        columns={columns}
-        data={courses}
-        searchKey="title"
-        actions={[<CreateCourse key={"create"} />]}
-      />
+
+      <DashboardCardWrapper title="Courses">
+        <div className="p-4">
+          <DataTable
+            columns={columns}
+            data={courses}
+            searchKey="title"
+            actions={[<CreateCourse key={"create"} />]}
+          />
+        </div>
+      </DashboardCardWrapper>
     </div>
   );
 };
