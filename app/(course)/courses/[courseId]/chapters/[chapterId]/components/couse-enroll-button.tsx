@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 
 import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/lib";
+import { LoadingButton } from "@/components/ui/loading-button";
 
 interface CourseEnrollButtonProps {
   price: number;
@@ -32,8 +33,13 @@ export const CourseEnrollButton = ({
     }
   };
   return (
-    <Button onClick={handlePurchase} className="w-full md:w-auto">
+    <LoadingButton
+      loading={isLoading}
+      disabled={isLoading}
+      onClick={handlePurchase}
+      className="w-full md:w-auto"
+    >
       Enroll for {formatPrice(price)}
-    </Button>
+    </LoadingButton>
   );
 };

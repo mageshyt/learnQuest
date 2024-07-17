@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 import { cn } from "@/lib/utils";
 import { useConfettiStore } from "@/hooks/use-confetti-store";
 import { Loader2, Lock } from "lucide-react";
+import { toggleChapterComplete } from "@/actions/Userprogress/toggle-chapter-complete";
 
 interface VideoPlayerProps {
   playbackId: string;
@@ -30,7 +31,7 @@ export const VideoPlayer: FC<VideoPlayerProps> = ({
   completeOnEnd,
 }) => {
   // ----------------------------------hooks----------------------------------
-  const { toggleConfetti } = useConfettiStore();
+  const { showConfetti } = useConfettiStore();
   const router = useRouter();
 
   // ----------------------------------states----------------------------------
@@ -59,15 +60,28 @@ export const VideoPlayer: FC<VideoPlayerProps> = ({
           playbackId={playbackId}
           className={cn(!isRead && "hidden")}
           onCanPlay={() => setIsRead(true)}
-          onEnded={() => {
-            console.log("video ended");
+          onEnded={async () => {
             if (completeOnEnd) {
-              toggleConfetti();
-            }
-            if (nextChapterId) {
-              router.push(`/courses/${courseId}/chapters/${nextChapterId}`);
-            } else {
-              toast.success("You have completed the course!");
+              // update the chapter as completed
+              const res = await toggleChapterComplete({
+                courseId,
+                chapterId,
+                isCompleted: true,
+              });
+              if ("error" in res) {
+                toast.error(res.error);
+                return;
+              }
+
+              // show confetti if there is no next chapter
+              if (!nextChapterId) {
+                showConfetti();
+              }
+              toast.success("progress updated");
+              router.refresh();
+              if (nextChapterId) {
+                router.push(`/courses/${courseId}/chapters/${nextChapterId}`);
+              }
             }
           }}
           autoPlay

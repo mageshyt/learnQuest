@@ -10,13 +10,25 @@ async function main() {
           name: "Computer Science",
         },
         {
-          name: "Web Development",
+          name: "Music",
         },
         {
-          name: "App Development",
+          name: "Photography",
         },
         {
-          name: "Data Science",
+          name: "Programming",
+        },
+        {
+          name: "Engineering",
+        },
+        {
+          name: "Accounting",
+        },
+        {
+          name: "Filming",
+        },
+        {
+          name: "Fitness",
         },
       ],
     });

@@ -139,7 +139,7 @@ model UserProgress {
   updatedAt DateTime @updatedAt
 
   @@unique([userId, chapterId])
-  @@index([userId, chapterId])
+  @@index([chapterId])
 }
 
 model Purchase {
