@@ -12,6 +12,7 @@ export const getCoursePreviewById = async (id: string, userId: string) => {
         chapters: {
           where: {
             courseId: id,
+            isPublished: true,
           },
           orderBy: {
             position: "asc",
