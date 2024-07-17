@@ -5,7 +5,7 @@ import React from "react";
 
 const loading = () => {
   return (
-    <div className="p-6 space-y-4">
+    <div className="p-6 bg-white space-y-4">
       <CategoriesSkeleton />
       <CoursesSkeleton />
     </div>
