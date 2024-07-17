@@ -52,9 +52,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
           <PencilIcon className="h-4 w-4 mr-2" />
           Edit
         </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => router.push(`/dashboard/courses/${data.id}`)}
-        >
+        <DropdownMenuItem onClick={() => router.push(`/courses/${data.id}`)}>
           <Eye className="h-4 w-4 mr-2" />
           View
         </DropdownMenuItem>
