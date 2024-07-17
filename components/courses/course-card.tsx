@@ -5,6 +5,7 @@ import React from "react";
 import { IconBadge } from "../global/icon-badge";
 import { BookOpen } from "lucide-react";
 import { formatPrice } from "@/lib";
+import { CourseProgress } from "@/components/global/course-progress";
 
 interface CourseCardProps {
   id: string;
@@ -66,11 +67,12 @@ const CourseCard = ({
           </div>
 
           {/* ------------- user progress------------- */}
-          {progress && (
-            <div className="flex items-center text-slate-500 gap-1">
-              <IconBadge icon={BookOpen} size={"sm"} />
-              <span>{progress}% completed</span>
-            </div>
+          {progress !== null && (
+            <CourseProgress
+              variant={progress === 100 ? "success" : "default"}
+              size="sm"
+              value={progress}
+            />
           )}
         </div>
       </div>

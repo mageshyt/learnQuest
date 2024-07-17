@@ -6,6 +6,7 @@ import { Cousine } from "next/font/google";
 import { redirect } from "next/navigation";
 import React, { FC } from "react";
 import { CourseSidebarItem } from "./course-sidebar-item";
+import { CourseProgress } from "@/components/global/course-progress";
 
 interface CourseSidebarProps {
   course: Course & {
@@ -28,10 +29,18 @@ export const CourseSidebar: FC<CourseSidebarProps> = async ({
   const purchase = await getUserCoursePurchaseById(course.id, userId);
   return (
     <div className="h-full border-r flex flex-col overflow-y-auto shadow-sm">
-      <div className="p-6 h-20 flex flex-col border-b">
+      <div className="p-6  flex flex-col border-b">
         <h1 className="font-semibold">{course.title}</h1>
 
         {/* progress and purchase check */}
+        {purchase && (
+          <div className="mt-4">
+            <CourseProgress
+              value={progressCount}
+              variant={progressCount === 100 ? "success" : "default"}
+            />
+          </div>
+        )}
       </div>
       {/* chapters */}
       <div className="flex flex-col w-full">
