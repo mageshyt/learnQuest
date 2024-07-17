@@ -17,6 +17,7 @@ import { Sparkle } from "lucide-react";
 import { markdownToHtml } from "@/lib";
 import { useModal } from "@/hooks/use-modal";
 import { Preview } from "../global/preview";
+import { LoadingButton } from "../ui/loading-button";
 
 interface ChapterDescriptionHelperModalProps {
   chapterTitle: string;
@@ -29,7 +30,7 @@ const ChapterDescriptionHelperModal: FC<ChapterDescriptionHelperModalProps> = ({
 }) => {
   // ------------------------- state -------------------------
   const [details, setDetails] = React.useState<string>("");
-
+  const [loading, setLoading] = React.useState<boolean>(false);
   const [generatedDescription, setGeneratedDescription] =
     React.useState<string>("");
 
@@ -37,12 +38,16 @@ const ChapterDescriptionHelperModal: FC<ChapterDescriptionHelperModalProps> = ({
 
   const generate = async () => {
     // clear the generated description
+    setLoading(true);
+
     setGeneratedDescription("");
     const res = await getCourseChapterDescription(details);
     if (!res) return;
     // convert the md to html
     const parsed_result = markdownToHtml(res);
     setGeneratedDescription(parsed_result);
+
+    setLoading(false);
   };
 
   const onSave = () => {
@@ -52,7 +57,7 @@ const ChapterDescriptionHelperModal: FC<ChapterDescriptionHelperModalProps> = ({
   return (
     <CustomModal>
       <CustomModalTrigger asChild>
-        <Button type="button">
+        <Button variant={"outline"} type="button">
           <Sparkle className="mr-2 h-4 w-4" />
           Generate
         </Button>
@@ -86,10 +91,15 @@ const ChapterDescriptionHelperModal: FC<ChapterDescriptionHelperModalProps> = ({
         </CustomModalBody>
 
         <CustomModalFooter>
-          <Button onClick={generate} type="button">
+          <LoadingButton
+            loading={loading}
+            disabled={loading}
+            onClick={generate}
+            type="button"
+          >
             <Sparkle className="mr-2 h-4 w-4" />
             Generate
-          </Button>
+          </LoadingButton>
 
           {generatedDescription && (
             <CustomModalClose asChild>
