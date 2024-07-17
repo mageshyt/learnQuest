@@ -5,7 +5,6 @@ import { ERROR_MESSAGE } from "@/lib/error-message";
 import { auth } from "@clerk/nextjs/server";
 import { env } from "@/env";
 
-
 export const createCourseChapter = async (courseId: string, title: string) => {
   try {
     const { userId } = auth();
@@ -44,7 +43,7 @@ export const createCourseChapter = async (courseId: string, title: string) => {
         courseId,
         title,
         position: position,
-        isFree: true,
+        isFree: courseOwner.courseType === "FREE" ? true : false,
       },
     });
 
