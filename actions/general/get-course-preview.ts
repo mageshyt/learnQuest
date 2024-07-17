@@ -13,6 +13,9 @@ export const getCoursePreviewById = async (id: string, userId: string) => {
           where: {
             courseId: id,
           },
+          orderBy: {
+            position: "asc",
+          },
           include: {
             userProgress: {
               where: {
