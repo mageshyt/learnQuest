@@ -32,6 +32,12 @@ export const getProgress = async (
     const progress =
       (validCompletedChapters.length / publishedChapters.length) * 100;
 
+    // if progress is NaN return 0
+
+    if (isNaN(progress)) {
+      return 0;
+    }
+
     return progress;
   } catch (e) {
     console.error(e);

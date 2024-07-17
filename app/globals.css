@@ -71,3 +71,8 @@
 .ql-container {
   font-size: 16px !important;
 }
+
+/* hide scrollbar */
+::-webkit-scrollbar {
+  width: 0px;
+}
