@@ -31,12 +31,11 @@ export const Combobox: React.FC<ComboboxProps> = ({
   const [open, setOpen] = useState(false);
 
   return (
-    <Popover open={true} onOpenChange={() => false}>
+    <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
           variant="outline"
           role="combobox"
-          aria-expanded={open}
           className="w-full justify-between"
         >
           {value
@@ -47,7 +46,10 @@ export const Combobox: React.FC<ComboboxProps> = ({
       </PopoverTrigger>
       <PopoverContent className="w-[200px] p-0">
         <Command>
-          <CommandInput placeholder="Search Options..." />
+          <CommandInput
+            placeholder="Search Options..."
+            
+          />
           <CommandEmpty>No options found.</CommandEmpty>
           <CommandGroup>
             {options.map((option: any) => (
@@ -55,6 +57,7 @@ export const Combobox: React.FC<ComboboxProps> = ({
                 key={option.value}
                 value={option.value}
                 onSelect={() => {
+                  console.log("onSelect", option.value);
                   onChange(option.value === value ? "" : option.value);
                   setOpen(false);
                 }}
