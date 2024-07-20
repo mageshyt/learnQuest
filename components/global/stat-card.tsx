@@ -16,7 +16,7 @@ interface StatCardProps {
 
 export const StatCard: FC<StatCardProps> = ({ iconSrc, title, value }) => {
   return (
-    <Card className=" rounded-md ">
+    <Card className=" rounded-md shadow-none">
       <CardContent className="flex items-center justify-between   p-4">
         {/* Icon image*/}
         <div className="rounded-xl bg-slate-200 p-2">
@@ -33,7 +33,7 @@ export const StatCard: FC<StatCardProps> = ({ iconSrc, title, value }) => {
           <CardTitle className="text-xs font-normal text-gray-500">
             {title}
           </CardTitle>
-          <CardDescription className="text-black mt-1 text-right text-lg font-semibold">
+          <CardDescription className="text-black dark:text-white mt-1 text-right text-lg font-semibold">
             {value}
           </CardDescription>
         </div>

@@ -22,7 +22,7 @@ export const DashboardCardWrapper: FC<DashboardCardWrapperProps> = ({
   );
 };
 
-const Wrapper = tw.div`rounded-md bg-white dark:bg-neutral-900`;
+const Wrapper = tw.div`rounded-md bg-white dark:bg-neutral-900 border`;
 
 const Title = tw.span`text-primary ml-4 text-lg font-semibold`;
 
