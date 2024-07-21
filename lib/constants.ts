@@ -1,3 +1,13 @@
+import { SideBar } from "@/types/typings";
+import {
+  Book,
+  BookCheck,
+  GraduationCap,
+  Layout,
+  Search,
+  Users,
+} from "lucide-react";
+
 export const clients = [...new Array(10)].map((client, index) => ({
   href: `/sponsers/${index + 1}.png`,
 }));
@@ -42,6 +52,61 @@ export const products = [
   },
 ];
 
+export const TEACHER_NAV_ITEM: SideBar[] = [
+  {
+    title: "Main",
 
-// #0x064c5a3DbE300E7Cbc4719677092141988205f65
-//0x17739bDC777d45008f33161BE967357d38Ad69B2
+    items: [
+      {
+        title: "Dashboard",
+        path: "/teacher/analytics",
+        submenu: false,
+        icon: Layout,
+      },
+    ],
+  },
+  {
+    title: "Course Management",
+    items: [
+      {
+        title: "course",
+        path: "/teacher/courses",
+        submenu: true,
+        subMenuItems: [
+          {
+            title: "My courses",
+            path: "/",
+          },
+          {
+            title: "Add course",
+            path: "/create",
+          },
+        ],
+        icon: BookCheck,
+      },
+      {
+        title: "students",
+        icon: GraduationCap,
+        path: "/teacher/students",
+      },
+    ],
+  },
+];
+
+export const USER_NAV_ITEM: SideBar[] = [
+  {
+    title: "Main",
+    items: [
+      {
+        title: "Dashboard",
+        path: "/",
+        icon: Layout,
+      },
+      {
+        title: "Browser",
+        path: "/search",
+        icon: Search,
+      },
+    ],
+  },
+];

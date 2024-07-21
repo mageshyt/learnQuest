@@ -25,7 +25,10 @@ import { createCourseSchema } from "@/schema";
 import { LoadingButton } from "@/components/ui/loading-button";
 import { SheetClose } from "@/components/ui/sheet";
 
-const CourseForm = () => {
+interface CourseFormProps {
+  type?: "sheet" | "page";
+}
+const CourseForm = ({ type = "page" }: CourseFormProps) => {
   // ---------------------------------------hooks---------------------------------------
   const form = useForm<z.infer<typeof createCourseSchema>>({
     resolver: zodResolver(createCourseSchema),
@@ -85,11 +88,19 @@ const CourseForm = () => {
           )}
         />
         <div className="flex items-center gap-x-2">
-          <SheetClose asChild>
-            <Button type="button" variant={"ghost"}>
-              Cancel
-            </Button>
-          </SheetClose>
+          {type === "sheet" ? (
+            <SheetClose asChild>
+              <Button type="button" variant={"ghost"}>
+                Cancel
+              </Button>
+            </SheetClose>
+          ) : (
+            <Link href="/dashboard/teacher/courses">
+              <Button type="button" variant={"ghost"}>
+                Cancel
+              </Button>
+            </Link>
+          )}
 
           <LoadingButton
             type="submit"
