@@ -1,43 +1,20 @@
+
+
 "use client";
-import ListView from "@/components/global/list-view";
-import { BarChart, Compass, icons, Layout, List } from "lucide-react";
 import React from "react";
-import SidebarItem from "./sidebar-item";
+
+import ListView from "@/components/global/list-view";
+import { TEACHER_NAV_ITEM, USER_NAV_ITEM } from "@/lib/constants";
 import { usePathname } from "next/navigation";
-
-const guestRoutes = [
-  {
-    icon: Layout,
-    title: "Dashboard",
-    href: "/dashboard",
-  },
-  {
-    icon: Compass,
-    title: "Browse",
-    href: "/dashboard/search",
-  },
-];
-
-const teachersRoutes = [
-  {
-    icon: BarChart,
-    title: "Analytics",
-    href: "/dashboard/teacher/analytics",
-  },
-  {
-    icon: List,
-    title: "Courses",
-    href: "/dashboard/teacher/courses",
-  },
-];
+import SidebarItem from "./sidebar-item";
 const SidebarRoutes = () => {
   const pathname = usePathname();
 
   const isTeacherPage = pathname?.startsWith("/dashboard/teacher");
-  const routes = isTeacherPage ? teachersRoutes : guestRoutes;
-
+  // console.log("isAdminPage", isAdminPage);
+  const routes = isTeacherPage ? TEACHER_NAV_ITEM : USER_NAV_ITEM;
   return (
-    <div className="flex flex-col w-full gap-y-4 p-4">
+    <div className="flex flex-col w-full gap-y-4 ">
       <ListView items={routes} render={(route) => <SidebarItem {...route} />} />
     </div>
   );

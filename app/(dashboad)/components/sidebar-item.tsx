@@ -1,49 +1,126 @@
 "use client";
 
-import React, { FC } from "react";
-import { LucideIcon } from "lucide-react";
+import React, { FC, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
+import { ChevronRightIcon } from "lucide-react";
+import ListView from "@/components/global/list-view";
+import { SideBar, SideNavItem } from "@/types/typings";
 import { cn } from "@/lib/utils";
 
-interface SidebarItemProps {
-  icon: LucideIcon;
-  title: string;
-  href: string;
-}
+// Sidebar component definition
+const SidebarItem: FC<SideBar> = ({ title, items }) => {
+  return (
+    <div className="flex flex-col w-full gap-y-4 p-4">
+      <div className="flex items-center gap-4">
+        <div className="text-sm text-slate-500 font-semibold ">{title}</div>
+      </div>
+      <ListView
+        items={items}
+        render={(item) => <SidebarMenuItems key={item.path} {...item} />}
+      />
+    </div>
+  );
+};
 
-const SidebarItem: FC<SidebarItemProps> = ({ icon: Icon, title, href }) => {
+// Sidebar menu item component definition
+const SidebarMenuItems: FC<SideNavItem> = ({
+  title,
+  path,
+  icon: Icon,
+  submenu,
+  subMenuItems,
+}) => {
   const pathname = usePathname();
   const router = useRouter();
+  const [isOpen, setIsOpen] = useState(false);
 
-  const isActive =
-    (pathname === "/dashboard" && href === "/dashboard") ||
-    pathname === href ||
-    pathname?.startsWith(`/dashboard/${href}/`);
+  // Toggle the submenu open state
+  const toggle = () => setIsOpen(!isOpen);
 
-  // ------------------------ handlers------------------------
-  const handleClick = () => {
-    router.push(href);
+  // Handle menu item click
+  const handleItemClick = () => {
+    if (!submenu) {
+      router.push("/dashboard" + path);
+    } else {
+      toggle();
+    }
   };
+
+  // Determine if the menu item is active
+  const isActive =
+    pathname === path ||
+    (pathname === "/dashboard" && path === "/") ||
+    pathname === "/dashboard" + path;
+
   return (
-    <button
-      onClick={handleClick}
-      className={cn(
-        "flex rounded-md items-center gap-x-2 text-slate-500 dark:text-slate-100  text-sm font-[500] pl-6 transition-all hover:text-slate-600 hover:bg-slate-300/20",
-        isActive &&
-          " text-emerald-700 dark:text-emerald-400 dark:bg-emerald-400/30 bg-emerald-300/20 hover:bg-emerald-400/20 hover:text-emerald-700"
-      )}
-    >
-      <div className="flex items-center gap-x-2 py-3">
-        <Icon
-          size={22}
-          className={cn(
-            "text-slate-500 dark:text-slate-100",
-            isActive && "text-emerald-700 dark:text-emerald-400"
+    <div className="relative gap-4">
+      {/* Menu item */}
+      <div
+        onClick={handleItemClick}
+        className={cn(
+          "flex items-center py-3 px-4 gap-2 rounded-md hover:bg-gray-100 dark:hover:bg-neutral-700/30 w-full justify-between cursor-pointer",
+          isActive ? "bg-gray-100 dark:bg-neutral-800" : ""
+        )}
+      >
+        {/* Menu title */}
+        <div className="flex gap-2 items-center">
+          {Icon && (
+            <Icon
+              className={cn(
+                "w-6 h-5",
+                isActive ? "text-slate-500 dark:text-slate-50" : ""
+              )}
+            />
           )}
-        />
-        <span className="font-medium">{title}</span>
+          <span
+            className={cn(
+              "text-sm font- ",
+              isActive ? "text-slate-500 dark:text-slate-50" : ""
+            )}
+          >
+            {title}
+          </span>
+        </div>
+        {submenu && (
+          <div>
+            <ChevronRightIcon
+              className={cn(
+                "transition-transform text-gray-500 duration-300 h-4 w-4",
+                isOpen ? "transform rotate-90" : ""
+              )}
+            />
+          </div>
+        )}
       </div>
-    </button>
+
+      {/* Dropdown menu */}
+      {submenu && subMenuItems && (
+        <div
+          className={cn(
+            "transition-all duration-300 transform ml-8",
+            isOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
+          )}
+        >
+          <ListView
+            items={subMenuItems}
+            render={(item) => (
+              <div
+                key={item.path}
+                className="py-2 px-4 cursor-pointer border-l-2 border-dashed border-gray-200"
+                onClick={() => router.push("/dashboard" + path + item.path)}
+              >
+                <div className="flex items-center">
+                  <div className="border-b-2 border-dashed border-gray-200 w-6 h-[1px] -ml-4 mr-1"></div>
+                  <div className="text-sm  hover:opacity-65 transition  ">
+                    {item.title}
+                  </div>
+                </div>
+              </div>
+            )}
+          />
+        </div>
+      )}
+    </div>
   );
 };
 
