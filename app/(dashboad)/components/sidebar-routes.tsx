@@ -20,14 +20,14 @@ const guestRoutes = [
 
 const teachersRoutes = [
   {
-    icon: List,
-    title: "Courses",
-    href: "/dashboard/teacher/courses",
-  },
-  {
     icon: BarChart,
     title: "Analytics",
     href: "/dashboard/teacher/analytics",
+  },
+  {
+    icon: List,
+    title: "Courses",
+    href: "/dashboard/teacher/courses",
   },
 ];
 const SidebarRoutes = () => {
