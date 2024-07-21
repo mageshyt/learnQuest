@@ -16,8 +16,10 @@ export const DashboardCardWrapper: FC<DashboardCardWrapperProps> = ({
 
         <Title>{title}</Title>
       </HeadingWrapper>
+    <Body>
 
       {children}
+    </Body>
     </Wrapper>
   );
 };
@@ -27,3 +29,5 @@ const Wrapper = tw.div`rounded-md bg-white dark:bg-neutral-900 border`;
 const Title = tw.span`text-primary ml-4 text-lg font-semibold`;
 
 const HeadingWrapper = tw.div`pt-4  flex`;
+
+const Body = tw.div`p-4`;

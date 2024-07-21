@@ -18,12 +18,12 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 import { PurchaseWithCourse } from "@/actions/dashboard/get-analytics";
-import { formatPrice, getSaleHistory } from "@/lib";
+import { getSaleHistory } from "@/lib";
 
 const chartConfig = {
   course: {
     label: "Earnings",
-    color: "hsl(var(--chart-2))",
+    color: "hsl(var(--chart-1))",
   },
 } satisfies ChartConfig;
 

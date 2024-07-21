@@ -16,13 +16,15 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
 
       {/* content */}
 
-      <main className="h-full pt-[80px] lg:pl-64 ">{children}</main>
+      <main className="h-full pt-[80px] lg:pl-64 overflow-y-auto">
+        {children}
+      </main>
     </Wrapper>
   );
 };
 
 export default DashboardLayout;
 
-const Wrapper = tw.div`  bg-[#F3F4F6] dark:bg-neutral-950`;
+const Wrapper = tw.div` h-full bg-[#F3F4F6] dark:bg-neutral-950`;
 
 const SidebarWrapper = tw.div`fixed inset-y-0 z-50 hidden h-full bg-white dark:bg-neutral-950 w-64 flex-col lg:flex `;

@@ -40,14 +40,12 @@ const CoursesPage = () => {
       {/* list of coursed */}
 
       <DashboardCardWrapper title="Courses">
-        <div className="p-4">
-          <DataTable
-            columns={columns}
-            data={courses}
-            searchKey="title"
-            actions={[<CreateCourse key={"create"} />]}
-          />
-        </div>
+        <DataTable
+          columns={columns}
+          data={courses}
+          searchKey="title"
+          actions={[<CreateCourse key={"create"} />]}
+        />
       </DashboardCardWrapper>
     </div>
   );

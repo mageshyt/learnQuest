@@ -22,7 +22,7 @@ import { formatPrice } from "@/lib";
 const chartConfig = {
   course: {
     label: "course",
-    color: "hsl(var(--chart-2))",
+    color: "hsl(var(--chart-1))",
   },
 } satisfies ChartConfig;
 
