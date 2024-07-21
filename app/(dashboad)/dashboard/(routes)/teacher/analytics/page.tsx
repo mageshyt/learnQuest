@@ -6,6 +6,7 @@ import Summary from "./components/summary";
 import { SaleHistory } from "./components/sale-history";
 import { getSaleHistory } from "@/lib";
 import { TopSelling } from "./components/top-selling";
+import RecentOrders from "./components/recent-orders";
 const AnalyticsPage = async () => {
   const { userId } = auth();
 
@@ -17,7 +18,7 @@ const AnalyticsPage = async () => {
     await getAnalytics(userId);
 
   return (
-    <div className="p-6 w-full space-y-4">
+    <div className="p-6  w-full space-y-4">
       {/* summary */}
       <Summary
         totalRevenue={totalRevenue}
@@ -31,6 +32,10 @@ const AnalyticsPage = async () => {
         <SaleHistory purchases={purchases} />
         <TopSelling courses={data} />
       </div>
+
+      {/* order table  */}
+
+      <RecentOrders  />
     </div>
   );
 };
