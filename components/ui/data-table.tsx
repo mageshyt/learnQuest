@@ -37,7 +37,7 @@ import ListView from "../global/list-view";
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-  searchKey: string;
+  searchKey?: string;
   actions?: React.ReactNode[];
 }
 export function DataTable<TData, TValue>({
@@ -77,17 +77,18 @@ export function DataTable<TData, TValue>({
   return (
     <div>
       <div className="flex  gap-4 items-center py-4 justify-between">
-        {/* <div className="flex border items-center rounded-md px-4 max-w-sm w-full"> */}
-        {/* <Search className="h-6 w-6 text-gray-400" /> */}
-        <Input
-          placeholder={`Search by ${searchKey}`}
-          value={(table.getColumn(searchKey)?.getFilterValue() as string) ?? ""}
-          onChange={(event) =>
-            table.getColumn(searchKey)?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm rounded-sm "
-        />
-
+        {searchKey && (
+          <Input
+            placeholder={`Search by ${searchKey}`}
+            value={
+              (table.getColumn(searchKey)?.getFilterValue() as string) ?? ""
+            }
+            onChange={(event) =>
+              table.getColumn(searchKey)?.setFilterValue(event.target.value)
+            }
+            className="max-w-sm rounded-sm "
+          />
+        )}
         {/* </div> */}
         <div className="flex items-center gap-4">
           {Actions && <ListView items={Actions} render={(item) => item} />}
@@ -119,14 +120,17 @@ export function DataTable<TData, TValue>({
           </DropdownMenu>
         </div>
       </div>
-      <div className="rounded-md border">
-        <Table>
-          <TableHeader>
+      <div className="border rounded-md border-dashed">
+        <Table className=" overflow-hidden  rounded-md">
+          <TableHeader className=" dark:bg-neutral-700 border-none  bg-slate-50">
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
+              <TableRow key={headerGroup.id} className="border-none">
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead
+                      className="text-black dark:text-muted-foreground font-semibold"
+                      key={header.id}
+                    >
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -145,6 +149,7 @@ export function DataTable<TData, TValue>({
               table.getRowModel().rows.map((row) => (
                 <TableRow
                   key={row.id}
+                  className="group border-dashed "
                   data-state={row.getIsSelected() && "selected"}
                 >
                   {row.getVisibleCells().map((cell) => (
