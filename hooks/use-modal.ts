@@ -1,10 +1,11 @@
 import { create } from "zustand";
 
-export type ModalType = "chapterDescriptionHelper"|"confirmation-model";
+export type ModalType = "chapter-ai-helper" | "confirmation-model";
 
 interface ModalData {
   handleConfirm?: () => void;
   confirmText?: string;
+  chapterId?: string;
 }
 interface ModalStore {
   type: ModalType | null;
