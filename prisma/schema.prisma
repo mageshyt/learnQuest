@@ -117,6 +117,7 @@ model MuxData {
   id         String  @id @default(uuid())
   playbackId String?
   assetId    String
+  trackId    String?
 
   chapterId String  @unique
   chapter   Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
@@ -124,6 +125,8 @@ model MuxData {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  @@unique([assetId])
+  @@index([assetId, playbackId])
   @@index([chapterId])
 }
 
