@@ -1,9 +1,15 @@
 import { create } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 
-interface ChatMessage {
+export interface ChatMessage {
   role: "user" | "model";
-  parts: string[];
+  parts: {
+    text: string;
+  }[];
+  content: {
+    markdown?: string; // Optional markdown version of the message, if applicable
+    html?: string; // Optional HTML version of the message, if applicable
+  };
 }
 
 interface ChapterHistory {
@@ -15,11 +21,7 @@ interface ChapterHistory {
 
 interface ChatStore {
   history: ChapterHistory[];
-  addMessage: (
-    chapterId: string,
-    message: ChatMessage,
-    transcript: string
-  ) => void;
+  addMessage: (chapterId: string, message: ChatMessage) => void;
   getChapterHistory: (chapterId: string) => ChatMessage[];
   createChapter: (chapterId: string, transcript?: string) => void;
   getChapterDetails: (chapterId: string) => ChapterHistory | undefined;
@@ -31,7 +33,7 @@ export const useChatStore = create<ChatStore>()(
     (set, get) => ({
       history: [],
 
-      addMessage: (chapterId, message, transcript) =>
+      addMessage: (chapterId, message) =>
         set((state) => {
           // check if the chapter already exists in the history
           const existingChapter = state.history.find(
@@ -45,7 +47,14 @@ export const useChatStore = create<ChatStore>()(
           } else {
             state.history.push({
               chapterId,
-              messages: [message],
+              messages: [{
+                role: message.role,
+                parts: message.parts,
+                content: {
+                  markdown: message.content.markdown,
+                  html: message.content.html,
+                },
+              }],
               createdAt: new Date(),
               transcript: "",
             });
