@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 
 import { ThemeProvider } from "@/components/providers/theme-providers";
@@ -10,7 +10,11 @@ import QueryProvider from "@/components/providers/query-provider";
 import { ModalProvider } from "@/components/providers/modal-provider";
 import { ConfettiProvider } from "@/components/providers/confetti-provider";
 
-const font = Inter({ subsets: ["latin"] });
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["400", "700", "200", "300", "500", "600", "800", "900"],
+  adjustFontFallback: true,
+});
 
 export const metadata: Metadata = {
   title: "Learn Quest",
@@ -25,7 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={cn(font.className, "h-screen")}>
+      <body className={cn(inter.className, "h-screen")}>
         <QueryProvider>
           <ThemeProvider
             attribute="class"
@@ -34,7 +38,7 @@ export default function RootLayout({
             // storageKey="learn-quest-theme"
           >
             <ClerkProvider>
-              <ConfettiProvider/>
+              <ConfettiProvider />
               <ModalProvider />
               <ToastProvider />
               {children}
