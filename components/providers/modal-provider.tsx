@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import ChapterDescriptionHelperModal from "../modals/chapter-description-helper-modal";
 import ConfirmModal from "../modals/confirm-modal";
+import { ChapterAiHelperModal } from "../modals/chapter-ai-helper";
 
 export const ModalProvider = () => {
   // Hydration Fix
@@ -17,6 +17,7 @@ export const ModalProvider = () => {
   return (
     <>
       <ConfirmModal />
+      <ChapterAiHelperModal/>
     </>
   );
 };

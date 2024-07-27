@@ -74,7 +74,7 @@ const ChapterIdPage = async ({ params }: ChapterPageProps) => {
             <AiQuestion
               playBackId={muxData?.playbackId!}
               trackId={muxData?.trackId!}
-              assetId={muxData?.assetId!}
+              chapterId={chapter.id}
             />
           </div>
         </div>
