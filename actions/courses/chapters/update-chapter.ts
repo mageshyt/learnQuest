@@ -84,16 +84,28 @@ export const updateChapter = async (
         input: [
           {
             url: value.videoUrl,
+            generated_subtitles: [
+              {
+                language_code: "en",
+                name: "English CC",
+              },
+            ],
+
           },
         ],
-        test: false,
+
+        test:false,
+
       });
+
+      console.log(asset);
 
       const muxData = await db.muxData.create({
         data: {
           assetId: asset.id,
           chapterId,
           playbackId: asset.playback_ids?.[0]?.id,
+          trackId: asset.tracks?.find((track) => track.type === "text")?.id,
         },
       });
     }
