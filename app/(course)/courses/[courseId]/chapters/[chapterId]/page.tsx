@@ -9,6 +9,7 @@ import { Preview } from "@/components/global/preview";
 import ListView from "@/components/global/list-view";
 import { File } from "lucide-react";
 import { CourseProgressButton } from "./components/course-progress-button";
+import { AiQuestion } from "./components/ai-question";
 
 interface ChapterPageProps {
   params: {
@@ -67,6 +68,13 @@ const ChapterIdPage = async ({ params }: ChapterPageProps) => {
               nextChapterId={nextChapter?.id!}
               isLocked={isLocked}
               completeOnEnd={completeOnEnd}
+            />
+
+            {/* Ai Feature */}
+            <AiQuestion
+              playBackId={muxData?.playbackId!}
+              trackId={muxData?.trackId!}
+              assetId={muxData?.assetId!}
             />
           </div>
         </div>
