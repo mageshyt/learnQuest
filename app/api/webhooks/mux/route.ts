@@ -1,3 +1,4 @@
+import { env } from "@/env";
 import { db } from "@/lib";
 import Mux from "@mux/mux-node";
 import { MuxData } from "@prisma/client";
@@ -5,7 +6,7 @@ import { headers } from "next/headers";
 import { NextResponse } from "next/server";
 
 const mux = new Mux({
-  webhookSecret: "cu12pcvrhfh9vgleu84t0m1dd1gh3asj",
+  webhookSecret:env.MUX_WEBHOOK_SECRET,
 });
 async function handler(request: Request) {
   const headersList = headers();
