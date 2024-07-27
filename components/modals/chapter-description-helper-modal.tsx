@@ -68,7 +68,7 @@ const ChapterDescriptionHelperModal: FC<ChapterDescriptionHelperModalProps> = ({
           <CustomModalTitle>Chapter Description Helper</CustomModalTitle>
         </CustomModalHeader>
 
-        <CustomModalBody className="gap-4">
+        <CustomModalBody className="gap-4 max-h-[500px] overflow-y-auto">
           {/* preview */}
 
           {generatedDescription && (
