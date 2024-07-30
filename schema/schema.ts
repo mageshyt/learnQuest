@@ -1,6 +1,7 @@
 import { COURSE_TYPE } from "@prisma/client";
 import { z } from "zod";
 
+// ==================COURSE==================
 export const createCourseSchema = z.object({
   title: z.string().min(1, {
     message: "Title is required",
@@ -39,6 +40,7 @@ export const priceFormSchema = z.object({
   courseType: z.nativeEnum(COURSE_TYPE).default(COURSE_TYPE.FREE),
 });
 
+// ==================CHAPTER==================
 export const createChapterForm = z.object({
   title: z.string().min(1, {
     message: "Title is required",
@@ -52,5 +54,21 @@ export const chapterAccessForm = z.object({
 export const chapterVideoForm = z.object({
   videoUrl: z.string().min(1, {
     message: "Video URL is required",
+  }),
+});
+
+// ==================QUIZ==================
+
+export const quizFormSchema = z.object({
+  noOfQuestions: z.coerce
+    .number()
+    .min(1, {
+      message: "Number of questions is required",
+    })
+    .max(15, {
+      message: "Maximum number of questions is 15",
+    }),
+  questionTypes: z.array(z.enum(["multiple choice", "true/false"])).min(1, {
+    message: "At least one question type is required",
   }),
 });

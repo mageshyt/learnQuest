@@ -3,12 +3,12 @@ import React, { FC } from "react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -20,17 +20,21 @@ import { Input } from "@/components/ui/input";
 import { z } from "zod";
 import MultipleSelector, { Option } from "@/components/ui/multi-select";
 import { Gamepad } from "lucide-react";
+import { quizFormSchema } from "@/schema";
 
-const quizFormSchema = z.object({
-  noOfQuestions: z.coerce.number().min(1),
-  questionTypes: z.array(z.enum(["multiple choice", "true/false"])).min(1),
-});
+interface QuizConfigFormProps {
+  handleConfig: (config: z.infer<typeof quizFormSchema>) => void;
+  initialConfig?: z.infer<typeof quizFormSchema>;
+}
 
-const QuizConfigForm: FC = ({}) => {
+const QuizConfigForm = ({
+  handleConfig,
+  initialConfig,
+}: QuizConfigFormProps) => {
   // ---------------------------------------hooks---------------------------------------
   const form = useForm<z.infer<typeof quizFormSchema>>({
     resolver: zodResolver(quizFormSchema),
-    defaultValues: {
+    defaultValues: initialConfig || {
       noOfQuestions: 0,
       questionTypes: [],
     },
@@ -53,9 +57,9 @@ const QuizConfigForm: FC = ({}) => {
 
   const handleSubmit = async (data: z.infer<typeof quizFormSchema>) => {
     try {
-      console.log(data);
+      handleConfig(data);
     } catch (err) {
-      // Handle error
+      console.error(err);
     }
   };
   return (
@@ -70,6 +74,9 @@ const QuizConfigForm: FC = ({}) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Number of Questions</FormLabel>
+              <FormDescription>
+                You can chose how many questions you want to generate. The
+              </FormDescription>
               <FormControl>
                 <Input {...field} type="number" min={1} />
               </FormControl>
@@ -84,6 +91,9 @@ const QuizConfigForm: FC = ({}) => {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Question Types</FormLabel>
+              <FormDescription>
+                Select the desired question types for the quiz.
+              </FormDescription>
               <MultipleSelector
                 defaultOptions={OPTIONS}
                 placeholder="Select question types"
@@ -94,7 +104,7 @@ const QuizConfigForm: FC = ({}) => {
                   return { label: value, value: value };
                 })}
                 emptyIndicator={
-                  <p className="text-center text-sm leading-10 text-gray-600 dark:text-gray-400">
+                  <p className="text-center text-sm  text-gray-600 dark:text-gray-400">
                     no results found.
                   </p>
                 }
@@ -104,7 +114,12 @@ const QuizConfigForm: FC = ({}) => {
           )}
         />
 
-        <Button type="submit" className="w-full" size="lg">
+        <Button
+          type="submit"
+          className="w-full"
+          size="lg"
+          disabled={isSubmitting || !isValid}
+        >
           Start
           <Gamepad className="h-6 w-6 ml-2" />
         </Button>
