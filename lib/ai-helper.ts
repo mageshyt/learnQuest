@@ -1,5 +1,5 @@
 import { env } from "@/env";
-import { questionType } from "@/types/typings";
+import { Question, questionType } from "@/types/typings";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
 // ======================== Configurations ========================
@@ -161,7 +161,7 @@ const generateQuiz = async ({
   chapter_description,
   num_questions,
   question_types,
-}: GenerateQuizProps) => {
+}: GenerateQuizProps): Promise<Question[]> => {
   const prompt = `Create a quiz with ${num_questions} multiple-choice questions on the topic of "${chapter_title}". i need ${question_types.length} ${question_types.join(" ")} question type`;
 
   try {
@@ -178,16 +178,18 @@ const generateQuiz = async ({
       return data;
     } catch (parseError) {
       console.error("Error parsing JSON response:", parseError);
+      return [];
     }
   } catch (fetchError) {
     console.error("Error fetching quiz data:", fetchError);
+    return [];
   }
 };
 
 const generateQuizWithRetry = async (
   props: GenerateQuizProps,
   retryCount = 0
-): Promise<any> => {
+): Promise<Question[]> => {
   try {
     return await generateQuiz(props);
   } catch (error) {
@@ -196,7 +198,7 @@ const generateQuizWithRetry = async (
       return generateQuizWithRetry(props, retryCount + 1);
     } else {
       console.error("Exceeded maximum retry attempts");
-      throw new Error("Failed to generate quiz after multiple attempts");
+      return [];
     }
   }
 };
