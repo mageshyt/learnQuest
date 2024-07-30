@@ -10,6 +10,7 @@ import ListView from "@/components/global/list-view";
 import { File } from "lucide-react";
 import { CourseProgressButton } from "./components/course-progress-button";
 import { AiQuestion } from "./components/ai-question";
+import QuizGenerator from "./components/quiz-generator";
 
 interface ChapterPageProps {
   params: {
@@ -44,7 +45,7 @@ const ChapterIdPage = async ({ params }: ChapterPageProps) => {
 
   const isLocked = !chapter.isFree && !purchase;
   const completeOnEnd = !!purchase && !userProgress?.isCompleted;
-  console.log("ChapterIdPage -> completeOnEnd", userProgress);
+  // console.log("ChapterIdPage -> completeOnEnd", userProgress);
   return (
     <>
       <div className="  ">
@@ -59,7 +60,7 @@ const ChapterIdPage = async ({ params }: ChapterPageProps) => {
           />
         )}
         <div className="flex flex-col w-full">
-          <div className="p-4">
+          <div className="p-4 space-y-4">
             <VideoPlayer
               playbackId={muxData?.playbackId!}
               chapterId={chapter.id}
@@ -71,11 +72,23 @@ const ChapterIdPage = async ({ params }: ChapterPageProps) => {
             />
 
             {/* Ai Feature */}
-            <AiQuestion
-              playBackId={muxData?.playbackId!}
-              trackId={muxData?.trackId!}
-              chapterId={chapter.id}
-            />
+
+            <div className="flex items-center justify-between">
+              {/* chat helper */}
+
+              <AiQuestion
+                playBackId={muxData?.playbackId!}
+                trackId={muxData?.trackId!}
+                chapterId={chapter.id}
+              />
+
+              {/* Quiz */}
+              <QuizGenerator
+                title={chapter.title}
+                description={chapter.description!}
+                chapterId={chapter.id}
+              />
+            </div>
           </div>
         </div>
 
