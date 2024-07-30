@@ -34,7 +34,7 @@ const NavbarRoutes = () => {
             </Button>
           </Link>
         ) : (
-          <Link href="/dashboard/teacher/courses">
+          <Link href="/dashboard/teacher/analytics">
             <Button size="sm" variant="ghost">
               Teacher Mode
             </Button>
