@@ -51,6 +51,7 @@
     "cmdk": "0.2.0",
     "date-fns": "^3.6.0",
     "framer-motion": "^11.2.6",
+    "highlight.js": "^11.10.0",
     "javascript-time-ago": "^2.5.10",
     "lucide-react": "^0.411.0",
     "mini-svg-data-uri": "^1.4.4",
