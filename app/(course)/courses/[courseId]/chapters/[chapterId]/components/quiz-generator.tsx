@@ -3,19 +3,23 @@
 import { useMemo, useState } from "react";
 import { ShieldCheck } from "lucide-react";
 
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-
-import { Button } from "@/components/ui/button";
 import { Question } from "@/types/typings";
 import QuizConfigForm from "./quiz-form";
+import { quizFormSchema } from "@/schema";
+import { z } from "zod";
+
+import {
+  ResponsiveModal,
+  ResponsiveModalContent,
+  ResponsiveModalDescription,
+  ResponsiveModalHeader,
+  ResponsiveModalTitle,
+  ResponsiveModalTrigger,
+} from "@/components/ui/responsive-modal";
+
+import { Button } from "@/components/ui/button";
+import Spinner from "@/components/ui/spinner";
+import { generateQuizWithRetry } from "@/lib/ai-helper";
 
 const STEPS = {
   INITIAL: 0,
@@ -37,87 +41,125 @@ const QuizGenerator = ({
   // -----------------State-----------------
   const [step, setStep] = useState(STEPS.INITIAL);
   const [questions, setQuestions] = useState<Question[]>([]);
+  const [quizConfig, setQuizConfig] = useState<z.infer<typeof quizFormSchema>>({
+    noOfQuestions: 0,
+    questionTypes: [],
+  });
+  const [loading, setLoading] = useState(false);
 
   // -------------------------- Constants --------------------------
-  const actionLabel = useMemo(() => {
+
+  const modelTitle = useMemo(() => {
     switch (step) {
       case STEPS.INITIAL:
-        return "Start";
+        return "Generate Quiz 🎲";
       case STEPS.QUESTION:
-        return "Submit";
+        return "Questions";
       case STEPS.RESULTS:
-        return "Finish";
+        return "Results";
       default:
-        return "Next";
+        return "Generate Quiz";
     }
   }, [step]);
 
-  const secondaryActionLabel = useMemo(() => {
+  const modelDescription = useMemo(() => {
     switch (step) {
       case STEPS.INITIAL:
-        return "Cancel";
+        return "Generate a quiz for this chapter.";
       case STEPS.QUESTION:
-        return "Back";
+        return "Answer the following questions.";
       case STEPS.RESULTS:
-        return "Back";
+        return "Here are your results.";
       default:
-        return "Back";
+        return "Generate a quiz for this chapter.";
     }
   }, [step]);
-
-  const isLastStep = step === STEPS.RESULTS;
 
   // -----------------handlers-----------------
-  const onBack = () => setStep((value) => value - 1);
-  const onNext = () => setStep((value) => value + 1);
+  const handleQuizConfigSubmit = async (
+    config: z.infer<typeof quizFormSchema>
+  ) => {
+    try {
+      // set quiz config
+      setQuizConfig(config);
+
+      setStep(STEPS.QUESTION);
+      setLoading(true);
+      const res = await generateQuizWithRetry(
+        {
+          chapter_description: description,
+          chapter_title: title,
+          num_questions: config.noOfQuestions,
+          question_types: config.questionTypes,
+        },
+        3
+      );
+
+      console.log(res);
+      // set questions
+      setQuestions(res);
+
+      // move to next step
+    } catch (err) {
+    } finally {
+      setLoading(false);
+    }
+  };
 
   //   -----------------ui-----------------
 
   let content;
 
   if (step === STEPS.INITIAL) {
-    content = <QuizConfigForm />;
+    content = (
+      <QuizConfigForm
+        handleConfig={handleQuizConfigSubmit}
+        initialConfig={quizConfig}
+      />
+    );
+  }
+
+  if (step === STEPS.QUESTION) {
+    content = (
+      <div>
+        <Spinner loading={loading} type="grid" />
+        {/* show details about the quiz */}
+        <div className="text-sm text-muted-foreground text-right">
+          total questions: {questions.length}
+        </div>
+
+        <p>TODO : show questions here</p>
+
+        {/* show questions */}
+      </div>
+    );
   }
 
   return (
-    <Dialog open={true}>
-      <DialogTrigger asChild>
-        <Button variant={"gooeyLeft"} className="bg-sky-600">
+    <ResponsiveModal>
+      <ResponsiveModalTrigger asChild>
+        <Button
+          variant={"gooeyLeft"}
+          className="bg-sky-600 dark:bg-sky-500 dark:text-white"
+        >
           Test Yourself
           <ShieldCheck className="h-4 w-4 ml-2" />
         </Button>
-      </DialogTrigger>
+      </ResponsiveModalTrigger>
 
-      <DialogContent>
+      <ResponsiveModalContent>
         {/* -----------------Header -----------------*/}
-        <DialogHeader>
-          <DialogTitle>Generate Quiz</DialogTitle>
-          <DialogDescription>
-            Generate a quiz for this chapter.
-          </DialogDescription>
-        </DialogHeader>
+        <ResponsiveModalHeader>
+          <ResponsiveModalTitle>{modelTitle}</ResponsiveModalTitle>
+          <ResponsiveModalDescription>
+            {modelDescription}
+          </ResponsiveModalDescription>
+        </ResponsiveModalHeader>
 
         {/* -----------------body-----------------*/}
-
         {content}
-
-        {/* -----------------footer-----------------*/}
-
-        {/* <DialogFooter>
-          <Button
-            variant={"ghost"}
-            onClick={onBack}
-            disabled={step === STEPS.INITIAL}
-          >
-            {secondaryActionLabel}
-          </Button>
-
-          <Button onClick={onNext} disabled={isLastStep}>
-            {actionLabel}
-          </Button>
-        </DialogFooter> */}
-      </DialogContent>
-    </Dialog>
+      </ResponsiveModalContent>
+    </ResponsiveModal>
   );
 };
 
