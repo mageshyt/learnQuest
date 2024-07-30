@@ -9,7 +9,11 @@ const RecentOrders = async () => {
   return (
     <div>
       <DashboardCardWrapper title="Recent Orders">
-        <DataTable data={recentOrders} columns={columns} />
+        <DataTable
+          data={recentOrders}
+          columns={columns}
+          showColumnVisibility={false}
+        />
       </DashboardCardWrapper>
     </div>
   );
