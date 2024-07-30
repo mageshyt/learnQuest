@@ -21,7 +21,7 @@ import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Send } from "lucide-react";
 import { ChatList } from "@/app/(course)/courses/[courseId]/chapters/[chapterId]/components/chat-list";
-import { generateHelper } from "@/lib/ai-heper";
+import { generateHelper } from "@/lib/ai-helper";
 import { markdownToHtml } from "@/lib";
 
 const MessageFormSchema = z.object({

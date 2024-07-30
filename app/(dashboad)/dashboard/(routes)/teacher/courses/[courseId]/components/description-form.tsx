@@ -23,7 +23,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-import { getCourseDescription } from "@/lib/ai-heper";
+import { getCourseDescription } from "@/lib/ai-helper";
 import { Editor } from "@/components/global/editor";
 import { Preview } from "@/components/global/preview";
 

@@ -10,7 +10,7 @@ import {
   CustomModalTrigger,
   CustomModalClose,
 } from "@/components/global/custom-modal";
-import { getCourseChapterDescription } from "@/lib/ai-heper";
+import { getCourseChapterDescription } from "@/lib/ai-helper";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 import { Sparkle } from "lucide-react";
