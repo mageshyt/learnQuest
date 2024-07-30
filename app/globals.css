@@ -86,3 +86,7 @@
 ::-webkit-scrollbar {
   width: 0px;
 }
+
+mux-player {
+  --dialog: none;
+}
