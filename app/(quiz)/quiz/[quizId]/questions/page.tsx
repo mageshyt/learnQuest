@@ -1,7 +1,7 @@
 "use client";
 
 import { redirect } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 
 import { Quiz } from "@prisma/client";
 import { useQuiz } from "@/hooks/use-quiz";
@@ -9,8 +9,9 @@ import { Question } from "@/types/typings";
 
 import { useQuery } from "@tanstack/react-query";
 import { getQuizById } from "@/actions/quiz/get-quiz-by-id";
-
 import Header from "./components/header";
+import Footer from "./components/footer";
+import Questions from "./components/questions";
 
 interface QuizTestPageProps {
   params: {
@@ -18,9 +19,14 @@ interface QuizTestPageProps {
   };
 }
 const QuizTestPage = ({ params }: QuizTestPageProps) => {
-  const { setQuestions } = useQuiz();
+  const { setQuestions, questions, currentQuestionIndex, nextQuestion } =
+    useQuiz();
   // -----------------State-----------------
-  const { data: quiz, isPending } = useQuery<Quiz | null>({
+  const {
+    data: quiz,
+    isPending,
+    isLoading,
+  } = useQuery<Quiz | null>({
     queryKey: ["quiz", params.quizId],
     queryFn: () => getQuizById({ quizId: params.quizId }),
   });
@@ -38,15 +44,22 @@ const QuizTestPage = ({ params }: QuizTestPageProps) => {
     return redirect("/dashboard");
   }
 
-  // console.log("[QuizTestPage] quizData", quizData);
   return (
-    <div className="p-4">
-      {/* progress bar */}
-      <Header />
+    <div className="min-h-screen flex flex-col">
+      <div className="max-w-7xl mx-auto w-full">
+        <Header />
+      </div>
 
-      <main>{/* question */}</main>
+      {/* body */}
 
-      {/* footer */}
+      <Questions />
+
+      <Footer
+        quizId={params.quizId}
+        status="none"
+        disabled={false}
+        onCheck={nextQuestion}
+      />
     </div>
   );
 };
