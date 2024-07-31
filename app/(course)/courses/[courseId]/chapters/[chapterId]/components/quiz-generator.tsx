@@ -222,10 +222,10 @@ const QuizGenerator = ({
   return (
     <ResponsiveModal>
       <ResponsiveModalTrigger asChild>
-        <AnimatedButton variant={"primary"}>
+        <Button className="bg-sky-500 text-white">
           Test Yourself
           <ShieldCheck className="h-4 w-4 ml-2" />
-        </AnimatedButton>
+        </Button>
       </ResponsiveModalTrigger>
 
       <ResponsiveModalContent>
