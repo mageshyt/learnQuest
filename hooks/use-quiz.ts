@@ -14,6 +14,9 @@ interface QuizState {
   setQuestions: (questions: Question[]) => void;
   submitAnswer: () => void;
   setSelectedOption: (optionIndex: number) => void;
+  nextQuestion: () => void;
+  tryAgain: () => void;
+
   reset: () => void;
 }
 
@@ -50,8 +53,12 @@ export const useQuiz = create<QuizState>((set) => ({
 
       let newStatus: quizStatusType = "none";
       let newErrorCount = state.errorCount;
+      let nextQuestion = state.currentQuestionIndex + 1;
 
-      if (state.currentQuestionIndex === state.questions.length - 1) {
+      if (
+        state.currentQuestionIndex === state.questions.length - 1 &&
+        isCorrect
+      ) {
         newStatus = "completed"; // Last question has been answered
       } else if (isCorrect) {
         newStatus = "correct";
@@ -68,7 +75,7 @@ export const useQuiz = create<QuizState>((set) => ({
         score: isCorrect ? state.score + 1 : state.score,
         errorCount: newErrorCount,
         status: newStatus,
-        currentQuestionIndex: state.currentQuestionIndex + 1,
+        selectedOption: state.selectedOption,
       };
     }),
 
@@ -81,5 +88,31 @@ export const useQuiz = create<QuizState>((set) => ({
       score: 0,
       errorCount: 0,
       status: "none",
+    }),
+
+  // Move to the next question
+  nextQuestion: () =>
+    set((state) => {
+      if (state.currentQuestionIndex === state.questions.length - 1) {
+        return {
+          status: "completed",
+          currentQuestionIndex: state.questions.length - 1,
+        };
+      }
+      return {
+        selectedOption: null,
+        status: "none",
+        currentQuestionIndex: Math.min(
+          state.currentQuestionIndex + 1,
+          state.questions.length - 1
+        ),
+      };
+    }),
+
+  // Reset the quiz state
+  tryAgain: () =>
+    set({
+      status: "none",
+      selectedOption: null,
     }),
 }));
