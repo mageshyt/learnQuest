@@ -1,17 +1,19 @@
 "use client";
 
 import { redirect } from "next/navigation";
-import { useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { Quiz } from "@prisma/client";
 import { useQuiz } from "@/hooks/use-quiz";
-import { Question } from "@/types/typings";
+import { Question, quizStatusType } from "@/types/typings";
 
 import { useQuery } from "@tanstack/react-query";
 import { getQuizById } from "@/actions/quiz/get-quiz-by-id";
 import Header from "./components/header";
 import Footer from "./components/footer";
 import Questions from "./components/questions";
+import LoadingScreen from "@/components/global/loading-screen";
+import toast from "react-hot-toast";
 
 interface QuizTestPageProps {
   params: {
@@ -19,9 +21,16 @@ interface QuizTestPageProps {
   };
 }
 const QuizTestPage = ({ params }: QuizTestPageProps) => {
-  const { setQuestions, questions, currentQuestionIndex, nextQuestion } =
-    useQuiz();
-  // -----------------State-----------------
+  // -----------------Hooks-----------------
+  const {
+    setQuestions,
+    questions,
+    currentQuestionIndex,
+    submitAnswer,
+    status,
+    selectedOption,
+  } = useQuiz();
+  // -----------------TAN-STACK-----------------
   const {
     data: quiz,
     isPending,
@@ -35,15 +44,26 @@ const QuizTestPage = ({ params }: QuizTestPageProps) => {
     if (quiz) setQuestions(quiz.questions as Question[]);
   }, [quiz, setQuestions]);
 
+  // ------------------ Render ------------------
+
   if (isPending) {
     // TODO: Add a loading spinner
-    return <p>Loading...</p>;
+    return <LoadingScreen />;
   }
 
   if (!quiz) {
     return redirect("/dashboard");
   }
 
+  // ------------------ handlers------------------
+  const handleSubmit = useCallback(() => {
+    if (!selectedOption) {
+      toast.error("Please select an option");
+      return;
+    }
+
+    submitAnswer();
+  }, [selectedOption, submitAnswer]);
   return (
     <div className="min-h-screen flex flex-col">
       <div className="max-w-7xl mx-auto w-full">
@@ -56,9 +76,9 @@ const QuizTestPage = ({ params }: QuizTestPageProps) => {
 
       <Footer
         quizId={params.quizId}
-        status="none"
+        status={status}
         disabled={false}
-        onCheck={nextQuestion}
+        onCheck={handleSubmit}
       />
     </div>
   );
