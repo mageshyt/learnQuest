@@ -10,13 +10,11 @@ const font = Nunito({
 });
 
 const QuizLayout = ({ children }: { children: React.ReactNode }) => {
-  const {userId}=auth()
-  if(!userId){
-    return redirect('/')
+  const { userId } = auth();
+  if (!userId) {
+    return redirect("/");
   }
-  return (
-    <div className={cn("max-w-6xl mx-auto", font.className)}>{children}</div>
-  );
+  return <div className={cn("", font.className)}>{children}</div>;
 };
 
 export default QuizLayout;
