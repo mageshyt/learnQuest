@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import ConfirmModal from "../modals/confirm-modal";
 import { ChapterAiHelperModal } from "../modals/chapter-ai-helper";
+import ExitModal from "../modals/exit-modal";
 
 export const ModalProvider = () => {
   // Hydration Fix
@@ -18,6 +19,7 @@ export const ModalProvider = () => {
     <>
       <ConfirmModal />
       <ChapterAiHelperModal/>
+      <ExitModal/>
     </>
   );
 };
