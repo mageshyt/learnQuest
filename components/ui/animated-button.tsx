@@ -10,7 +10,9 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "bg-primary  border-2 text-primary-foreground border-slate-500  border-b-4 active:border-b-2 hover:bg-primary/90 ",
+          "bg-primary  border-2 text-primary-foreground border-slate-200  border-b-4 active:border-b-2 hover:bg-primary/90 ",
+        outline:
+          "bg-white  border-2 text-slate-500  border-slate-00  border-b-4 active:border-b-2 hover:bg-slate-100",
         primary:
           "bg-sky-400 text-primary-foreground hover:bg-sky-400/90 border-sky-500 border-b-4 active:border-b-0",
         primaryOutline: "bg-white text-sky-500 hover:bg-slate-100",
@@ -19,7 +21,7 @@ const buttonVariants = cva(
         secondaryOutline: "bg-white text-emerald-500 hover:bg-slate-100",
         danger:
           "bg-rose-500 text-primary-foreground hover:bg-rose-500/90 border-rose-600 border-b-4 active:border-b-0",
-        dangerOutline: "bg-white text-rose-500 hover:bg-slate-100",
+        dangerOutline: "bg-white text-rose-500 hover:bg-rose-100",
         ghost:
           "bg-transparent text-slate-500 border-transparent hover:bg-slate-100 border-0 ",
       },

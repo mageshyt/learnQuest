@@ -23,3 +23,5 @@ export type Question = {
 
 
 export type questionType = "true/false" | "multiple choice" | "fill in the blank";
+
+export type quizStatusType = "none" | "completed" | "correct" | "wrong";
