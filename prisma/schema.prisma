@@ -1,12 +1,6 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider        = "prisma-client-js"
-  previewFeatures = ["fullTextSearch", "fullTextIndex"]
+  previewFeatures = ["fullTextIndex", "fullTextSearch"]
 }
 
 datasource db {
@@ -15,66 +9,52 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
-enum Role {
-  USER
-  ADMIN
-}
-
 model User {
-  id             String           @id @default(uuid())
-  email          String?          @unique
+  id             String          @id @default(uuid())
+  email          String?         @unique
   name           String?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  role           Role            @default(USER)
   attributes     Json?
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
-  role           Role             @default(USER)
   Course         Course[]
-  UserProgress   UserProgress[]
   Purchase       Purchase[]
-  stripeCustomer stripeCustomer[]
+  Quiz           Quiz[]
+  QuizResult     QuizResult[]
+  UserProgress   UserProgress[]
+  stripeCustomer stripeCustomer?
 }
 
 model Course {
-  id          String  @id @default(uuid())
-  title       String  @db.Text
-  description String? @db.Text
+  id          String       @id @default(uuid())
+  title       String
+  description String?
   imageUrl    String?
-
-  userId String
-  user   User   @relation(fields: [userId], references: [id])
-
+  userId      String
   price       Float?
-  isPublished Boolean @default(false)
-
-  categoryId String?
-  category   Category? @relation(fields: [categoryId], references: [id])
-
-  courseType COURSE_TYPE @default(FREE)
-
-  chapters    Chapter[]
-  purchase    Purchase[]
+  isPublished Boolean      @default(false)
+  categoryId  String?
+  courseType  COURSE_TYPE  @default(FREE)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
   attachments Attachment[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  chapters    Chapter[]
+  category    Category?    @relation(fields: [categoryId], references: [id])
+  user        User         @relation(fields: [userId], references: [id])
+  purchase    Purchase[]
 
   @@index([userId])
   @@index([categoryId])
   @@index([courseType])
-  @@index([title], name: "title")
-}
-
-enum COURSE_TYPE {
-  FREE
-  PAID
+  @@index([title], map: "title")
 }
 
 model Category {
   id        String   @id @default(uuid())
   name      String
-  courses   Course[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  courses   Course[]
 
   @@index([name])
 }
@@ -82,81 +62,70 @@ model Category {
 model Attachment {
   id        String   @id @default(uuid())
   name      String?
-  url       String   @db.Text
+  url       String
   courseId  String
-  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  course    Course   @relation(fields: [courseId], references: [id], onDelete: Cascade)
 
   @@index([courseId])
 }
 
 model Chapter {
-  id          String  @id @default(uuid())
-  title       String
-  description String? @db.Text
-  videoUrl    String? @db.Text
-  position    Int
-  isPublished Boolean @default(false)
-  isFree      Boolean @default(false)
-
-  muxData MuxData?
-
-  courseId String
-  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade)
-
+  id           String         @id @default(uuid())
+  title        String
+  description  String?
+  videoUrl     String?
+  position     Int
+  isPublished  Boolean        @default(false)
+  isFree       Boolean        @default(false)
+  courseId     String
+  createdAt    DateTime       @default(now())
+  updatedAt    DateTime       @updatedAt
+  course       Course         @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  muxData      MuxData?
+  Quiz         Quiz[]
   userProgress UserProgress[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
 
   @@index([courseId])
 }
 
 model MuxData {
-  id         String  @id @default(uuid())
+  id         String   @id @default(uuid())
   playbackId String?
-  assetId    String
+  assetId    String   @unique
+  chapterId  String   @unique
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
   trackId    String?
+  chapter    Chapter  @relation(fields: [chapterId], references: [id], onDelete: Cascade)
 
-  chapterId String  @unique
-  chapter   Chapter @relation(fields: [chapterId], references: [id], onDelete: Cascade)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  @@unique([assetId])
   @@index([assetId, playbackId])
   @@index([chapterId])
 }
 
 model UserProgress {
-  id        String  @id @default(uuid())
-  chapterId String
-  chapter   Chapter @relation(fields: [chapterId], references: [id])
-
-  userId String
-  User   User   @relation(fields: [userId], references: [id])
-
-  isCompleted Boolean @default(false)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id          String   @id @default(uuid())
+  chapterId   String
+  userId      String
+  isCompleted Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  chapter     Chapter  @relation(fields: [chapterId], references: [id])
+  User        User     @relation(fields: [userId], references: [id])
 
   @@unique([userId, chapterId])
   @@index([chapterId])
 }
 
 model Purchase {
-  id       String @id @default(uuid())
-  courseId String
-  course   Course @relation(fields: [courseId], references: [id])
-
-  userId String
-  user   User   @relation(fields: [userId], references: [id])
-
+  id        String   @id @default(uuid())
+  courseId  String
+  userId    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  course    Course   @relation(fields: [courseId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
 
   @@unique([userId, courseId])
   @@index([userId, courseId])
@@ -164,13 +133,53 @@ model Purchase {
 }
 
 model stripeCustomer {
-  id               String @id @default(uuid())
-  stripeCustomerId String @unique
-
-  userId    String   @unique
-  user      User     @relation(fields: [userId], references: [id])
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id               String   @id @default(uuid())
+  stripeCustomerId String   @unique
+  userId           String   @unique
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+  user             User     @relation(fields: [userId], references: [id])
 
   @@index([userId])
+}
+
+model Quiz {
+  id        String       @id @default(uuid())
+  title     String
+  userId    String
+  chapterId String?
+  questions Json[]
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  chapter   Chapter?     @relation(fields: [chapterId], references: [id])
+  user      User         @relation(fields: [userId], references: [id])
+  result    QuizResult[]
+
+  @@index([userId])
+  @@index([chapterId])
+}
+
+model QuizResult {
+  id        String   @id @default(uuid())
+  quizId    String
+  userId    String
+  answers   Json[]
+  score     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  quiz      Quiz     @relation(fields: [quizId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@index([quizId])
+  @@index([userId])
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum COURSE_TYPE {
+  FREE
+  PAID
 }
