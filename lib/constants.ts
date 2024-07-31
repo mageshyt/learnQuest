@@ -122,4 +122,5 @@ export const QUIZ_IMAGE = ["/image/quiz-1.jpeg", "/image/quiz-1.jpeg"];
 
 export const AssetConstants = {
   error: "/image/error.jpeg",
+  sad_emoji: "/icons/sad.svg",
 };
