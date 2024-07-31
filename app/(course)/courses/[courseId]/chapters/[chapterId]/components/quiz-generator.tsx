@@ -8,7 +8,6 @@ import { Joystick, ShieldCheck } from "lucide-react";
 import { AssetConstants, QUIZ_IMAGE, random } from "@/lib";
 
 import { Quiz } from "@prisma/client";
-import toast from "react-hot-toast";
 
 import QuizConfigForm from "./quiz-form";
 import { quizFormSchema } from "@/schema";
@@ -29,6 +28,7 @@ import {
 
 import { Button } from "@/components/ui/button";
 import Spinner from "@/components/ui/spinner";
+import { AnimatedButton } from "@/components/ui/animated-button";
 
 const STEPS = {
   INITIAL: 0,
@@ -175,15 +175,15 @@ const QuizGenerator = ({
           An error occurred while generating the quiz. Please try again.
         </p>
 
-        <Button
+        <AnimatedButton
           onClick={() => {
             setStep(STEPS.INITIAL);
           }}
-          variant="destructive"
+          variant="danger"
           className="w-full bg-red-500"
         >
           Try Again
-        </Button>
+        </AnimatedButton>
       </div>
     );
   }
@@ -206,14 +206,14 @@ const QuizGenerator = ({
         {/* start now button */}
 
         <ResponsiveModalFooter>
-          <Button
+          <AnimatedButton
             onClick={navigateToQuestion}
-            variant="gooeyRight"
+            variant="primary"
             className="w-full"
           >
             Start Now
             <Joystick className="h-6 w-6 ml-2" />
-          </Button>
+          </AnimatedButton>
         </ResponsiveModalFooter>
       </div>
     );
@@ -222,13 +222,10 @@ const QuizGenerator = ({
   return (
     <ResponsiveModal>
       <ResponsiveModalTrigger asChild>
-        <Button
-          variant={"gooeyLeft"}
-          className="bg-sky-600 dark:bg-sky-500 dark:text-white"
-        >
+        <AnimatedButton variant={"primary"}>
           Test Yourself
           <ShieldCheck className="h-4 w-4 ml-2" />
-        </Button>
+        </AnimatedButton>
       </ResponsiveModalTrigger>
 
       <ResponsiveModalContent>

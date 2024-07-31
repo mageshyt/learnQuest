@@ -1,6 +1,5 @@
 "use client";
 import { toggleChapterComplete } from "@/actions/Userprogress/toggle-chapter-complete";
-import { Button } from "@/components/ui/button";
 import { LoadingButton } from "@/components/ui/loading-button";
 import { useConfettiStore } from "@/hooks/use-confetti-store";
 import { CheckCircle, XCircle } from "lucide-react";

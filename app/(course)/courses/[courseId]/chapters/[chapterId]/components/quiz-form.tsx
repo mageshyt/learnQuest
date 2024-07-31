@@ -21,6 +21,7 @@ import { z } from "zod";
 import MultipleSelector, { Option } from "@/components/ui/multi-select";
 import { Flame, Gamepad } from "lucide-react";
 import { quizFormSchema } from "@/schema";
+import { AnimatedButton } from "@/components/ui/animated-button";
 
 interface QuizConfigFormProps {
   handleConfig: (config: z.infer<typeof quizFormSchema>) => void;
@@ -114,7 +115,7 @@ const QuizConfigForm = ({
           )}
         />
 
-        <Button
+        <AnimatedButton
           type="submit"
           className="w-full"
           size="lg"
@@ -122,7 +123,7 @@ const QuizConfigForm = ({
         >
           Generate Quiz
           <Flame className="h-6 w-6 ml-2" />
-        </Button>
+        </AnimatedButton>
       </form>
     </Form>
   );
