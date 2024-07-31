@@ -19,7 +19,7 @@ import { Input } from "@/components/ui/input";
 
 import { z } from "zod";
 import MultipleSelector, { Option } from "@/components/ui/multi-select";
-import { Gamepad } from "lucide-react";
+import { Flame, Gamepad } from "lucide-react";
 import { quizFormSchema } from "@/schema";
 
 interface QuizConfigFormProps {
@@ -120,8 +120,8 @@ const QuizConfigForm = ({
           size="lg"
           disabled={isSubmitting || !isValid}
         >
-          Start
-          <Gamepad className="h-6 w-6 ml-2" />
+          Generate Quiz
+          <Flame className="h-6 w-6 ml-2" />
         </Button>
       </form>
     </Form>
