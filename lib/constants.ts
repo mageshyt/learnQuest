@@ -110,3 +110,5 @@ export const USER_NAV_ITEM: SideBar[] = [
     ],
   },
 ];
+
+export const QUIZ_IMAGE = ["/image/quiz-1.jpeg", "/image/quiz-2.jpeg"];
