@@ -131,7 +131,6 @@ const QuizGenerator = ({
       // move to next step
     } catch (err) {
     } finally {
-      console.log("done");
       setLoading(false);
     }
   };
