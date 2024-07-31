@@ -1,15 +1,14 @@
 "use client";
 import React, { FC } from "react";
 import {
-  CustomModal,
-  CustomModalBody,
-  CustomModalContent,
-  CustomModalFooter,
-  CustomModalHeader,
-  CustomModalTitle,
-  CustomModalTrigger,
-  CustomModalClose,
-} from "@/components/global/custom-modal";
+  ResponsiveModal,
+  ResponsiveModalContent,
+  ResponsiveModalFooter,
+  ResponsiveModalHeader,
+  ResponsiveModalTitle,
+  ResponsiveModalTrigger,
+  ResponsiveModalClose,
+} from "@/components/ui/responsive-modal";
 import { getCourseChapterDescription } from "@/lib/ai-helper";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
@@ -55,20 +54,22 @@ const ChapterDescriptionHelperModal: FC<ChapterDescriptionHelperModalProps> = ({
   };
 
   return (
-    <CustomModal>
-      <CustomModalTrigger asChild>
+    <ResponsiveModal>
+      <ResponsiveModalTrigger asChild>
         <Button variant={"outline"} type="button">
           <Sparkle className="mr-2 h-4 w-4" />
           Generate
         </Button>
-      </CustomModalTrigger>
+      </ResponsiveModalTrigger>
 
-      <CustomModalContent>
-        <CustomModalHeader>
-          <CustomModalTitle>Chapter Description Helper</CustomModalTitle>
-        </CustomModalHeader>
+      <ResponsiveModalContent>
+        <ResponsiveModalHeader>
+          <ResponsiveModalTitle>
+            Chapter Description Helper
+          </ResponsiveModalTitle>
+        </ResponsiveModalHeader>
 
-        <CustomModalBody className="gap-4 max-h-[500px] overflow-y-auto">
+        <div className="gap-4 max-h-[500px] overflow-y-auto">
           {/* preview */}
 
           {generatedDescription && (
@@ -83,14 +84,13 @@ const ChapterDescriptionHelperModal: FC<ChapterDescriptionHelperModalProps> = ({
             value={details}
             onChange={(e) => setDetails(e.target.value)}
             placeholder="provide a short description of about the chapter content
-              that helps Ai generate a more compelling description for the chapter.
-              "
+              that helps Ai generate a more compelling description for the chapter."
           />
 
           {/* button */}
-        </CustomModalBody>
+        </div>
 
-        <CustomModalFooter>
+        <ResponsiveModalFooter className="space-y-4 gap-y-4">
           <LoadingButton
             loading={loading}
             disabled={loading}
@@ -102,15 +102,15 @@ const ChapterDescriptionHelperModal: FC<ChapterDescriptionHelperModalProps> = ({
           </LoadingButton>
 
           {generatedDescription && (
-            <CustomModalClose asChild>
+            <ResponsiveModalClose asChild>
               <Button onClick={onSave} type="button" variant="outline">
                 Save and Close
               </Button>
-            </CustomModalClose>
+            </ResponsiveModalClose>
           )}
-        </CustomModalFooter>
-      </CustomModalContent>
-    </CustomModal>
+        </ResponsiveModalFooter>
+      </ResponsiveModalContent>
+    </ResponsiveModal>
   );
 };
 
