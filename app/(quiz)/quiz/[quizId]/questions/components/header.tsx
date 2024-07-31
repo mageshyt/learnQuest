@@ -6,9 +6,9 @@ import { X } from "lucide-react";
 import React from "react";
 
 const Header = () => {
-  const { currentQuestionIndex, questions } = useQuiz();
+  const { currentQuestionIndex, questions, status } = useQuiz();
   const { openModal } = useModal();
-  const value = (currentQuestionIndex / questions.length) * 100;
+  const value = ((currentQuestionIndex + 1) / questions.length) * 100;
 
   return (
     <header className="pt-[20px] flex items-center px-4 gap-x-2">
@@ -16,7 +16,11 @@ const Header = () => {
         onClick={() => openModal("exit-model")}
         className="text-slate-500 hover:opacity-75 transition cursor-pointer"
       />
-      <Progress value={value} max={questions.length} />
+      <Progress
+        variants={status === "completed" ? "success" : "default"}
+        value={value}
+        max={questions?.length || 100}
+      />
     </header>
   );
 };
