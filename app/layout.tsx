@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Poppins } from "next/font/google";
+import { Inter, Nunito, Poppins } from "next/font/google";
 import "./globals.css";
 
 import { ThemeProvider } from "@/components/providers/theme-providers";
@@ -10,9 +10,8 @@ import QueryProvider from "@/components/providers/query-provider";
 import { ModalProvider } from "@/components/providers/modal-provider";
 import { ConfettiProvider } from "@/components/providers/confetti-provider";
 
-const inter = Inter({
+const font = Inter({
   subsets: ["latin"],
-  weight: ["400", "700", "200", "300", "500", "600", "800", "900"],
   adjustFontFallback: true,
 });
 
@@ -29,7 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={cn(inter.className, "h-screen")}>
+      <body className={cn(font.className, "h-screen")}>
         <QueryProvider>
           <ThemeProvider
             attribute="class"
