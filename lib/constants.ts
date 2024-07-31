@@ -2,9 +2,11 @@ import { SideBar } from "@/types/typings";
 import {
   Book,
   BookCheck,
+  Brain,
   GraduationCap,
   Layout,
   Search,
+  Trophy,
   Users,
 } from "lucide-react";
 
@@ -107,8 +109,17 @@ export const USER_NAV_ITEM: SideBar[] = [
         path: "/search",
         icon: Search,
       },
+      {
+        title: "Quiz",
+        path: "/quiz",
+        icon: Trophy,
+      },
     ],
   },
 ];
 
-export const QUIZ_IMAGE = ["/image/quiz-1.jpeg", "/image/quiz-2.jpeg"];
+export const QUIZ_IMAGE = ["/image/quiz-1.jpeg", "/image/quiz-1.jpeg"];
+
+export const AssetConstants = {
+  error: "/image/error.jpeg",
+};
