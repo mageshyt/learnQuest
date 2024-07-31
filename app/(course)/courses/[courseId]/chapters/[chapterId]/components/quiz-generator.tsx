@@ -1,17 +1,27 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import { ShieldCheck } from "lucide-react";
+import Image from "next/image";
 
-import { Question } from "@/types/typings";
+import { useRouter } from "next/navigation";
+import { useMemo, useState } from "react";
+import { Joystick, ShieldCheck } from "lucide-react";
+import { AssetConstants, QUIZ_IMAGE, random } from "@/lib";
+
+import { Quiz } from "@prisma/client";
+import toast from "react-hot-toast";
+
 import QuizConfigForm from "./quiz-form";
 import { quizFormSchema } from "@/schema";
 import { z } from "zod";
+
+import { generateQuizWithRetry } from "@/lib/ai-helper";
+import { createQuiz } from "@/actions/quiz/create-quiz";
 
 import {
   ResponsiveModal,
   ResponsiveModalContent,
   ResponsiveModalDescription,
+  ResponsiveModalFooter,
   ResponsiveModalHeader,
   ResponsiveModalTitle,
   ResponsiveModalTrigger,
@@ -19,12 +29,12 @@ import {
 
 import { Button } from "@/components/ui/button";
 import Spinner from "@/components/ui/spinner";
-import { generateQuizWithRetry } from "@/lib/ai-helper";
 
 const STEPS = {
   INITIAL: 0,
-  QUESTION: 1,
-  RESULTS: 2,
+  GENERATING: 1,
+  QUESTION: 2,
+  ERROR: 3,
 };
 
 interface QuizGeneratorProps {
@@ -40,13 +50,14 @@ const QuizGenerator = ({
 }: QuizGeneratorProps) => {
   // -----------------State-----------------
   const [step, setStep] = useState(STEPS.INITIAL);
-  const [questions, setQuestions] = useState<Question[]>([]);
+  const [quiz, setQuiz] = useState<Quiz | null>(null);
   const [quizConfig, setQuizConfig] = useState<z.infer<typeof quizFormSchema>>({
     noOfQuestions: 0,
     questionTypes: [],
   });
   const [loading, setLoading] = useState(false);
 
+  const router = useRouter();
   // -------------------------- Constants --------------------------
 
   const modelTitle = useMemo(() => {
@@ -54,9 +65,13 @@ const QuizGenerator = ({
       case STEPS.INITIAL:
         return "Generate Quiz 🎲";
       case STEPS.QUESTION:
-        return "Questions";
-      case STEPS.RESULTS:
-        return "Results";
+        return "Questions ❓";
+
+      case STEPS.GENERATING:
+        return "Generating quiz...";
+
+      case STEPS.ERROR:
+        return "Oops! Something Went Wrong";
       default:
         return "Generate Quiz";
     }
@@ -65,11 +80,14 @@ const QuizGenerator = ({
   const modelDescription = useMemo(() => {
     switch (step) {
       case STEPS.INITIAL:
-        return "Generate a quiz for this chapter.";
+        return "Let’s create a quiz for this chapter. Get ready to test your knowledge!";
+      case STEPS.GENERATING:
+        return "We are crafting your quiz. This might take a moment, please be patient.";
       case STEPS.QUESTION:
         return "Answer the following questions.";
-      case STEPS.RESULTS:
-        return "Here are your results.";
+
+      case STEPS.ERROR:
+        return "There was an issue generating the quiz.";
       default:
         return "Generate a quiz for this chapter.";
     }
@@ -82,8 +100,7 @@ const QuizGenerator = ({
     try {
       // set quiz config
       setQuizConfig(config);
-
-      setStep(STEPS.QUESTION);
+      setStep(STEPS.GENERATING);
       setLoading(true);
       const res = await generateQuizWithRetry(
         {
@@ -95,14 +112,33 @@ const QuizGenerator = ({
         3
       );
 
-      console.log(res);
-      // set questions
-      setQuestions(res);
+      // create the quiz
+
+      const quiz = await createQuiz({
+        title,
+        chapterId,
+        questions: res,
+      });
+
+      if ("error" in quiz) {
+        setStep(STEPS.ERROR);
+
+        return;
+      }
+      setQuiz(quiz);
+      setStep(STEPS.QUESTION);
 
       // move to next step
     } catch (err) {
     } finally {
+      console.log("done");
       setLoading(false);
+    }
+  };
+
+  const navigateToQuestion = () => {
+    if (quiz) {
+      router.push(`/quiz/${quiz.id}/questions`);
     }
   };
 
@@ -119,18 +155,67 @@ const QuizGenerator = ({
     );
   }
 
+  if (step === STEPS.GENERATING) {
+    content = <Spinner loading={loading} type="grid" />;
+  }
+
+  if (step === STEPS.ERROR) {
+    content = (
+      <div className="space-y-4">
+        <div className="relative aspect-square mb-4  h-64  w-full rounded-md">
+          <Image
+            src={AssetConstants.error}
+            alt="quiz"
+            fill
+            objectFit="cover"
+            className="rounded-md"
+          />
+        </div>
+
+        <p className="text-red-500 dark:text-red-400 text-center text-sm">
+          An error occurred while generating the quiz. Please try again.
+        </p>
+
+        <Button
+          onClick={() => {
+            setStep(STEPS.INITIAL);
+          }}
+          variant="destructive"
+          className="w-full bg-red-500"
+        >
+          Try Again
+        </Button>
+      </div>
+    );
+  }
+
   if (step === STEPS.QUESTION) {
     content = (
       <div>
-        <Spinner loading={loading} type="grid" />
-        {/* show details about the quiz */}
-        <div className="text-sm text-muted-foreground text-right">
-          total questions: {questions.length}
+        {/* image */}
+
+        <div className="relative aspect-square mb-4  h-64  w-full rounded-md">
+          <Image
+            src={random(QUIZ_IMAGE)}
+            alt="quiz"
+            fill
+            objectFit="cover"
+            className="rounded-md"
+          />
         </div>
 
-        <p>TODO : show questions here</p>
+        {/* start now button */}
 
-        {/* show questions */}
+        <ResponsiveModalFooter>
+          <Button
+            onClick={navigateToQuestion}
+            variant="gooeyRight"
+            className="w-full"
+          >
+            Start Now
+            <Joystick className="h-6 w-6 ml-2" />
+          </Button>
+        </ResponsiveModalFooter>
       </div>
     );
   }
