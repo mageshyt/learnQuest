@@ -22,7 +22,12 @@ export const getQuizById = async ({ quizId }: quizProps) => {
         id: quizId,
         userId,
       },
+      include:{
+        chapter:true
+      }
     });
+
+    console.log("[getQuizById] quiz", quiz);
 
     return quiz;
   } catch (error) {
