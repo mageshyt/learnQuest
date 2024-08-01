@@ -62,13 +62,17 @@ Here are the details you need to include:
 - Chapter Description: __
 - Number of Questions: __
 - Desired Question Types (e.g., true/false, multiple choice): __
+- difficulty: __ (optional)
 
 Make sure that the generated JSON array includes the following structure for each question:
 - "question": "__"
-- "options": [__] (for multiple choice questions)
+- "options": [__] (for multiple choice questions and true/false questions)
 - "answer": "__"
 - "explanation": "__"
-- "type": "__" (e.g., true/false, multiple choice)`,
+- "type": "__" (e.g., true/false, multiple choice)
+- "difficulty": "__" (optional)
+  "Important Note: Please ensure that the questions are relevant to the chapter content and are suitable for the intended audience. 📚✨ and all the question should have options"
+`,
   generationConfig: quizConfig,
 });
 
@@ -152,17 +156,25 @@ const generateHelper = async ({
 
 interface GenerateQuizProps {
   question_types: questionType[];
-  chapter_title: string;
+  title: string;
   chapter_description: string;
   num_questions: number;
+  difficulty?: string;
 }
 const generateQuiz = async ({
-  chapter_title,
+  title,
   chapter_description,
   num_questions,
   question_types,
+  difficulty = "hard",
 }: GenerateQuizProps): Promise<Question[]> => {
-  const prompt = `Create a quiz with ${num_questions} multiple-choice questions on the topic of "${chapter_title}". i need ${question_types.length} ${question_types.join(" ")} question type`;
+  let prompt = `Create a quiz with ${num_questions} questions on the topic of "${title}". i need ${question_types.length} ${question_types.join(" ")} question type
+  with difficulty of ${difficulty}
+  `;
+
+  if (chapter_description) {
+    prompt += `based on the following chapter description: ${chapter_description}`;
+  }
 
   try {
     // Send the prompt and await the response
