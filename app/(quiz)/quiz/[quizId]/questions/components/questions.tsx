@@ -13,7 +13,7 @@ const Questions = () => {
   } = useQuiz();
 
   const title = useMemo(() => {
-    return questions.length > 0 && questions[currentQuestionIndex].question;
+    return questions.length > 0 && questions[currentQuestionIndex]?.question;
   }, [questions, currentQuestionIndex, status]);
 
   const currentQuestion = useMemo(() => {

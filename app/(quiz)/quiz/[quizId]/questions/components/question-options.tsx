@@ -1,5 +1,5 @@
 import ListView from "@/components/global/list-view";
-import { cn } from "@/lib";
+import { cn, playAudio } from "@/lib";
 import { questionType, quizStatusType } from "@/types/typings";
 import React from "react";
 import OptionCard from "./option-card";
@@ -21,6 +21,7 @@ const QuestionOptions = ({
   type,
   disabled,
 }: QuestionOptionsProps) => {
+  const play = playAudio("select");
   return (
     <div className={cn("grid gap-2 md:grid-cols-2 grid-cols-1  ")}>
       {options && (
@@ -32,7 +33,10 @@ const QuestionOptions = ({
               text={option}
               shortcut={`${index + 1}`}
               status={status}
-              onClick={() => onSelect(index)}
+              onClick={() => {
+                play();
+                onSelect(index);
+              }}
               selected={selectedOption === index}
               disabled={disabled}
             />

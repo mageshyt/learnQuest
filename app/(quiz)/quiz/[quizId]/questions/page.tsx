@@ -1,7 +1,6 @@
 "use client";
-
 import { useRouter } from "next/navigation";
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { getQuizById } from "@/actions/quiz/get-quiz-by-id";
 import { useQuiz } from "@/hooks/use-quiz";
@@ -13,6 +12,8 @@ import toast from "react-hot-toast";
 import { Question } from "@/types/typings";
 import { Chapter, Quiz } from "@prisma/client";
 import { useConfettiStore } from "@/hooks/use-confetti-store";
+import { AUDIO_CONSTANTS } from "@/lib";
+import { createQuizResult } from "@/actions/quiz/create-quiz-result";
 
 interface QuizTestPageProps {
   params: {
@@ -33,9 +34,10 @@ const QuizTestPage = ({ params }: QuizTestPageProps) => {
     selectedOption,
     nextQuestion,
     tryAgain,
-    setSelectedOption,
+    usersAnswers,
   } = useQuiz();
   const { showConfetti } = useConfettiStore();
+
   const router = useRouter();
 
   // Fetch quiz data
@@ -46,13 +48,42 @@ const QuizTestPage = ({ params }: QuizTestPageProps) => {
 
   // Set questions when quiz data changes
   useEffect(() => {
-    if (quiz) setQuestions(quiz.questions as Question[]);
+    if (quiz) {
+      const intro = new Audio(AUDIO_CONSTANTS.intro);
+      intro.play();
+      setQuestions(quiz.questions as Question[]);
+    }
   }, [quiz, setQuestions]);
 
-  const handleContinue = useCallback(() => {
+  // Play sound effects based on status
+  useEffect(() => {
+    const correctSound = new Audio(AUDIO_CONSTANTS.correct);
+    const wrongSound = new Audio(AUDIO_CONSTANTS.error);
+
+    if (status === "correct") {
+      correctSound.play();
+    } else if (status === "wrong") {
+      wrongSound.play();
+    }
+  }, [status]);
+
+  const handleContinue = useCallback(async () => {
     if (status === "completed") {
       showConfetti();
-      // TODO ::backend call to save the results
+      // backend call to save quiz result only if quiz is not completed
+      if (!quiz?.isCompleted) {
+        const save = await createQuizResult({
+          quizId: params.quizId,
+          answers: usersAnswers,
+        });
+        if ("error" in save) {
+          toast.error(save.error);
+          return;
+        }
+
+        toast.success("Quiz completed successfully");
+      }
+
       // if quiz is from chapter then redirect to chapter page
       if (quiz?.chapterId) {
         // wait for 2 seconds before redirecting
