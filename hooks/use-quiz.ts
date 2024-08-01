@@ -1,14 +1,18 @@
 import { Question, quizStatusType } from "@/types/typings";
 import { create } from "zustand";
 
+type userAnswerType = {
+  question: string;
+  answer: string;
+  isCorrect: boolean;
+};
 // Interface for Quiz State
 interface QuizState {
   questions: Question[];
   currentQuestionIndex: number;
   selectedOption: number | null;
-  usersAnswers: Record<string, string>;
+  usersAnswers: userAnswerType[];
   score: number;
-  errorCount: number;
   status: quizStatusType;
 
   setQuestions: (questions: Question[]) => void;
@@ -23,9 +27,8 @@ interface QuizState {
 export const useQuiz = create<QuizState>((set) => ({
   questions: [],
   currentQuestionIndex: 0,
-  usersAnswers: {},
+  usersAnswers: [],
   score: 0,
-  errorCount: 0,
   status: "none",
   selectedOption: null,
 
@@ -52,7 +55,6 @@ export const useQuiz = create<QuizState>((set) => ({
         currentQuestion.answer === selectedAnswer ? true : false;
 
       let newStatus: quizStatusType = "none";
-      let newErrorCount = state.errorCount;
       let nextQuestion = state.currentQuestionIndex + 1;
 
       if (
@@ -64,16 +66,19 @@ export const useQuiz = create<QuizState>((set) => ({
         newStatus = "correct";
       } else {
         newStatus = "wrong";
-        newErrorCount += 1; // Increment error count for incorrect answer
       }
 
+
       return {
-        usersAnswers: {
+        usersAnswers: [
           ...state.usersAnswers,
-          [currentQuestion.question]: selectedAnswer,
-        },
+          {
+            question: currentQuestion.question,
+            answer: selectedAnswer,
+            isCorrect,
+          },
+        ],
         score: isCorrect ? state.score + 1 : state.score,
-        errorCount: newErrorCount,
         status: newStatus,
         selectedOption: state.selectedOption,
       };
@@ -84,9 +89,8 @@ export const useQuiz = create<QuizState>((set) => ({
     set({
       questions: [],
       currentQuestionIndex: 0,
-      usersAnswers: {},
+      usersAnswers: [],
       score: 0,
-      errorCount: 0,
       status: "none",
     }),
 
