@@ -5,7 +5,7 @@ import { useQuiz } from "@/hooks/use-quiz";
 import { X } from "lucide-react";
 import React from "react";
 
-const Header = () => {
+const QuizHeader = () => {
   const { currentQuestionIndex, questions, status } = useQuiz();
   const { openModal } = useModal();
   const value = ((currentQuestionIndex + 1) / questions.length) * 100;
@@ -25,4 +25,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default QuizHeader;
