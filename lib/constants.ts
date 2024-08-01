@@ -124,3 +124,10 @@ export const AssetConstants = {
   error: "/image/error.jpeg",
   sad_emoji: "/icons/sad.svg",
 };
+
+export const AUDIO_CONSTANTS = {
+  error: "/audio/wrong-answer.mp3",
+  correct: "/audio/correct.mp3",
+  select: "/audio/menu-selection.mp3",
+  intro: "/audio/game-start.mp3",
+};
