@@ -165,6 +165,7 @@ model QuizResult {
   quizId    String
   userId    String
   answers   Json[]
+  errorCount Int
   score     Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
