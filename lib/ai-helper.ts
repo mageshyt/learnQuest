@@ -157,23 +157,23 @@ const generateHelper = async ({
 interface GenerateQuizProps {
   question_types: questionType[];
   title: string;
-  chapter_description: string;
   num_questions: number;
   difficulty?: string;
+  description?: string;
 }
 const generateQuiz = async ({
   title,
-  chapter_description,
   num_questions,
   question_types,
   difficulty = "hard",
+  description,
 }: GenerateQuizProps): Promise<Question[]> => {
   let prompt = `Create a quiz with ${num_questions} questions on the topic of "${title}". i need ${question_types.length} ${question_types.join(" ")} question type
   with difficulty of ${difficulty}
   `;
 
-  if (chapter_description) {
-    prompt += `based on the following chapter description: ${chapter_description}`;
+  if (description) {
+    prompt += `based on the following chapter description: ${description}`;
   }
 
   try {
