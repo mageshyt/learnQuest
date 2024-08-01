@@ -104,8 +104,8 @@ const QuizGenerator = ({
       setLoading(true);
       const res = await generateQuizWithRetry(
         {
-          chapter_description: HtmlToText(description),
           title: title,
+          description: HtmlToText(description),
           num_questions: config.noOfQuestions,
           question_types: config.questionTypes,
         },
