@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
 import { Joystick, ShieldCheck } from "lucide-react";
-import { AssetConstants, QUIZ_IMAGE, random } from "@/lib";
+import { AssetConstants, HtmlToText, QUIZ_IMAGE, random } from "@/lib";
 
 import { Quiz } from "@prisma/client";
 
@@ -104,13 +104,18 @@ const QuizGenerator = ({
       setLoading(true);
       const res = await generateQuizWithRetry(
         {
-          chapter_description: description,
-          chapter_title: title,
+          chapter_description: HtmlToText(description),
+          title: title,
           num_questions: config.noOfQuestions,
           question_types: config.questionTypes,
         },
         3
       );
+
+      if (res.length === 0) {
+        setStep(STEPS.ERROR);
+        return;
+      }
 
       // create the quiz
 
