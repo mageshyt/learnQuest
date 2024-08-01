@@ -21,7 +21,11 @@ export type Question = {
   type: questionType;
 };
 
-
-export type questionType = "true/false" | "multiple choice" | "fill in the blank";
+export type questionType =
+  | "true/false"
+  | "multiple choice"
+  | "fill in the blank";
 
 export type quizStatusType = "none" | "completed" | "correct" | "wrong";
+
+export type audioType = "correct" | "select" | "wrong";
