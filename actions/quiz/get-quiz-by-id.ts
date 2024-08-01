@@ -3,6 +3,7 @@
 import { db } from "@/lib";
 import { Question } from "@/types/typings";
 import { auth } from "@clerk/nextjs/server";
+import { redirect } from "next/navigation";
 
 interface quizProps {
   quizId: string;
@@ -13,7 +14,8 @@ export const getQuizById = async ({ quizId }: quizProps) => {
     const { userId } = auth();
 
     if (!userId) {
-      return null;
+      redirect("/");
+      // return null;
     }
 
     // get the quiz
@@ -22,13 +24,14 @@ export const getQuizById = async ({ quizId }: quizProps) => {
         id: quizId,
         userId,
       },
-      include:{
-        chapter:true
-      }
+      include: {
+        chapter: true,
+      },
     });
 
-    console.log("[getQuizById] quiz", quiz);
-
+    if (!quiz) {
+      return redirect("/dashboard");
+    }
     return quiz;
   } catch (error) {
     console.log("[createQuiz] error", error);
