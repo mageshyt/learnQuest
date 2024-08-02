@@ -17,6 +17,7 @@ import { markdownToHtml } from "@/lib";
 import { useModal } from "@/hooks/use-modal";
 import { Preview } from "../global/preview";
 import { LoadingButton } from "../ui/loading-button";
+import { ScrollArea } from "../ui/scroll-area";
 
 interface ChapterDescriptionHelperModalProps {
   chapterTitle: string;
@@ -69,16 +70,18 @@ const ChapterDescriptionHelperModal: FC<ChapterDescriptionHelperModalProps> = ({
           </ResponsiveModalTitle>
         </ResponsiveModalHeader>
 
-        <div className="gap-4 max-h-[500px] overflow-y-auto">
+        <div className="gap-4 p-2  overflow-y-hidden">
           {/* preview */}
 
-          {generatedDescription && (
-            <div>
-              <h3 className="text-sm font-semibold">Preview</h3>
+          <ScrollArea className=" max-h-[500px] overflow-y-scroll">
+            {generatedDescription && (
+              <>
+                <h3 className="text-sm font-semibold">Preview</h3>
 
-              <Preview value={generatedDescription} />
-            </div>
-          )}
+                <Preview value={generatedDescription} />
+              </>
+            )}
+          </ScrollArea>
 
           <Textarea
             value={details}
@@ -90,7 +93,7 @@ const ChapterDescriptionHelperModal: FC<ChapterDescriptionHelperModalProps> = ({
           {/* button */}
         </div>
 
-        <ResponsiveModalFooter className="space-y-4 gap-y-4">
+        <ResponsiveModalFooter className=" flex md:flex-row  flex-col  gap-4">
           <LoadingButton
             loading={loading}
             disabled={loading}

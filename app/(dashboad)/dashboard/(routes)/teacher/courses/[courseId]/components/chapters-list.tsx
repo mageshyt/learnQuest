@@ -15,7 +15,6 @@ import ListView from "@/components/global/list-view";
 import { cn } from "@/lib";
 import { Grip, Pencil } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import ActionTooltip from "@/components/global/action-tooltip";
 
 interface ChaptersListProps {
   onEdit: (chapterId: string) => void;
@@ -85,9 +84,9 @@ const ChaptersList: FC<ChaptersListProps> = ({
                         {/* Icons */}
                         <div
                           className={cn(
-                            "px-2 py-3 border-r-slate-200 border-r hover:bg-slate-300 rounded-l-md",
+                            "px-2 py-3 border-r-slate-300 border-r hover:bg-slate-300 rounded-l-md",
                             chapter.isPublished &&
-                              "border-r-emerald-300 hover:bg-emerald-200"
+                              "border-r-emerald-300 hover:bg-emerald-300/40"
                           )}
                           {...provided.dragHandleProps}
                         >
