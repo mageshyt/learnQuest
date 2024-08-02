@@ -1,9 +1,10 @@
-import ListView from "@/components/global/list-view";
-import { cn, playAudio } from "@/lib";
-import { questionType, quizStatusType } from "@/types/typings";
-import React from "react";
-import OptionCard from "./option-card";
+import { AUDIO_CONSTANTS, cn } from "@/lib";
+import useSound from "use-sound";
 
+import ListView from "@/components/global/list-view";
+
+import { questionType, quizStatusType } from "@/types/typings";
+import OptionCard from "./option-card";
 interface QuestionOptionsProps {
   options: string[];
   onSelect: (id: number) => void;
@@ -21,7 +22,7 @@ const QuestionOptions = ({
   type,
   disabled,
 }: QuestionOptionsProps) => {
-  const play = playAudio("select");
+  const [play] = useSound(AUDIO_CONSTANTS.select);
   return (
     <div className={cn("grid gap-2 md:grid-cols-2 grid-cols-1  ")}>
       {options && (
