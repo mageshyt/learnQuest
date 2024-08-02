@@ -5,33 +5,49 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-const AvgAccuracyCard = () => {
+} from "@/components/ui/card";
+import { userAnswerType } from "@/types/typings";
+import { Target } from "lucide-react";
+
+interface AccuracyCardProps {
+  userAnswers: userAnswerType[];
+  mistakes: number;
+}
+
+const AvgAccuracyCard = ({ userAnswers, mistakes }: AccuracyCardProps) => {
+  const correctAnswers = userAnswers.filter(
+    (answer) => answer.isCorrect
+  ).length;
+  const totalAnswers = userAnswers.length;
+  const accuracy =
+    totalAnswers > 0 ? ((correctAnswers / totalAnswers) * 100).toFixed(2) : "0";
+
   return (
-    <Card className="col-span-3">
-      <CardHeader>
-        <CardTitle>Average Accuracy</CardTitle>
+    <Card className="col-span-3  ">
+      <CardHeader className="flex items-center justify-between flex-row">
+        <CardTitle className="md:text-2xl text-xl font-bold text-gray-800 dark:text-gray-200">
+          Average Accuracy
+        </CardTitle>
+        <Target className="text-gray-500 dark:text-gray-400" />
       </CardHeader>
       <CardContent>
-        <CardDescription>
-          <div className="flex items-center justify-between">
+        <CardDescription className="space-y-2">
+          <div className="flex items-center justify-between text-sm md:text-base text-gray-600 dark:text-gray-300">
             <span>Correct</span>
-            <span>10</span>
+            <span>{correctAnswers}</span>
           </div>
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between text-sm md:text-base text-gray-600 dark:text-gray-300">
             <span>Incorrect</span>
-            <span>0</span>
+            <span>{mistakes}</span>
           </div>
         </CardDescription>
       </CardContent>
-      <CardFooter>
-        <div className="flex items-center justify-between">
-          <span>Accuracy</span>
-          <span>100%</span>
-        </div>
+      <CardFooter className="flex items-center justify-between text-lg md:text-xl font-semibold text-gray-700 dark:text-gray-200">
+        <span>Accuracy</span>
+        <span>{accuracy}%</span>
       </CardFooter>
     </Card>
-  )
-}
+  );
+};
 
-export default AvgAccuracyCard
+export default AvgAccuracyCard;

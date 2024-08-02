@@ -6,34 +6,67 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { timeFormat } from "@/lib";
+import { Timer } from "lucide-react";
 
-export const TimeCard = () => {
+interface TimeCardProps {
+  startTime: Date | null;
+  endTime: Date | null;
+  totalQuestions: number; // Total number of questions answered
+}
+
+export const TimeCard = ({
+  startTime,
+  endTime,
+  totalQuestions,
+}: TimeCardProps) => {
+  if (!startTime || !endTime || totalQuestions === 0) return null;
+
+  const start = startTime.getTime();
+  const end = endTime.getTime();
+
+  const duration = end - start;
+  const minutes = Math.floor(duration / 60000);
+  const seconds = ((duration % 60000) / 1000).toFixed(0);
+
+  // Calculate the average time per question
+  const averageTimeInSeconds = totalQuestions
+    ? duration / totalQuestions / 1000
+    : 0;
+  const avgMinutes = Math.floor(averageTimeInSeconds / 60);
+  const avgSeconds = Math.floor(averageTimeInSeconds % 60);
+
   return (
-    <Card className="col-span-4">
-      <CardHeader>
-        <CardTitle>Time</CardTitle>
+    <Card className="col-span-4 ">
+      <CardHeader className="flex items-center justify-between flex-row">
+        <CardTitle className="md:text-2xl text-xl font-bold text-gray-800 dark:text-gray-200">
+          Time Analysis
+        </CardTitle>
+        <Timer className="text-gray-500 dark:text-gray-400" />
       </CardHeader>
       <CardContent>
-        <CardDescription>
-          <div className="flex items-center justify-between">
+        <CardDescription className="space-y-2">
+          <div className="flex items-center justify-between text-sm md:text-base text-gray-600 dark:text-gray-300">
             <span>Start</span>
-            <span>10:00</span>
+            <span>{timeFormat(startTime)}</span>
           </div>
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between text-sm md:text-base text-gray-600 dark:text-gray-300">
             <span>End</span>
-            <span>10:30</span>
+            <span>{timeFormat(endTime)}</span>
           </div>
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between text-sm md:text-base text-gray-600 dark:text-gray-300">
             <span>Duration</span>
-            <span>30 mins</span>
+            <span>
+              {minutes} mins {seconds} secs
+            </span>
           </div>
         </CardDescription>
       </CardContent>
-      <CardFooter>
-        <div className="flex items-center justify-between">
-          <span>Average Time</span>
-          <span>2 mins</span>
-        </div>
+      <CardFooter className="flex items-center justify-between text-lg md:text-xl font-semibold text-gray-700 dark:text-gray-200">
+        <span>Average Time</span>
+        <span>
+          {avgMinutes} mins {avgSeconds} secs
+        </span>
       </CardFooter>
     </Card>
   );

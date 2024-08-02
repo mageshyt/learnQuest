@@ -1,14 +1,14 @@
-import tw from "tailwind-styled-components";
-import { getQuizResultById } from "@/actions/quiz/get-quiz-result";
 import { auth } from "@clerk/nextjs/server";
-import { Layout } from "lucide-react";
-import Link from "next/link";
+import tw from "tailwind-styled-components";
 import { redirect } from "next/navigation";
-import React from "react";
+
+import { getQuizResultById } from "@/actions/quiz/get-quiz-result";
+
 import { BackToDashboard } from "./components/backto-dashboard";
 import ResultCard from "./components/result-card";
 import { TimeCard } from "./components/time-card";
 import AvgAccuracyCard from "./components/avg-accuracy-card";
+import ClientWrapper from "@/components/global/client-wrapper";
 
 interface QuizResultPageProps {
   params: {
@@ -37,16 +37,24 @@ const QuizResultPage = async ({ params }: QuizResultPageProps) => {
       </TopSection>
 
       {/* -----------------------------Results SECTION --------------------*/}
+      <ClientWrapper>
+        <ResultSection>
+          {/* Result card */}
+          <ResultCard score={result.score} />
+          {/* average accuracy card */}
+          <AvgAccuracyCard
+            mistakes={result.errorCount}
+            userAnswers={result.answers as any}
+          />
 
-      <ResultSection>
-        {/* Result card */}
-        <ResultCard />
-        {/* average accuracy card */}
-        <AvgAccuracyCard />
-
-        {/* time card */}
-        <TimeCard />
-      </ResultSection>
+          {/* time card */}
+          <TimeCard
+            startTime={result.startTime}
+            endTime={result.endTime}
+            totalQuestions={result.quiz.questions.length}
+          />
+        </ResultSection>
+      </ClientWrapper>
 
       {/* -----------------------------USER ANSWER SECTION --------------------*/}
     </Wrapper>
