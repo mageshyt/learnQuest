@@ -27,14 +27,13 @@ const SettingsPage = () => {
     queryFn: () => getUserDetails(userId!),
   });
 
-  if (!user) {
-    return redirect("/");
-  }
-
   if (isLoading) {
     return <LoadingScreen />;
   }
 
+  if (!user) {
+    return redirect("/");
+  }
   return (
     <div className="p-6 bg-white dark:bg-neutral-950 h-full">
       <div className="max-w-5xl container">
