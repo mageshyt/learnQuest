@@ -47,7 +47,7 @@ const CategoriesItem: FC<CategoriesItemProps> = ({
       type="button"
       onClick={onClick}
       className={cn(
-        "py-2 px-3 text-sm border   border-slate-200 rounded-full flex items-center gap-x-1 hover:border-emerald-500 transition",
+        "py-2 px-3 text-sm border   border-slate-200 rounded-2xl bg-white dark:bg-neutral-900 flex items-center gap-x-1 hover:border-emerald-500 transition",
         isSelected && "border-emerald-500 bg-emerald-100  dark:text-emerald-900"
       )}
     >

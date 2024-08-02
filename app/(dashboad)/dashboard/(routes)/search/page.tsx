@@ -24,14 +24,14 @@ const SearchPage: FC<SearchPageProps> = async ({ searchParams }) => {
   return (
     <div className="">
       {/* search bar */}
-      <div className="px-6 pt-6 md:mb-0 block md:hidden">
+      <div className="px-4 pt-4 md:mb-0 block md:hidden">
         <Searchbar />
       </div>
-      <div className=" mt-4 rounded-md mx-4 p-4 bg-white dark:bg-neutral-900 ">
+      <div className=" mt-4 rounded-md mx-4 ">
         {/* category */}
         <Categories items={categories} />
       </div>
-      <div className="p-6  h-full overflow-y-auto">
+      <div className="p-4  h-full overflow-y-auto">
         <CoursesList items={courses} />
       </div>
     </div>

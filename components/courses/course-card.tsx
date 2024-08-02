@@ -1,11 +1,9 @@
-import { CourseWithProgressWithCategories } from "@/actions/general/get-courses";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
-import { IconBadge } from "../global/icon-badge";
 import { BookOpen } from "lucide-react";
-import { formatPrice } from "@/lib";
 import { CourseProgress } from "@/components/global/course-progress";
+import { Badge } from "../ui/badge";
 
 interface CourseCardProps {
   id: string;
@@ -27,24 +25,32 @@ const CourseCard = ({
 }: CourseCardProps) => {
   return (
     <Link href={`/courses/${id}`} passHref>
-      <div className="group bg-white dark:bg-neutral-900 hover:shadow-sm mt-4  transition overflow-hidden border rounded-lg  h-full">
-        {/* image */}
-        <div
-          className="relative select-none
-        w-full aspect-video rounded-lg rounded-b-none overflow-hidden
-        "
-        >
-          <Image
-            fill
-            src={imageUrl || "/placeholder.jpg"}
-            alt={title}
-            className="object-cover hover:scale-110 transition duration-300"
-          />
-        </div>
+      <div className=" p-3 bg-white dark:bg-neutral-900 hover:shadow-sm  transition overflow-hidden border rounded-xl  h-full">
+        <div className="group">
+          {/* image */}
 
+          <div className=" relative">
+            <Badge
+              variant={"outline"}
+              className="absolute z-[2] top-4 left-4 transition-all duration-200 group-hover:top-0 group-hover:left-0  group-hover:rounded-l-none group-hover:rounded-t-none bg-accent group-hover:border-0 group-hover:pl-1 group-hover:px-3 group-hover:py-[4px] group-hover:rounded-br-xl"
+            >
+              {category}
+            </Badge>
+
+            <div className="relative max-h-[250px]  select-none w-full aspect-video rounded-xl overflow-hidden ">
+              <Image
+                fill
+                src={imageUrl || "/placeholder.jpg"}
+                alt={title}
+                className="object-cover hover:scale-110    transition duration-300"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        </div>
         {/* --------------------------------title and info------------------------------ */}
 
-        <div className="flex flex-col p-3 pt-2">
+        <div className="flex flex-col pt-2">
           {/* title */}
           <div className="text-lg md:text-base font-medium  transition line-clamp-2">
             {title}
@@ -75,6 +81,7 @@ const CourseCard = ({
             />
           )}
         </div>
+        <div />
       </div>
     </Link>
   );
