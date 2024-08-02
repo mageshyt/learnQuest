@@ -9,7 +9,7 @@ import {
   ResponsiveModalTrigger,
   ResponsiveModalClose,
 } from "@/components/ui/responsive-modal";
-import { getCourseChapterDescription } from "@/lib/ai-helper";
+import { getCourseChapterDescription } from "@/lib/common/ai-helper";
 import { Textarea } from "../ui/textarea";
 import { Button } from "../ui/button";
 import { Sparkle } from "lucide-react";
