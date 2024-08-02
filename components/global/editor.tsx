@@ -39,19 +39,19 @@ export const Editor = ({ value, onChange }: EditorProps) => {
             // add markdown support
           ],
         }}
-        formats={[
-          "header",
-          "bold",
-          "italic",
-          "underline",
-          "strike",
-          "blockquote",
-          "list",
-          "bullet",
-          "indent",
-          "link",
-          "image",
-        ]}
+        // formats={[
+        //   "header",
+        //   "bold",
+        //   "italic",
+        //   "underline",
+        //   "strike",
+        //   "blockquote",
+        //   "list",
+        //   "bullet",
+        //   "indent",
+        //   "link",
+        //   "image",
+        // ]}
       />
     </div>
   );
