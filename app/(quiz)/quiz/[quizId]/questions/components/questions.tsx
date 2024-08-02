@@ -28,7 +28,7 @@ const Questions = () => {
     <div className="h-full flex-1  flex items-center justify-center">
       {/* question */}
       <div className="lg:min-h-[350px] lg:max-w-5xl mx-auto   w-full px-4  flex flex-col space-y-12">
-        <h1 className="text-lg lg:text-3xl text-center lg:text-start font-bold text-neutral-700">
+        <h1 className="text-lg lg:text-3xl text-center lg:text-start font-bold text-neutral-700 dark:text-neutral-50">
           {title}
         </h1>
 
