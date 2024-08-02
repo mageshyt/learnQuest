@@ -1,19 +1,21 @@
 "use server";
 
 import { db } from "@/lib";
+import { userAnswerType } from "@/types/typings";
 import { auth } from "@clerk/nextjs/server";
 
-type userAnswerType = {
-  question: string;
-  answer: string;
-  isCorrect: boolean;
-};
+
 interface quizProps {
   quizId: string;
   answers: userAnswerType[];
+  startTime: number;
 }
 
-export const createQuizResult = async ({ quizId, answers }: quizProps) => {
+export const createQuizResult = async ({
+  quizId,
+  answers,
+  startTime,
+}: quizProps) => {
   try {
     const { userId } = auth();
 
@@ -37,6 +39,7 @@ export const createQuizResult = async ({ quizId, answers }: quizProps) => {
         quizId,
         score,
         errorCount,
+        startTime: new Date(startTime),
         answers: {
           set: answers,
         },

@@ -14,11 +14,13 @@ interface QuizState {
   usersAnswers: userAnswerType[];
   score: number;
   status: quizStatusType;
+  startTime: number;
 
   setQuestions: (questions: Question[]) => void;
   submitAnswer: () => void;
   setSelectedOption: (optionIndex: number) => void;
   nextQuestion: () => void;
+  moveTo: (index: number) => void;
   tryAgain: () => void;
 
   reset: () => void;
@@ -31,6 +33,7 @@ export const useQuiz = create<QuizState>((set) => ({
   score: 0,
   status: "none",
   selectedOption: null,
+  startTime: Date.now(),
 
   setSelectedOption: (optionIndex) =>
     set((state) => {
@@ -67,7 +70,6 @@ export const useQuiz = create<QuizState>((set) => ({
       } else {
         newStatus = "wrong";
       }
-
 
       return {
         usersAnswers: [
@@ -118,5 +120,14 @@ export const useQuiz = create<QuizState>((set) => ({
     set({
       status: "none",
       selectedOption: null,
+    }),
+
+  moveTo: (index) =>
+    set((state) => {
+      return {
+        currentQuestionIndex: index,
+        status: index === state.questions.length - 1 ? "completed" : "none",
+        selectedOption: null,
+      };
     }),
 }));
