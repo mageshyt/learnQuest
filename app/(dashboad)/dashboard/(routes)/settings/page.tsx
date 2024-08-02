@@ -1,6 +1,6 @@
 "use client";
 
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { userInRole } from "@/lib";
 import { SignOutButton, useAuth } from "@clerk/nextjs";
 import { useTheme } from "next-themes";
@@ -22,14 +22,14 @@ const SettingsPage = () => {
 
   // ======================== query ========================
 
-  if (!userId) {
-    return redirect("/");
-  }
-
   const { data: user, isLoading } = useQuery({
     queryKey: ["user", userId],
-    queryFn: () => getUserDetails(userId),
+    queryFn: () => getUserDetails(userId!),
   });
+
+  if (!user) {
+    return redirect("/");
+  }
 
   if (isLoading) {
     return <LoadingScreen />;
