@@ -181,6 +181,7 @@ model QuizResult {
 enum Role {
   USER
   ADMIN
+  TEACHER
 }
 
 enum COURSE_TYPE {
