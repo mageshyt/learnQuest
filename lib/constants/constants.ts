@@ -4,6 +4,7 @@ import {
   Book,
   BookCheck,
   Brain,
+  Compass,
   GraduationCap,
   Layout,
   Search,
@@ -108,7 +109,7 @@ export const USER_NAV_ITEM: SideBar[] = [
       {
         title: "Browser",
         path: "/search",
-        icon: Search,
+        icon: Compass,
       },
       {
         title: "Quiz",
@@ -124,6 +125,8 @@ export const QUIZ_IMAGE = ["/image/quiz-1.jpeg", "/image/quiz-1.jpeg"];
 export const AssetConstants = {
   error: "/image/error.jpeg",
   sad_emoji: "/icons/sad.svg",
+  teacher: "/icons/teacher.svg",
+  verified:"/icons/verified.svg",
 };
 
 export const AUDIO_CONSTANTS = {

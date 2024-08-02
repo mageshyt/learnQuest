@@ -2,7 +2,7 @@
 
 import { env } from "@/env";
 import { db } from "@/lib";
-import { ERROR_MESSAGE } from "@/lib/error-message";
+import { ERROR_MESSAGE } from "@/lib/constants/error-message";
 import { auth } from "@clerk/nextjs/server";
 import Mux from "@mux/mux-node";
 const { video } = new Mux({
@@ -10,7 +10,7 @@ const { video } = new Mux({
   tokenSecret: env.MUX_TOKEN_SECRET,
 });
 
-export const deleteCourse = async ( courseId: string) => {
+export const deleteCourse = async (courseId: string) => {
   try {
     const { userId } = auth();
 

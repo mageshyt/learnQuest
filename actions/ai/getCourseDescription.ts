@@ -1,6 +1,6 @@
 "use server";
 
-import { geminiModel } from "@/lib/ai-helper";
+import { geminiModel } from "@/lib/common/ai-helper";
 
 export const getCourseDescription = async (title: string) => {
   try {

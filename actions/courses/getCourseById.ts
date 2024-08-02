@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/lib";
-import { ERROR_MESSAGE } from "@/lib/error-message";
+import { ERROR_MESSAGE } from "@/lib/constants/error-message";
 
 export const getCourseById = async (id: string) => {
   try {

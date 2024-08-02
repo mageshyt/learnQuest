@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/lib";
-import { ERROR_MESSAGE } from "@/lib/error-message";
+import { ERROR_MESSAGE } from "@/lib/constants/error-message";
 import { auth } from "@clerk/nextjs/server";
 import { env } from "@/env";
 

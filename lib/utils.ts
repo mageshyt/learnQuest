@@ -1,6 +1,7 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
-import {  GRADE_CONSTANTS } from "./constants";
+import { GRADE_CONSTANTS } from "./constants/constants";
+import { Role, User } from "@prisma/client";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -14,8 +15,6 @@ export function random<T>(array: T[]): T {
   return array[Math.floor(Math.random() * array.length)];
 }
 
-
-
 export function getGradeImage(score: number) {
   if (score >= 80 && score <= 100) {
     return GRADE_CONSTANTS.grade1;
@@ -26,4 +25,8 @@ export function getGradeImage(score: number) {
   } else {
     return GRADE_CONSTANTS.grade4;
   }
+}
+
+export function userInRole({ user_role, roles }: { user_role: Role; roles: Role[] }) {
+  return roles.includes(user_role);
 }

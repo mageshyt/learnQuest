@@ -1,7 +1,7 @@
 "use server";
 
 import { db } from "@/lib";
-import { ERROR_MESSAGE } from "@/lib/error-message";
+import { ERROR_MESSAGE } from "@/lib/constants/error-message";
 import { auth } from "@clerk/nextjs/server";
 
 import { Chapter } from "@prisma/client";
@@ -90,12 +90,10 @@ export const updateChapter = async (
                 name: "English CC",
               },
             ],
-
           },
         ],
 
-        test:false,
-
+        test: false,
       });
 
       console.log(asset);

@@ -2,7 +2,7 @@
 
 import { env } from "@/env";
 import { db } from "@/lib";
-import { ERROR_MESSAGE } from "@/lib/error-message";
+import { ERROR_MESSAGE } from "@/lib/constants/error-message";
 import { auth } from "@clerk/nextjs/server";
 import Mux from "@mux/mux-node";
 
