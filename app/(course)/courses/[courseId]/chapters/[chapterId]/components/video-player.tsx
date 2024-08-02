@@ -38,9 +38,9 @@ export const VideoPlayer: FC<VideoPlayerProps> = ({
   const [isRead, setIsRead] = useState(false);
 
   return (
-    <div className="relative aspect-video ">
+    <div className="relative aspect-video rounded-2xl">
       {!isRead && !isLocked && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-slate-800">
+        <div className="absolute rounded-2xl h-auto inset-0 flex flex-col items-center justify-center bg-slate-800">
           <Loader2 className="text-secondary animate-spin " size={32} />
           <p className="text-sm text-secondary">Loading Video</p>
         </div>
