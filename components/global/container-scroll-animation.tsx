@@ -2,6 +2,7 @@
 import React, { useRef } from "react";
 import { useScroll, useTransform, motion } from "framer-motion";
 import Image from "next/image";
+import { BorderBeam } from "@/components/magicui/border-beam";
 
 export const ContainerScroll = ({
   titleComponent,
@@ -83,13 +84,14 @@ export const Card = ({
       }}
       className="max-w-5xl -mt-12 mx-auto h-[30rem] md:h-[40rem] w-full  p-6 bg-[#222222] rounded-[30px] shadow-2xl"
     >
-      <div className="bg-gray-100 h-full w-full rounded-2xl  gap-4 overflow-hidden p-4 transition-all ">
+      <div className=" h-full w-full rounded-2xl  gap-4 overflow-hidden p-4 transition-all ">
         <Image
           src="/temp-banner.png"
           fill
           alt="bannerImage"
-          className="object-cover border-8 rounded-2xl"
+          className="object-cover border-4 border-neutral-900  rounded-2xl"
         />
+        <BorderBeam duration={12} delay={9} borderWidth={3} />
       </div>
     </motion.div>
   );
