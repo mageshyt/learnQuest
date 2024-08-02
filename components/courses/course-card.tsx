@@ -32,7 +32,7 @@ const CourseCard = ({
           <div className=" relative">
             <Badge
               variant={"outline"}
-              className="absolute z-[2] top-4 left-4 transition-all duration-200 group-hover:top-0 group-hover:left-0  group-hover:rounded-l-none group-hover:rounded-t-none bg-accent group-hover:border-0 group-hover:pl-1 group-hover:px-3 group-hover:py-[4px] group-hover:rounded-br-xl"
+              className="absolute z-[2] top-3 left-3 transition-all duration-200 group-hover:top-0 group-hover:left-0  group-hover:rounded-l-none group-hover:rounded-t-none bg-accent group-hover:border-0 group-hover:pl-1 group-hover:px-3 group-hover:py-[4px] group-hover:rounded-br-xl"
             >
               {category}
             </Badge>
