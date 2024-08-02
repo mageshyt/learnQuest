@@ -31,6 +31,7 @@ export const QuizContainer = ({ quiz, quizId }: QuizContainerProps) => {
     nextQuestion,
     tryAgain,
     usersAnswers,
+    startTime,
     moveTo,
   } = useQuiz();
   const { showConfetti } = useConfettiStore();
@@ -49,6 +50,7 @@ export const QuizContainer = ({ quiz, quizId }: QuizContainerProps) => {
       } else {
         const intro = new Audio(AUDIO_CONSTANTS.intro);
         intro.play();
+        moveTo(0);
       }
     }
   }, [quiz, setQuestions, moveTo]);
@@ -73,6 +75,7 @@ export const QuizContainer = ({ quiz, quizId }: QuizContainerProps) => {
           const save = await createQuizResult({
             quizId,
             answers: usersAnswers,
+            startTime,
           });
 
           if ("error" in save) {
@@ -103,6 +106,7 @@ export const QuizContainer = ({ quiz, quizId }: QuizContainerProps) => {
           const save = await createQuizResult({
             quizId,
             answers: usersAnswers,
+            startTime: startTime,
           });
 
           if ("error" in save) {
