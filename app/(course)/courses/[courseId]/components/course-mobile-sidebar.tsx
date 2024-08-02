@@ -22,7 +22,9 @@ export const CourseMobileSidebar: FC<CourseMobileSidebarProps> = ({
   return (
     <Sheet>
       <SheetTrigger className="md:hidden pr-4 hover:opacity-75 transition">
-        <Menu />
+        <div className="rounded-full bg-white  shadow p-2">
+          <Menu />
+        </div>
       </SheetTrigger>
       <SheetContent
         side="left"
