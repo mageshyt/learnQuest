@@ -9,7 +9,7 @@ const CourseIdPage = async ({
   };
 }) => {
   const course = await getCourseById(courseId);
-  if (!course) {
+  if (!course || course.chapters.length === 0) {
     return redirect("/dashboard/search/");
   }
 
