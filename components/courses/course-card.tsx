@@ -37,7 +37,7 @@ const CourseCard = ({
               {category}
             </Badge>
 
-            <div className="relative max-h-[250px]  select-none w-full aspect-video rounded-xl overflow-hidden ">
+            <div className="relative max-h-[250px] select-none w-full aspect-video rounded-xl overflow-hidden ">
               <Image
                 fill
                 src={imageUrl || "/placeholder.jpg"}
