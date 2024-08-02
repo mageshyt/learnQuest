@@ -13,7 +13,7 @@ import QuizConfigForm from "./quiz-form";
 import { quizFormSchema } from "@/schema";
 import { z } from "zod";
 
-import { generateQuizWithRetry } from "@/lib/ai-helper";
+import { generateQuizWithRetry } from "@/lib/common/ai-helper";
 import { createQuiz } from "@/actions/quiz/create-quiz";
 
 import {

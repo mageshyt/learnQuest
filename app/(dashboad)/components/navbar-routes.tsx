@@ -43,7 +43,6 @@ const NavbarRoutes = () => {
         <div className="">
           <UserButton afterSignOutUrl="/" />
         </div>
-        <ModeToggle />
       </div>
     </>
   );
