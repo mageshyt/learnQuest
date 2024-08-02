@@ -9,6 +9,7 @@ import ToastProvider from "@/components/providers/toast-provider";
 import QueryProvider from "@/components/providers/query-provider";
 import { ModalProvider } from "@/components/providers/modal-provider";
 import { ConfettiProvider } from "@/components/providers/confetti-provider";
+import { GeistSans } from "geist/font/sans";
 
 const font = Inter({
   subsets: ["latin"],
@@ -28,7 +29,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={cn(font.className, "h-screen")}>
+      <body className={cn(GeistSans.className, "h-screen")}>
         <QueryProvider>
           <ThemeProvider
             attribute="class"
