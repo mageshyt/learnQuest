@@ -37,7 +37,7 @@ export const TimeCard = ({
   const avgSeconds = Math.floor(averageTimeInSeconds % 60);
 
   return (
-    <Card className="col-span-4 ">
+    <Card className="md:col-span-4  col-span-7">
       <CardHeader className="flex items-center justify-between flex-row">
         <CardTitle className="md:text-2xl text-xl font-bold text-gray-800 dark:text-gray-200">
           Time Analysis
@@ -57,7 +57,8 @@ export const TimeCard = ({
           <div className="flex items-center justify-between text-sm md:text-base text-gray-600 dark:text-gray-300">
             <span>Duration</span>
             <span>
-              {minutes} mins {seconds} secs
+              {minutes > 0 ? `${minutes} mins` : ""}
+              {seconds} secs
             </span>
           </div>
         </CardDescription>
@@ -65,7 +66,8 @@ export const TimeCard = ({
       <CardFooter className="flex items-center justify-between text-lg md:text-xl font-semibold text-gray-700 dark:text-gray-200">
         <span>Average Time</span>
         <span>
-          {avgMinutes} mins {avgSeconds} secs
+          {avgMinutes > 0 ? `${avgMinutes} mins` : ""}
+          {avgSeconds} secs
         </span>
       </CardFooter>
     </Card>

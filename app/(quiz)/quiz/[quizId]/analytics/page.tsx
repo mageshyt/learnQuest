@@ -9,6 +9,8 @@ import ResultCard from "./components/result-card";
 import { TimeCard } from "./components/time-card";
 import AvgAccuracyCard from "./components/avg-accuracy-card";
 import ClientWrapper from "@/components/global/client-wrapper";
+import { AnswersTable } from "./components/answers-table";
+import { Question, userAnswerType } from "@/types/typings";
 
 interface QuizResultPageProps {
   params: {
@@ -54,9 +56,15 @@ const QuizResultPage = async ({ params }: QuizResultPageProps) => {
             totalQuestions={result.quiz.questions.length}
           />
         </ResultSection>
-      </ClientWrapper>
+        {/* -----------------------------USER ANSWER SECTION --------------------*/}
 
-      {/* -----------------------------USER ANSWER SECTION --------------------*/}
+        <div className="mt-4">
+          <AnswersTable
+            userAnswers={result.answers as userAnswerType[]}
+            questions={result.quiz.questions as Question[]}
+          />
+        </div>
+      </ClientWrapper>
     </Wrapper>
   );
 };
@@ -69,4 +77,4 @@ const TopSection = tw.div`flex items-center justify-between space-y-2`;
 
 const Title = tw.h2`text-3xl  font-bold text-gray-800 dark:text-gray-200 tracking-tight`;
 
-const ResultSection = tw.div`grid gap-4 mt-4 md:grid-cols-7`;
+const ResultSection = tw.div`grid gap-4 mt-4 md:grid-cols-7 `;

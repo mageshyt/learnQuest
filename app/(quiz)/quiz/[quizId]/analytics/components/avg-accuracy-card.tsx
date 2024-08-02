@@ -23,7 +23,7 @@ const AvgAccuracyCard = ({ userAnswers, mistakes }: AccuracyCardProps) => {
     totalAnswers > 0 ? ((correctAnswers / totalAnswers) * 100).toFixed(2) : "0";
 
   return (
-    <Card className="col-span-3  ">
+    <Card className="col-span-7 md:col-span-3">
       <CardHeader className="flex items-center justify-between flex-row">
         <CardTitle className="md:text-2xl text-xl font-bold text-gray-800 dark:text-gray-200">
           Average Accuracy
