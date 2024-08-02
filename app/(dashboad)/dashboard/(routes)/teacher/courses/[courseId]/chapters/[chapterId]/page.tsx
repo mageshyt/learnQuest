@@ -1,17 +1,18 @@
-import React from "react";
+import Link from "next/link";
 
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
 import { getChapterById } from "@/actions/courses/chapters/getChapterById";
-import Link from "next/link";
+import ChapterActions from "./components/chapter-actions";
+
 import { ArrowLeft, Eye, LayoutDashboard, Video } from "lucide-react";
 import { IconBadge } from "@/components/global/icon-badge";
+import { Banner } from "@/components/ui/banner";
+
 import ChapterTitleForm from "./components/chapter-title-form";
 import ChapterDescriptionForm from "./components/chapter-description-form";
 import ChapterAccessForm from "./components/chapter-access-form";
 import ChapterVideoForm from "./components/chapter-video-form";
-import Banner from "@/components/ui/banner";
-import ChapterActions from "./components/chapter-actions";
 
 const ChapterIdPage = async ({
   params,
@@ -45,13 +46,14 @@ const ChapterIdPage = async ({
 
   return (
     <>
-      {!chapter.isPublished && (
-        <Banner
-          label="This chapter is not published yet. It will not be accessible to students."
-          variant="warning"
-        />
-      )}
-      <div className="p-6 bg-white dark:bg-neutral-950">
+      <div className="p-4 h-full bg-white dark:bg-neutral-950">
+        {!chapter.isPublished && (
+          <Banner
+            label="This chapter is not published yet. It will not be accessible to students."
+            variant="warning"
+          />
+        )}
+
         {/* ------------------------- Top Area------------------------------ */}
         <div className="flex items-center justify-between">
           <div className="w-full">

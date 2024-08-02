@@ -1,16 +1,22 @@
-import { getChapterById } from "@/actions/general/get-chapter";
-import Banner from "@/components/ui/banner";
 import { auth } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+
+import { File } from "lucide-react";
+
+import { getChapterById } from "@/actions/general/get-chapter";
+
+import ListView from "@/components/global/list-view";
+import { Separator } from "@/components/ui/separator";
+// import Banner from "@/components/ui/banner";
+import { Banner } from "@/components/test-component";
+
+import { CourseProgressButton } from "./components/course-progress-button";
+
+import QuizGenerator from "./components/quiz-generator";
+import { AiQuestion } from "./components/ai-question";
 import { VideoPlayer } from "./components/video-player";
 import { CourseEnrollButton } from "./components/couse-enroll-button";
-import { Separator } from "@/components/ui/separator";
 import { Preview } from "@/components/global/preview";
-import ListView from "@/components/global/list-view";
-import { File } from "lucide-react";
-import { CourseProgressButton } from "./components/course-progress-button";
-import { AiQuestion } from "./components/ai-question";
-import QuizGenerator from "./components/quiz-generator";
 
 interface ChapterPageProps {
   params: {
@@ -47,8 +53,8 @@ const ChapterIdPage = async ({ params }: ChapterPageProps) => {
   const completeOnEnd = !!purchase && !userProgress?.isCompleted;
   // console.log("ChapterIdPage -> completeOnEnd", userProgress);
   return (
-    <>
-      <div className="  ">
+    <div className="p-4">
+      <div>
         {userProgress?.isCompleted && (
           <Banner label="You have completed this chapter." variant="success" />
         )}
@@ -59,8 +65,8 @@ const ChapterIdPage = async ({ params }: ChapterPageProps) => {
             variant="warning"
           />
         )}
-        <div className="flex flex-col w-full">
-          <div className="p-4 space-y-4">
+        <div className="flex mt-4 flex-col w-full">
+          <div className=" space-y-4">
             <VideoPlayer
               playbackId={muxData?.playbackId!}
               chapterId={chapter.id}
@@ -138,7 +144,7 @@ const ChapterIdPage = async ({ params }: ChapterPageProps) => {
           </>
         )}
       </div>
-    </>
+    </div>
   );
 };
 

@@ -16,7 +16,7 @@ import PriceForm from "./components/price-form";
 import AttachmentForm from "./components/attachment-form";
 import ChaptersForm from "./components/chatpers-form";
 import { getUserCourseById } from "@/actions/courses/getUserCourseById";
-import Banner from "@/components/ui/banner";
+import { Banner } from "@/components/ui/banner";
 import CourseActions from "../components/course-action";
 
 const CoursePage = async ({
@@ -69,14 +69,14 @@ const CoursePage = async ({
   const completionText = ` ${completedFields}/${totalFields}`;
   return (
     <>
-      {!course.isPublished && (
-        <Banner
-          label="Please complete all fields to continue"
-          variant="warning"
-        />
-      )}
+      <div className="p-4 h-full bg-white dark:bg-neutral-950">
+        {!course.isPublished && (
+          <Banner
+            label="Please complete all fields to continue"
+            variant="warning"
+          />
+        )}
 
-      <div className="p-6 bg-white dark:bg-neutral-950">
         <div className="flex items-center justify-between">
           {/* ----------------header------------------ */}
           <div className="flex flex-col gap-y-3">
