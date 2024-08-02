@@ -1,6 +1,6 @@
 import { create } from "zustand";
 
-export type ModalType = "chapter-ai-helper" | "confirmation-model" | "exit-model";
+export type ModalType = "chapter-ai-helper" | "confirmation-model" | "exit-model" | "teacher-register-model";
 
 interface ModalData {
   handleConfirm?: () => void;
