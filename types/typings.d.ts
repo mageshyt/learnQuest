@@ -29,3 +29,9 @@ export type questionType =
 export type quizStatusType = "none" | "completed" | "correct" | "wrong";
 
 export type audioType = "correct" | "select" | "wrong";
+
+export type userAnswerType = {
+  question: string;
+  answer: string;
+  isCorrect: boolean;
+};
