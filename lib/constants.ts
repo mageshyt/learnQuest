@@ -1,4 +1,5 @@
 import { SideBar } from "@/types/typings";
+import exp from "constants";
 import {
   Book,
   BookCheck,
@@ -130,4 +131,11 @@ export const AUDIO_CONSTANTS = {
   correct: "/audio/correct.mp3",
   select: "/audio/menu-selection.mp3",
   intro: "/audio/game-start.mp3",
+};
+
+export const GRADE_CONSTANTS = {
+  grade1: "/icons/grades/grade-1.svg",
+  grade2: "/icons/grades/grade-2.svg",
+  grade3: "/icons/grades/grade-3.svg",
+  grade4: "/icons/grades/grade-4.svg",
 };
