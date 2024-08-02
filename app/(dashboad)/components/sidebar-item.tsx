@@ -63,11 +63,11 @@ const SidebarMenuItems: FC<SideNavItem> = ({
         )}
       >
         {/* Menu title */}
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-4 w-full items-center">
           {Icon && (
             <Icon
               className={cn(
-                "w-6 h-5 text-muted-foreground",
+                "size-5 text-muted-foreground",
                 isActive ? "text-slate-700 dark:text-slate-50" : ""
               )}
             />

@@ -1,10 +1,8 @@
-
-
 "use client";
 import React from "react";
 
 import ListView from "@/components/global/list-view";
-import { TEACHER_NAV_ITEM, USER_NAV_ITEM } from "@/lib/constants";
+import { TEACHER_NAV_ITEM, USER_NAV_ITEM } from "@/lib/constants/constants";
 import { usePathname } from "next/navigation";
 import SidebarItem from "./sidebar-item";
 const SidebarRoutes = () => {
