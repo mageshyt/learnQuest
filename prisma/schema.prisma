@@ -161,16 +161,18 @@ model Quiz {
 }
 
 model QuizResult {
-  id        String   @id @default(uuid())
-  quizId    String
-  userId    String
-  answers   Json[]
+  id         String    @id @default(uuid())
+  quizId     String
+  userId     String
+  answers    Json[]
   errorCount Int
-  score     Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  quiz      Quiz     @relation(fields: [quizId], references: [id])
-  user      User     @relation(fields: [userId], references: [id])
+  score      Int
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  quiz       Quiz      @relation(fields: [quizId], references: [id])
+  user       User      @relation(fields: [userId], references: [id])
+  startTime  DateTime?
+  endTime    DateTime? @default(now())
 
   @@index([quizId])
   @@index([userId])
