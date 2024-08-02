@@ -11,6 +11,7 @@ type CourseWithPRogressWithCategory = Course & {
 type DashboardCourse = {
   completedCourse: any[];
   coursesInProgress: any[];
+  quizAttempts: number;
 };
 
 export const getDashboardCourses = async (
@@ -50,9 +51,16 @@ export const getDashboardCourses = async (
       (course) => (course.progress ?? 0) < 100
     );
 
+    const quizAttempts = await db.quiz.count({
+      where: {
+        userId,
+      },
+    });
+
     return {
       completedCourse,
       coursesInProgress,
+      quizAttempts,
     };
   } catch (err) {
     console.log("app dashboard getDashboardCourses error", err);
@@ -60,6 +68,7 @@ export const getDashboardCourses = async (
     return {
       completedCourse: [],
       coursesInProgress: [],
+      quizAttempts: 0,
     };
   }
 };

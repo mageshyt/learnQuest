@@ -72,6 +72,7 @@ export const getCourses = async ({
       );
 
     return CourseWithProgress;
+    // return new Array(10).fill(CourseWithProgress[0]);
   } catch (e) {
     console.log("[ERROR] getCourses", e);
     return [];

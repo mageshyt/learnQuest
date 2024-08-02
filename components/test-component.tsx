@@ -1,91 +1,58 @@
-"use client";
-
-import * as React from "react";
-import { Check, ChevronsUpDown } from "lucide-react";
-
+import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import {
-  Command,
-  CommandEmpty,
-  CommandGroup,
-  CommandInput,
-  CommandItem,
-} from "@/components/ui/command";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
+import { FaInfo } from "react-icons/fa6";
+import { MdErrorOutline } from "react-icons/md";
+import { IoIosCheckmarkCircleOutline } from "react-icons/io";
+import { IoWarningOutline } from "react-icons/io5";
+import { CheckCircle, ShieldX } from "lucide-react";
 
-const frameworks = [
+const bannerVariants = cva(
+  "text-center p-2 md:p-3 text-sm flex items-center w-full rounded-full mb-2",
   {
-    value: "next.js",
-    label: "Next.js",
-  },
-  {
-    value: "sveltekit",
-    label: "SvelteKit",
-  },
-  {
-    value: "nuxt.js",
-    label: "Nuxt.js",
-  },
-  {
-    value: "remix",
-    label: "Remix",
-  },
-  {
-    value: "astro",
-    label: "Astro",
-  },
-];
+    variants: {
+      variant: {
+        success: `border-[1px] bg-[hsl(143,85%,96%)] border-[hsl(145,92,91)] text-[hsl(140,100%,27%)]
+                  dark:bg-[hsl(150,100%,6%)] dark:border-[hsl(147,100,12)] dark:text-[hsl(150,86%,65%)]`,
 
-export function ComboboxDemo() {
-  const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState("");
+        info: `border-[1px] bg-[hsl(208,100%,97%)] border-[hsl(221,91,91)] text-[hsl(210,92%,45%)]
+              dark:bg-[hsl(215,100%,6%)] dark:border-[hsl(223,100,12)] dark:text-[hsl(216,87%,65%)]`,
+
+        warning: `border-[1px] bg-[hsl(49,100%,97%)] border-[hsl(49,91,91)] text-[hsl(31,92%,45%)]
+                  dark:bg-[hsl(64,100%,6%)]  dark:border-[hsl(60,100,12)] dark:text-[hsl(46,87%,65%)]`,
+
+        error: `border-[1px] bg-[hsl(359,100%,97%)] border-[hsl(359,100,94)] text-[hsl(360,100%,45%)]
+                dark:bg-[hsl(358,76%,10%)] dark:border-[hsl(357,89,16)]  dark:text-[hsl(358,100%,81%)]`,
+      },
+    },
+    defaultVariants: {
+      variant: "warning",
+    },
+  }
+);
+
+interface BannerProps extends VariantProps<typeof bannerVariants> {
+  label: string;
+}
+
+const iconMap = {
+  warning: IoWarningOutline,
+  success: CheckCircle,
+  info: FaInfo,
+  error: ShieldX,
+};
+
+export const Banner = ({ label, variant }: BannerProps) => {
+  const Icon = iconMap[variant || "warning"];
 
   return (
-    <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild>
-        <Button
-          variant="outline"
-          role="combobox"
-          aria-expanded={open}
-          className="w-[200px] justify-between"
-        >
-          {value
-            ? frameworks.find((framework) => framework.value === value)?.label
-            : "Select framework..."}
-          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-        </Button>
-      </PopoverTrigger>
-      <PopoverContent className="w-[200px] p-0">
-        <Command>
-          <CommandInput placeholder="Search framework..." />
-          <CommandEmpty>No framework found.</CommandEmpty>
-          <CommandGroup>
-            {frameworks.map((framework) => (
-              <CommandItem
-                key={framework.value}
-                value={framework.value}
-                onSelect={(currentValue) => {
-                  setValue(currentValue === value ? "" : currentValue);
-                  setOpen(false);
-                }}
-              >
-                <Check
-                  className={cn(
-                    "mr-2 h-4 w-4",
-                    value === framework.value ? "opacity-100" : "opacity-0",
-                  )}
-                />
-                {framework.label}
-              </CommandItem>
-            ))}
-          </CommandGroup>
-        </Command>
-      </PopoverContent>
-    </Popover>
+    <div
+      className={cn(
+        bannerVariants({ variant }),
+        "w-full flex items-center border-0"
+      )}
+    >
+      <Icon className="size-6 mr-2" strokeWidth={2} />
+      {label}
+    </div>
   );
-}
+};

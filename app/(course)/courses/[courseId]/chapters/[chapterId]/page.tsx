@@ -7,8 +7,7 @@ import { getChapterById } from "@/actions/general/get-chapter";
 
 import ListView from "@/components/global/list-view";
 import { Separator } from "@/components/ui/separator";
-// import Banner from "@/components/ui/banner";
-import { Banner } from "@/components/test-component";
+import { Banner } from "@/components/ui/banner";
 
 import { CourseProgressButton } from "./components/course-progress-button";
 
