@@ -2,7 +2,7 @@ import useSound from "use-sound";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { audioType } from "@/types/typings";
-import { AUDIO_CONSTANTS } from "./constants";
+import { AUDIO_CONSTANTS, GRADE_CONSTANTS } from "./constants";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -25,4 +25,16 @@ export function playAudio(type: audioType) {
   const [play] = useSound(audio_src[type]);
 
   return play;
+}
+
+export function getGradeImage(score: number) {
+  if (score >= 80 && score <= 100) {
+    return GRADE_CONSTANTS.grade1;
+  } else if (score >= 60 && score < 80) {
+    return GRADE_CONSTANTS.grade2;
+  } else if (score >= 40 && score < 60) {
+    return GRADE_CONSTANTS.grade3;
+  } else {
+    return GRADE_CONSTANTS.grade4;
+  }
 }
