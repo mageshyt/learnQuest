@@ -67,15 +67,15 @@ const SidebarMenuItems: FC<SideNavItem> = ({
           {Icon && (
             <Icon
               className={cn(
-                "w-6 h-5",
-                isActive ? "text-slate-500 dark:text-slate-50" : ""
+                "w-6 h-5 text-muted-foreground",
+                isActive ? "text-slate-700 dark:text-slate-50" : ""
               )}
             />
           )}
           <span
             className={cn(
-              "text-sm font- ",
-              isActive ? "text-slate-500 dark:text-slate-50" : ""
+              "text-muted-foreground text-sm",
+              isActive ? "text-slate-700 dark:text-slate-50" : ""
             )}
           >
             {title}

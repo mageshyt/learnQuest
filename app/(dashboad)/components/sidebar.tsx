@@ -7,7 +7,7 @@ import Link from "next/link";
 const Sidebar = () => {
   return (
     <Wrapper>
-      <div className="p-6">
+      <div className="h-[80px]  p-6 md:border-b ">
         <Link href="/dashboard">
           <Logo height={150} width={180} />
         </Link>
@@ -16,6 +16,8 @@ const Sidebar = () => {
       <Routes>
         <SidebarRoutes />
       </Routes>
+
+      {/* setting */}
     </Wrapper>
   );
 };
