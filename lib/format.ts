@@ -37,3 +37,7 @@ export const timeAgo= (date: Date | string | number) => {
   return timeAgo.format(new Date(date));
 
 }
+
+export const timeFormat = (date: Date | string | number) => {
+  return format(new Date(date), "hh:mm a");
+}
