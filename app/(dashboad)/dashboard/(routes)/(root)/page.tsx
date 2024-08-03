@@ -18,7 +18,7 @@ export default async function Home() {
   return (
     <main className="p-4 space-y-4 h-full overflow-y-auto pb-10 container ">
       {/* ---------------------------header--------------------------- */}
-      <div className="flex flex-col mb-6 md:gap-1 items-center sm:items-start">
+      <div className="  mb-6 ">
         <Heading
           title={`Welcome back ${user.firstName?.charAt(0)?.toUpperCase()}${user.firstName?.slice(1)}!`}
           isUnderlined={false}
