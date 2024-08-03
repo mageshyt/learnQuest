@@ -18,7 +18,7 @@ export async function registerTeacher() {
     });
     // update the user role to teacher in clerk
 
-    await clerkClient.users.updateUser(userId, {
+    await clerkClient.users.updateUserMetadata(userId, {
       publicMetadata: {
         role: "TEACHER",
       },
