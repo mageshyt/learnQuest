@@ -1,6 +1,7 @@
 "use server";
 import { db } from "@/lib";
 import { auth } from "@clerk/nextjs/server";
+import { clerkClient } from "@clerk/nextjs/server";
 
 export async function registerTeacher() {
   try {
@@ -13,6 +14,13 @@ export async function registerTeacher() {
     const user = await db.user.findUnique({
       where: {
         id: userId,
+      },
+    });
+    // update the user role to teacher in clerk
+
+    await clerkClient.users.updateUser(userId, {
+      publicMetadata: {
+        role: "TEACHER",
       },
     });
 
