@@ -23,15 +23,14 @@ const NavbarRoutes = () => {
         </div>
       )}
       <div className="flex gap-4 ml-auto">
-        {isTeacherPage ||
-          (isCoursePage && (
-            <Link href="/dashboard">
-              <Button size="sm" variant="ghost">
-                <LogOut className="iconsmright" />
-                Exit
-              </Button>
-            </Link>
-          ))}
+        {isTeacherPage || isCoursePage ? (
+          <Link href="/dashboard">
+            <Button size="sm" variant="ghost">
+              <LogOut className="iconsmright" />
+              Exit
+            </Button>
+          </Link>
+        ) : null}
       </div>
     </>
   );
