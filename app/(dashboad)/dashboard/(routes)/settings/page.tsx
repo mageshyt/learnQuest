@@ -1,34 +1,32 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { userInRole } from "@/lib";
-import { SignOutButton, useAuth } from "@clerk/nextjs";
 import { useTheme } from "next-themes";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+
+import { AlertCircle } from "lucide-react";
+import { useUser } from "@clerk/clerk-react";
+import { Role } from "@prisma/client";
+import { SignOutButton } from "@clerk/nextjs";
+
+import { userInRole } from "@/lib";
+
+import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { AlertCircle, Timer } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
-import { useQuery } from "@tanstack/react-query";
-import { getUserDetails } from "@/actions/user/get-user-details";
-import LoadingScreen from "@/components/global/loading-screen";
 import { useModal } from "@/hooks/use-modal";
+import SettingsLoading from "./loading";
+import { redirect } from "next/navigation";
 
 const SettingsPage = () => {
   // ======================== hooks ========================
-  const { userId } = useAuth();
+  const { user, isSignedIn, isLoaded } = useUser();
   const { theme, setTheme } = useTheme();
   const { openModal } = useModal();
 
   // ======================== query ========================
 
-  const { data: user, isLoading } = useQuery({
-    queryKey: ["user", userId],
-    queryFn: () => getUserDetails(userId!),
-  });
-
-  if (isLoading) {
-    return <LoadingScreen />;
+  if (!isLoaded) {
+    return <SettingsLoading />;
   }
 
   if (!user) {
@@ -49,8 +47,8 @@ const SettingsPage = () => {
 
         {/* Teacher Account Section */}
         {userInRole({
-          user_role: user?.role || "USER",
-          roles: ["ADMIN", "TEACHER"],
+          user_role: (user?.publicMetadata?.role as Role) || "USER",
+          roles: ["TEACHER"],
         }) ? (
           <div className="flex flex-row items-center justify-between rounded-lg border p-4">
             <div className="space-y-0.5">
