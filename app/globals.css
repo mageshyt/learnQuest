@@ -96,10 +96,10 @@ mux-player {
 
 mux-player::part(video) {
   background-color: white;
-  
 }
-
-.wmde-markdown {
+.ql-syntax {
+  padding: 1rem;
+  overflow-x: auto;
 }
 
 .wmde-markdown hr {

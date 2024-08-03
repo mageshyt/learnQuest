@@ -10,7 +10,9 @@ import QueryProvider from "@/components/providers/query-provider";
 import { ModalProvider } from "@/components/providers/modal-provider";
 import { ConfettiProvider } from "@/components/providers/confetti-provider";
 import { GeistSans } from "geist/font/sans";
-
+import "@uiw/react-md-editor/markdown-editor.css";
+// No import is required in the WebPack.
+import "@uiw/react-markdown-preview/markdown.css";
 const font = Inter({
   subsets: ["latin"],
   adjustFontFallback: true,
