@@ -48,14 +48,14 @@ export const toggleChapterComplete = async ({
     //  if it  completed give 10px
     if (isCompleted) {
       // update in clerk
-      await clerkClient.users.updateUser(userId, {
+      await clerkClient.users.updateUserMetadata(userId, {
         publicMetadata: {
           xp: xp + 10,
         },
       });
 
     } else {
-      await clerkClient.users.updateUser(userId, {
+      await clerkClient.users.updateUserMetadata(userId, {
         publicMetadata: {
           xp: Math.max(xp - 10, 0),
         },
