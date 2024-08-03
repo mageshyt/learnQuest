@@ -3,7 +3,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 
 interface UserAvatarProps {
-  imageUrl: string;
+  imageUrl: string | undefined;
   alt: string;
   className?: string;
   fallback?: string;
@@ -21,7 +21,7 @@ const UserAvatar: FC<UserAvatarProps> = ({
       <AvatarImage src={imageUrl} alt={alt} />
       <AvatarFallback
         className={cn(
-          "text-emerald-500 bg-emerald-200/30 font-semibold text-sm",
+          " font-semibold uppercase  text-neutral-800 border dark:text-neutral-900 ",
           fallbackStyle
         )}
       >
