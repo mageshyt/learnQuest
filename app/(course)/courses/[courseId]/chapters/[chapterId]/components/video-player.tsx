@@ -38,7 +38,7 @@ export const VideoPlayer: FC<VideoPlayerProps> = ({
   const [isRead, setIsRead] = useState(false);
 
   return (
-    <div className="relative aspect-video rounded-2xl">
+    <div className="relative aspect-video max-w-7xl  mx-auto  bg-transparent rounded-2xl overflow-hidden">
       {!isRead && !isLocked && (
         <div className="absolute rounded-2xl h-auto inset-0 flex flex-col items-center justify-center bg-slate-800">
           <Loader2 className="text-secondary animate-spin " size={32} />
@@ -58,7 +58,8 @@ export const VideoPlayer: FC<VideoPlayerProps> = ({
       {!isLocked && playbackId && (
         <MuxPlayer
           playbackId={playbackId}
-          className={cn(!isRead && "hidden")}
+          className={cn(!isRead && "hidden", "")}
+          style={{ background: "white" }}
           onCanPlay={() => setIsRead(true)}
           onEnded={async () => {
             if (completeOnEnd) {

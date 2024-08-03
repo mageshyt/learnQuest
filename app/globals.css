@@ -12,7 +12,7 @@
     --popover-foreground: 240 10% 3.9%;
     --primary: 240 5.9% 10%;
     --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
+    --secondary: 0 0% 100%;
     --secondary-foreground: 240 5.9% 10%;
     --muted: 240 4.8% 95.9%;
     --muted-foreground: 240 3.8% 46.1%;
@@ -89,4 +89,32 @@
 
 mux-player {
   --dialog: none;
+  /* height: 500px; */
+  /* border-radius: 10px !important; */
+  background-color: transparent !important;
+}
+
+mux-player::part(video) {
+  background-color: white;
+  
+}
+
+.wmde-markdown {
+}
+
+.wmde-markdown hr {
+  opacity: 25% !important;
+  height: 1px !important;
+}
+
+.w-md-editor-toolbar {
+  height: 60px !important;
+  /* width: 30px; */
+}
+.w-md-editor-toolbar li {
+  margin: 0 0.5rem !important;
+}
+.w-md-editor-toolbar svg {
+  height: 16px !important;
+  width: 16px !important;
 }
