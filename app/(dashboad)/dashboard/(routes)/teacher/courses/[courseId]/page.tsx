@@ -69,7 +69,7 @@ const CoursePage = async ({
   const completionText = ` ${completedFields}/${totalFields}`;
   return (
     <>
-      <div className="p-4 h-full bg-white dark:bg-neutral-950">
+      <div className="p-4 h-full pb-10 bg-white dark:bg-neutral-950">
         {!course.isPublished && (
           <Banner
             label="Please complete all fields to continue"

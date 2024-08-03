@@ -55,7 +55,7 @@ const ChapterIdPage = async ({
         )}
 
         {/* ------------------------- Top Area------------------------------ */}
-        <div className="flex items-center justify-between">
+        <div className="flex items-center  justify-between">
           <div className="w-full">
             {/* ------------------------- back button----------------------- */}
             <Link
@@ -83,7 +83,7 @@ const ChapterIdPage = async ({
 
         {/* ------------------------- Main Content------------------------------ */}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-16">
+        <div className="grid grid-cols-1 pb-10 md:grid-cols-2 gap-6 mt-16">
           <div className="space-y-4">
             <div>
               {/* CHapter Title */}
