@@ -23,6 +23,7 @@ model User {
   QuizResult     QuizResult[]
   UserProgress   UserProgress[]
   stripeCustomer stripeCustomer?
+  points         Int             @default(0)
 }
 
 model Course {

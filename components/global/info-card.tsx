@@ -5,28 +5,18 @@ import { IconBadge } from "./icon-badge";
 interface InfoCardProps {
   title: string;
   count: number;
-  variant?: "default" | "primary";
-
   icon: LucideIcon;
+  label: string;
 }
-const InfoCard = ({
-  title,
-  count,
-  icon: Icon,
-  variant = "default",
-}: InfoCardProps) => {
+const InfoCard = ({ title, count, icon: Icon, label }: InfoCardProps) => {
   return (
-    <div className="border shadow-sm p-3 rounded-md flex items-center gap-x-2">
-      <IconBadge size={"default"} icon={Icon} variant={variant} />
+    <div className="border dark:bg-neutral-900 shadow-sm p-3 rounded-md flex items-center gap-x-4">
+      <Icon />
 
       <div>
-        <p
-          className={`text-lg font-semibold text-${variant === "default" ? "sky" : "emerald"}-500`}
-        >
-          {title}
-        </p>
+        <p className={`text-lg  `}>{title}</p>
         <p className="text-gray-500 text-sm">
-          {count} {count === 1 ? "Course" : "Courses"}
+          {count} {label}
         </p>
       </div>
     </div>

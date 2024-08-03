@@ -1,36 +1,36 @@
 import React from "react";
 
-import { DashboardCardWrapper } from "@/components/global/dashboard-card-wrapper";
 import InfoCard from "@/components/global/info-card";
 import {
-  CheckCheck,
   CheckCircle,
-  Clock,
-  Clock1,
   ClockIcon,
+  Star,
 } from "lucide-react";
 
 interface SummaryProps {
   progressCount: number;
   completedCount: number;
+  points: number;
 }
-export const Summary = ({ progressCount, completedCount }: SummaryProps) => {
+export const Summary = ({
+  progressCount,
+  completedCount,
+  points,
+}: SummaryProps) => {
   return (
-    <DashboardCardWrapper title="Summary">
-      <section className="grid grid-cols-1 gap-6 p-4 sm:grid-cols-2 ">
-        <InfoCard title="Progress" count={progressCount} icon={ClockIcon} />
+    <section className="grid grid-cols-1 gap-6 p-4 sm:grid-cols-3 ">
+      <InfoCard title="Progress" count={progressCount} icon={ClockIcon}
+      label={"progress"}
+       />
 
-        <InfoCard
-          title="Completed"
-          count={completedCount}
-          icon={CheckCircle}
-          variant="primary"
-        />
+      <InfoCard title="Completed" count={completedCount} icon={CheckCircle}
+      label={completedCount > 1 ? "courses" : "course"}
+      />
 
-        {/* TODO:WORK shop */}
 
-        {/* <InfoCard title="WorkShop" count={0} icon={Clock} /> */}
-      </section>
-    </DashboardCardWrapper>
+      <InfoCard title="Points" count={points} icon={Star}
+      label={"points"}
+       />
+    </section>
   );
 };
