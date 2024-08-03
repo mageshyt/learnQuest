@@ -21,7 +21,7 @@ const UserAvatar: FC<UserAvatarProps> = ({
       <AvatarImage src={imageUrl} alt={alt} />
       <AvatarFallback
         className={cn(
-          " font-semibold uppercase  text-neutral-800 border dark:text-neutral-900 ",
+          " font-semibold uppercase  text-neutral-200  bg-black  dark:bg-white dark:text-black ",
           fallbackStyle
         )}
       >
