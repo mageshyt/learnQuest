@@ -3,32 +3,17 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-
-import { useAuth, UserButton } from "@clerk/nextjs";
 import { LogOut } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
 import Searchbar from "./searchbar";
-import { useQuery } from "@tanstack/react-query";
-import { getUserDetails } from "@/actions/user/get-user-details";
-import { userInRole } from "@/lib";
+// import UserProfile from "@/components/global/user-profile";
 
 const NavbarRoutes = () => {
   const pathname = usePathname();
-  const { userId } = useAuth();
 
   const isTeacherPage = pathname?.startsWith("/dashboard/teacher");
   const isCoursePage = pathname?.includes("/courses");
   const isSearchPage = pathname?.includes("/search");
-
-  const { data: user, isLoading } = useQuery({
-    queryKey: ["user", userId],
-    queryFn: () => getUserDetails(userId!),
-  });
-
-  if (isLoading) {
-    return null;
-  }
 
   return (
     <>
@@ -38,36 +23,15 @@ const NavbarRoutes = () => {
         </div>
       )}
       <div className="flex gap-4 ml-auto">
-        {isTeacherPage || isCoursePage ? (
-          <Link href="/dashboard">
-            <Button size="sm" variant="ghost">
-              <LogOut className="iconsmright" />
-              Exit
-            </Button>
-          </Link>
-        ) : (
-          userInRole({
-            user_role: user?.role || "USER",
-            roles: ["ADMIN", "TEACHER"],
-          }) && (
-            <Link href="/dashboard/teacher/courses">
+        {isTeacherPage ||
+          (isCoursePage && (
+            <Link href="/dashboard">
               <Button size="sm" variant="ghost">
-                Teacher Mode
+                <LogOut className="iconsmright" />
+                Exit
               </Button>
             </Link>
-          )
-        )}
-
-        <div className="">
-          <UserButton
-            afterSignOutUrl="/"
-            appearance={{
-              elements: {
-                userButtonAvatarBox: "w-10 h-10",
-              },
-            }}
-          />
-        </div>
+          ))}
       </div>
     </>
   );
