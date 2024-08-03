@@ -20,7 +20,7 @@ interface QuizState {
   submitAnswer: () => void;
   setSelectedOption: (optionIndex: number) => void;
   nextQuestion: () => void;
-  moveTo: (index: number) => void;
+  moveTo: (index: number,status:quizStatusType) => void;
   tryAgain: () => void;
 
   reset: () => void;
@@ -122,11 +122,11 @@ export const useQuiz = create<QuizState>((set) => ({
       selectedOption: null,
     }),
 
-  moveTo: (index) =>
+  moveTo: (index,status) =>
     set((state) => {
       return {
         currentQuestionIndex: index,
-        status: index === state.questions.length - 1 ? "completed" : "none",
+        status: status,
         selectedOption: null,
       };
     }),

@@ -46,11 +46,11 @@ export const QuizContainer = ({ quiz, quizId }: QuizContainerProps) => {
 
       // if quiz is already completed, then move to the last question
       if (quiz.isCompleted) {
-        moveTo(quiz.questions.length - 1);
+        moveTo(quiz.questions.length - 1, "completed");
       } else {
         const intro = new Audio(AUDIO_CONSTANTS.intro);
         intro.play();
-        moveTo(0);
+        moveTo(0, "none");
       }
     }
   }, [quiz, setQuestions, moveTo]);
