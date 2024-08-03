@@ -12,7 +12,7 @@ import { Pencil } from "lucide-react";
 import { Chapter } from "@prisma/client";
 
 import { descriptionSchema } from "@/schema";
-import { cn, markdownToHtml } from "@/lib";
+import { cn } from "@/lib";
 import { Button } from "@/components/ui/button";
 
 import {
@@ -25,9 +25,10 @@ import {
 
 import { Editor } from "@/components/global/editor";
 import { updateChapter } from "@/actions/courses/chapters/update-chapter";
-import { Preview } from "@/components/global/preview";
-import { useModal } from "@/hooks/use-modal";
+// import { Preview } from "@/components/global/preview";
 import ChapterDescriptionHelperModal from "@/components/modals/chapter-description-helper-modal";
+// import Editor from "@/components/test-component-1";
+import Preview from "@/components/test-component";
 
 interface ChapterDescriptionFormProps {
   initialData: Chapter;

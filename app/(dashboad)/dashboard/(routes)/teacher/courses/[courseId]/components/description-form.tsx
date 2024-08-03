@@ -25,7 +25,7 @@ import {
 
 import { getCourseDescription } from "@/lib/common/ai-helper";
 import { Editor } from "@/components/global/editor";
-import { Preview } from "@/components/global/preview";
+import Preview from "@/components/test-component";
 
 interface DescriptionFormProps {
   initialData: Course;

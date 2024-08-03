@@ -16,6 +16,7 @@ import { AiQuestion } from "./components/ai-question";
 import { VideoPlayer } from "./components/video-player";
 import { CourseEnrollButton } from "./components/couse-enroll-button";
 import { Preview } from "@/components/global/preview";
+// import Preview from "@/components/test-component";
 
 interface ChapterPageProps {
   params: {
@@ -52,7 +53,7 @@ const ChapterIdPage = async ({ params }: ChapterPageProps) => {
   const completeOnEnd = !!purchase && !userProgress?.isCompleted;
   // console.log("ChapterIdPage -> completeOnEnd", userProgress);
   return (
-    <div className="p-4">
+    <div className="px-4 pb-10">
       <div>
         {userProgress?.isCompleted && (
           <Banner label="You have completed this chapter." variant="success" />
@@ -116,7 +117,7 @@ const ChapterIdPage = async ({ params }: ChapterPageProps) => {
             />
           )}
         </div>
-        <Separator />
+        {/* <Separator /> */}
 
         {/* description preview */}
         <div>
@@ -124,7 +125,7 @@ const ChapterIdPage = async ({ params }: ChapterPageProps) => {
         </div>
         {!!attachments.length && (
           <>
-            <Separator />
+            {/* <Separator /> */}
             <div className="p-4 space-y-4">
               <ListView
                 items={attachments}

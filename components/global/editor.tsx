@@ -2,7 +2,8 @@
 
 import dynamic from "next/dynamic";
 import { useMemo } from "react";
-
+import hljs from "highlight.js";
+import "highlight.js/styles/monokai-sublime.css";
 import "react-quill/dist/quill.snow.css";
 
 interface EditorProps {
@@ -12,7 +13,20 @@ interface EditorProps {
 
 export const Editor = ({ value, onChange }: EditorProps) => {
   const ReactQuill = useMemo(
-    () => dynamic(() => import("react-quill"), { ssr: false }),
+    () =>
+      dynamic(
+        () => {
+          hljs.configure({
+            languages: ["javascript", "CSS", "HTML", "python"],
+            languageDetectRe:
+              /<\?[\s\S]+?\?>|<%[\s\S]+?%>|<style[^>]*>[\s\S]*?<\/style>|<script[^>]*>[\s\S]*?<\/script>|<script[^>]+src=["'](?:(?!\/\/|\/\*).)*\.(js|ts)["'][^>]*>[\s\S]*?<\/script>|<[^>]+>/,
+          });
+          // @ts-ignore
+          window.hljs = hljs;
+          return import("react-quill");
+        },
+        { ssr: false }
+      ),
     []
   );
 
@@ -38,20 +52,8 @@ export const Editor = ({ value, onChange }: EditorProps) => {
             ["code-block"],
             // add markdown support
           ],
+          syntax: true,
         }}
-        // formats={[
-        //   "header",
-        //   "bold",
-        //   "italic",
-        //   "underline",
-        //   "strike",
-        //   "blockquote",
-        //   "list",
-        //   "bullet",
-        //   "indent",
-        //   "link",
-        //   "image",
-        // ]}
       />
     </div>
   );
