@@ -59,9 +59,9 @@ export const CourseSidebarItem: FC<CourseSidebarItemProps> = ({
 
       <span
         className={cn(
-          "text-sm text-break text-start w-[250px]",
+          "text-sm text-break text-start w-[250px] ",
           isActive && "text-slate-700 dark:text-slate-200",
-          isCompleted && "text-emerald-700"
+          isCompleted && "text-emerald-600 "
         )}
       >
         {label}
