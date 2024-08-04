@@ -1,43 +1,38 @@
 import { SideBar } from "@/types/typings";
-import exp from "constants";
 import {
-  Book,
   BookCheck,
-  Brain,
   Compass,
   GraduationCap,
   Layout,
-  Search,
   Trophy,
-  Users,
 } from "lucide-react";
 
-export const clients = [...new Array(10)].map((client, index) => ({
+export const clients = [...new Array(3)].map((client, index) => ({
   href: `/sponsers/${index + 1}.png`,
 }));
 
 export const products = [
   {
-    title: "Moonbeam",
+    title: "Programming",
     link: "https://gomoonbeam.com",
     thumbnail:
       "https://aceternity.com/images/products/thumbnails/new/moonbeam.png",
   },
   {
-    title: "Cursor",
+    title: "Engineering",
     link: "https://cursor.so",
     thumbnail:
       "https://aceternity.com/images/products/thumbnails/new/cursor.png",
   },
   {
-    title: "Rogue",
+    title: "Design",
     link: "https://userogue.com",
     thumbnail:
       "https://aceternity.com/images/products/thumbnails/new/rogue.png",
   },
 
   {
-    title: "Editorially",
+    title: "Filming",
     link: "https://editorially.org",
     thumbnail:
       "https://aceternity.com/images/products/thumbnails/new/editorially.png",
@@ -126,7 +121,7 @@ export const AssetConstants = {
   error: "/image/error.jpeg",
   sad_emoji: "/icons/sad.svg",
   teacher: "/icons/teacher.svg",
-  verified:"/icons/verified.svg",
+  verified: "/icons/verified.svg",
 };
 
 export const AUDIO_CONSTANTS = {
