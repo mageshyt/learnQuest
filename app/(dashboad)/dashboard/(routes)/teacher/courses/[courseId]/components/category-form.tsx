@@ -80,7 +80,7 @@ const CategoryForm: FC<CategoryFormProps> = ({
             <>
               {" "}
               <Pencil className="iconsmright" />
-              Edit
+              Edit Category
             </>
           )}
         </Button>

@@ -120,7 +120,7 @@ const ChaptersForm: FC<ChaptersFormProps> = ({ initialData, courseId }) => {
               <>
                 {" "}
                 <Pencil className="iconsmright" />
-                Edit
+                Edit Chapters
               </>
             )}
           </Button>

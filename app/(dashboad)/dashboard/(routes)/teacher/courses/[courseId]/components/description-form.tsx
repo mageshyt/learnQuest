@@ -25,7 +25,7 @@ import {
 
 import { getCourseDescription } from "@/lib/common/ai-helper";
 import { Editor } from "@/components/global/editor";
-import Preview from "@/components/test-component";
+import Preview from "@/components/global/preview-md";
 
 interface DescriptionFormProps {
   initialData: Course;
@@ -102,7 +102,7 @@ const DescriptionForm: FC<DescriptionFormProps> = ({
               <>
                 {" "}
                 <Pencil className="iconsmright" />
-                Edit
+                Edit Description
               </>
             )}
           </Button>

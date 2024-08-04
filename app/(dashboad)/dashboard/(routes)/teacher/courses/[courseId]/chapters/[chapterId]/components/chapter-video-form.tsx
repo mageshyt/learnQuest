@@ -66,7 +66,7 @@ const ChapterVideoForm: FC<ChapterVideoFormProps> = ({
           {!isEditing && initialData.videoUrl && (
             <>
               <Pencil className="iconsmright" />
-              Edit
+              Edit Video
             </>
           )}
         </Button>
@@ -82,9 +82,7 @@ const ChapterVideoForm: FC<ChapterVideoFormProps> = ({
               playbackId={initialData.muxData?.playbackId || ""}
               onCuePointChange={(data) => {
                 console.log("cuepoint", data);
-
               }}
-
             />
           </div>
         ))}
@@ -108,7 +106,7 @@ const ChapterVideoForm: FC<ChapterVideoFormProps> = ({
 
       {initialData.videoUrl && !isEditing && (
         <span className="text-xs text-muted-foreground mt-4">
-          Video can take a few minutes to process, please be patient.
+          Video can take a few minutes to process, please be patient.A
         </span>
       )}
     </div>

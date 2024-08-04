@@ -76,7 +76,7 @@ const ChapterTitleForm: FC<ChapterTitleFormProps> = ({
             <>
               {" "}
               <Pencil className="iconsmright" />
-              Edit
+              Edit Title
             </>
           )}
         </Button>

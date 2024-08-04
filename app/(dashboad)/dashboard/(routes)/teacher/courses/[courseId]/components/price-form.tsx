@@ -79,7 +79,7 @@ const PriceForm: FC<PriceFormProps> = ({ initialData, courseId }) => {
             <>
               {" "}
               <Pencil className="iconsmright" />
-              Edit
+              Edit Price
             </>
           )}
         </Button>

@@ -59,7 +59,7 @@ const ImageForm: FC<ImageFormProps> = ({ initialData, courseId }) => {
           {!isEditing && initialData.imageUrl && (
             <>
               <Pencil className="iconsmright" />
-              Edit
+              Edit Image
             </>
           )}
         </Button>

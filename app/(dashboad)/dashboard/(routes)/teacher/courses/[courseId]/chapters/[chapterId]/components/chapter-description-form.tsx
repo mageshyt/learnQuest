@@ -25,10 +25,8 @@ import {
 
 import { Editor } from "@/components/global/editor";
 import { updateChapter } from "@/actions/courses/chapters/update-chapter";
-// import { Preview } from "@/components/global/preview";
 import ChapterDescriptionHelperModal from "@/components/modals/chapter-description-helper-modal";
-// import Editor from "@/components/test-component-1";
-import Preview from "@/components/test-component";
+import Preview from "@/components/global/preview-md";
 
 interface ChapterDescriptionFormProps {
   initialData: Chapter;
@@ -75,7 +73,7 @@ const ChapterDescriptionForm: FC<ChapterDescriptionFormProps> = ({
   return (
     <div className="mt-6   bg-slate-100 dark:bg-neutral-800 rounded-md p-4">
       <div className="font-medium flex items-center justify-between">
-        Course Description
+        Chapter Description
         <div className="flex items-center">
           <Button onClick={toggleEdit} variant={"ghost"}>
             {isEditing ? (
@@ -84,7 +82,7 @@ const ChapterDescriptionForm: FC<ChapterDescriptionFormProps> = ({
               <>
                 {" "}
                 <Pencil className="iconsmright" />
-                Edit
+                Edit chapter
               </>
             )}
           </Button>

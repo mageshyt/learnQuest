@@ -81,7 +81,7 @@ const AttachmentForm: FC<AttachmentFormProps> = ({ initialData, courseId }) => {
           {!isEditing && initialData.attachments && (
             <>
               <Pencil className="iconsmright" />
-              Edit
+              Edit attachments
             </>
           )}
         </Button>

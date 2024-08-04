@@ -84,7 +84,7 @@ const ChapterAccessForm: FC<ChapterAccessFormProps> = ({
               <>
                 {" "}
                 <Pencil className="iconsmright" />
-                Edit
+                Edit Access
               </>
             )}
           </Button>

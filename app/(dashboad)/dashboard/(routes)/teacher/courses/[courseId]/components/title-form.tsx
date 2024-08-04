@@ -72,7 +72,7 @@ const TitleForm: FC<TitleFormProps> = ({ initialData, courseId }) => {
             <>
               {" "}
               <Pencil className="iconsmright" />
-              Edit
+              Edit Title
             </>
           )}
         </Button>
