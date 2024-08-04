@@ -12,7 +12,7 @@ const StartJourneyHero = () => {
         duration: 0.8,
         ease: "easeInOut",
       }}
-      className="flex flex-col h-full mt-[-300px] md:mt-[-180px]"
+      className="flex flex-col h-full mt-[-120px] md:mt-[-40px]"
     >
       <ContainerScroll
         titleComponent={

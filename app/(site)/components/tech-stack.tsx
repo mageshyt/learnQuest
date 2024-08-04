@@ -10,7 +10,7 @@ const TechStack = () => {
   const bunRef = useRef<HTMLDivElement>(null);
   const learnQuestRef = useRef<HTMLDivElement>(null);
   const nextJsRef = useRef<HTMLDivElement>(null);
-  const ollamaRef = useRef<HTMLDivElement>(null);
+  const geminiRef = useRef<HTMLDivElement>(null);
   const githubRef = useRef<HTMLDivElement>(null);
   const dockerRef = useRef<HTMLDivElement>(null);
 
@@ -49,8 +49,8 @@ const TechStack = () => {
         </div>
 
         <div className="flex flex-row items-center justify-between">
-          <Circle ref={ollamaRef}>
-            <Icons.ollama className="h-6 w-6" />
+          <Circle ref={geminiRef}>
+            <Icons.gemini className="h-6 w-6" />
           </Circle>
 
           <Circle ref={vercelRef}>
@@ -100,7 +100,7 @@ const TechStack = () => {
       <AnimatedBeam
         containerRef={containerRef}
         fromRef={githubRef}
-        toRef={ollamaRef}
+        toRef={geminiRef}
       />
       <AnimatedBeam
         containerRef={containerRef}
@@ -124,13 +124,13 @@ const TechStack = () => {
 
       <AnimatedBeam
         containerRef={containerRef}
-        fromRef={ollamaRef}
+        fromRef={geminiRef}
         toRef={learnQuestRef}
       />
 
       <AnimatedBeam
         containerRef={containerRef}
-        fromRef={ollamaRef}
+        fromRef={geminiRef}
         toRef={nextJsRef}
       />
 

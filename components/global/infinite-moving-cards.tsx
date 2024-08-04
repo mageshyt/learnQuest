@@ -24,7 +24,7 @@ export const InfiniteMovingCards = ({
 
   useEffect(() => {
     addAnimation();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const [start, setStart] = useState(false);
@@ -88,7 +88,7 @@ export const InfiniteMovingCards = ({
       >
         {items.map((item, idx) => (
           <Image
-            width={170}
+            width={120}
             height={1}
             src={item.href}
             alt={item.href}
