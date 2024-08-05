@@ -77,24 +77,26 @@ const ChapterIdPage = async ({ params }: ChapterPageProps) => {
               completeOnEnd={completeOnEnd}
             />
 
+            {/* -------------------------- PURCHASED USER CAN ONLY ACCESS ------------------ */}
             {/* Ai Feature */}
+            {purchase && (
+              <div className="flex items-center justify-between">
+                {/* chat helper */}
 
-            <div className="flex items-center justify-between">
-              {/* chat helper */}
+                <AiQuestion
+                  playBackId={muxData?.playbackId!}
+                  trackId={muxData?.trackId!}
+                  chapterId={chapter.id}
+                />
 
-              <AiQuestion
-                playBackId={muxData?.playbackId!}
-                trackId={muxData?.trackId!}
-                chapterId={chapter.id}
-              />
-
-              {/* Quiz */}
-              <QuizGenerator
-                title={chapter.title}
-                description={chapter.description!}
-                chapterId={chapter.id}
-              />
-            </div>
+                {/* Quiz */}
+                <QuizGenerator
+                  title={chapter.title}
+                  description={chapter.description!}
+                  chapterId={chapter.id}
+                />
+              </div>
+            )}
           </div>
         </div>
 
@@ -114,6 +116,7 @@ const ChapterIdPage = async ({ params }: ChapterPageProps) => {
             <CourseEnrollButton
               price={course.price!}
               courseId={params.courseId}
+              isFree={course.courseType === "FREE"}
             />
           )}
         </div>

@@ -33,6 +33,7 @@ export const getChapterById = async ({
       },
       select: {
         price: true,
+        courseType: true,
       },
     });
 
@@ -100,9 +101,8 @@ export const getChapterById = async ({
       nextChapter,
       userProgress,
       purchase,
-      muxData
+      muxData,
     };
-
   } catch (err) {
     console.log(
       "[ERROR] actions/courses/chapters/getChapterById.ts: getChapterById()",
@@ -116,7 +116,7 @@ export const getChapterById = async ({
       nextChapter: null,
       userProgress: null,
       purchase: null,
-      muxData: null
+      muxData: null,
     };
   }
 };
