@@ -4,23 +4,35 @@ import React, { useState } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
 
-import { Button } from "@/components/ui/button";
 import { formatPrice } from "@/lib";
 import { LoadingButton } from "@/components/ui/loading-button";
+import { useRouter } from "next/navigation";
 
 interface CourseEnrollButtonProps {
   price: number;
   courseId: string;
+  isFree: boolean;
 }
 export const CourseEnrollButton = ({
   price,
   courseId,
+  isFree,
 }: CourseEnrollButtonProps) => {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
 
   const handlePurchase = async () => {
     try {
       setIsLoading(true);
+      if (isFree) {
+        const res = await axios.post(`/api/courses/${courseId}/enroll-free`);
+        if (res.data === "Success") {
+          toast.success("Successfully Enrolled");
+          router.refresh();
+        }
+
+        return;
+      }
 
       const res = await axios.post(`/api/courses/${courseId}/checkout`);
 
@@ -39,7 +51,7 @@ export const CourseEnrollButton = ({
       onClick={handlePurchase}
       className="w-full md:w-auto"
     >
-      Enroll for {formatPrice(price)}
+      Enroll for {isFree ? "Free" : formatPrice(price)}
     </LoadingButton>
   );
 };
