@@ -11,11 +11,17 @@ interface FooterProps {
   status: quizStatusType;
   disabled?: boolean;
   quizId: string;
-  showAnalytics: ()=>void;
+  showAnalytics: () => void;
 }
-const QuizFooter = ({ status, onCheck, disabled, quizId ,showAnalytics}: FooterProps) => {
+const QuizFooter = ({
+  status,
+  onCheck,
+  disabled,
+  quizId,
+  showAnalytics,
+}: FooterProps) => {
   const isMobile = useMedia("(max-width: 640px)");
-  useKey("Enter", onCheck);
+  useKey("Enter", onCheck, {}, [status]);
   return (
     <div
       className={cn(

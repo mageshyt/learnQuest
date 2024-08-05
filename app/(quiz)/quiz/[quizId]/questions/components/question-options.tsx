@@ -23,6 +23,11 @@ const QuestionOptions = ({
   disabled,
 }: QuestionOptionsProps) => {
   const [play] = useSound(AUDIO_CONSTANTS.select);
+
+  const handleSelect = (index: number) => {
+    play();
+    onSelect(index);
+  };
   return (
     <div className={cn("grid gap-2 md:grid-cols-2 grid-cols-1  ")}>
       {options && (
@@ -34,10 +39,7 @@ const QuestionOptions = ({
               text={option}
               shortcut={`${index + 1}`}
               status={status}
-              onClick={() => {
-                play();
-                onSelect(index);
-              }}
+              onClick={() => handleSelect(index)}
               selected={selectedOption === index}
               disabled={disabled}
             />
