@@ -13,11 +13,17 @@ const Logo: FC<LogoProps> = ({ height = 130, width = 130, mode }) => {
   const { theme } = useTheme();
   const isDark = theme === "dark" || mode === "dark";
 
-  return isDark ? (
-    <Image height={height} width={width} src="/logo-dark.svg" alt="logo" />
-  ) : (
-    <Image height={height} width={width} src="/logo.svg" alt="logo" />
-  );
+  if (isDark) {
+    return (
+      <Image
+        height={height}
+        width={width}
+        src="/logo-dark.svg"
+        alt="logo-dark"
+      />
+    );
+  }
+  return <Image height={height} width={width} src="/logo.svg" alt="logo" />;
 };
 
 export default Logo;
