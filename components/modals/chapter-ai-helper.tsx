@@ -9,14 +9,13 @@ import { useModal } from "@/hooks/use-modal";
 import { useChatStore } from "@/hooks/use-chat-store";
 
 import {
-  CustomModal,
-  CustomModalBody,
-  CustomModalContent,
-  CustomModalDescription,
-  CustomModalFooter,
-  CustomModalHeader,
-  CustomModalTitle,
-} from "@/components/global/custom-modal";
+  ResponsiveModal,
+  ResponsiveModalContent,
+  ResponsiveModalDescription,
+  ResponsiveModalFooter,
+  ResponsiveModalHeader,
+  ResponsiveModalTitle,
+} from "@/components/ui/responsive-modal";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { Send } from "lucide-react";
@@ -86,25 +85,25 @@ export const ChapterAiHelperModal = () => {
   };
 
   return (
-    <CustomModal open={isModelOpen} onOpenChange={onClose}>
-      <CustomModalContent>
-        <CustomModalHeader>
-          <CustomModalTitle>AI Assistance</CustomModalTitle>
+    <ResponsiveModal open={isModelOpen} onOpenChange={onClose}>
+      <ResponsiveModalContent>
+        <ResponsiveModalHeader>
+          <ResponsiveModalTitle>AI Assistance</ResponsiveModalTitle>
           {chapterDetails?.messages.length === 0 && (
-            <CustomModalDescription className="">
+            <ResponsiveModalDescription>
               Start the conversation with the AI to get help with the chapter
-            </CustomModalDescription>
+            </ResponsiveModalDescription>
           )}
-        </CustomModalHeader>
+        </ResponsiveModalHeader>
 
-        <CustomModalBody className="space-y-2 max-h-[550px] overflow-hidden">
+        <div className="space-y-2 max-h-[550px] overflow-y-auto  ">
           <ChatList
             messages={chapterDetails?.messages}
             generating={isSubmitting}
           />
-        </CustomModalBody>
+        </div>
 
-        <CustomModalFooter className="pt-0">
+        <ResponsiveModalFooter className="pt-0">
           <Form {...form}>
             <form className="w-full" onSubmit={form.handleSubmit(onSubmit)}>
               <FormField
@@ -136,8 +135,8 @@ export const ChapterAiHelperModal = () => {
               />
             </form>
           </Form>
-        </CustomModalFooter>
-      </CustomModalContent>
-    </CustomModal>
+        </ResponsiveModalFooter>
+      </ResponsiveModalContent>
+    </ResponsiveModal>
   );
 };
