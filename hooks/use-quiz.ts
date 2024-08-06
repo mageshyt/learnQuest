@@ -20,9 +20,8 @@ interface QuizState {
   submitAnswer: () => void;
   setSelectedOption: (optionIndex: number) => void;
   nextQuestion: () => void;
-  moveTo: (index: number,status:quizStatusType) => void;
+  moveTo: (index: number, status: quizStatusType) => void;
   tryAgain: () => void;
-
   reset: () => void;
 }
 
@@ -43,7 +42,8 @@ export const useQuiz = create<QuizState>((set) => ({
     }),
 
   // Set questions for the quiz
-  setQuestions: (questions) => set({ questions, status: "none" }),
+  setQuestions: (questions) =>
+    set({ questions, status: "none", startTime: Date.now() }),
 
   // Submit an answer for the current question
   submitAnswer: () =>
@@ -122,7 +122,7 @@ export const useQuiz = create<QuizState>((set) => ({
       selectedOption: null,
     }),
 
-  moveTo: (index,status) =>
+  moveTo: (index, status) =>
     set((state) => {
       return {
         currentQuestionIndex: index,
