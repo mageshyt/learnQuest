@@ -86,7 +86,7 @@ export const ChapterAiHelperModal = () => {
 
   return (
     <ResponsiveModal open={isModelOpen} onOpenChange={onClose}>
-      <ResponsiveModalContent>
+      <ResponsiveModalContent className=" md:max-w-xl  2xl:max-w-2xl">
         <ResponsiveModalHeader>
           <ResponsiveModalTitle>AI Assistance</ResponsiveModalTitle>
           {chapterDetails?.messages.length === 0 && (
