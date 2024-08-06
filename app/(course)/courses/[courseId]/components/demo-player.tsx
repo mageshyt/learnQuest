@@ -13,11 +13,10 @@ interface VideoPlayerProps {
 }
 
 export const VideoPlayer: FC<VideoPlayerProps> = ({ playbackId, isLocked }) => {
-  if (!playbackId) return null;
   // ----------------------------------states----------------------------------
   const [isRead, setIsRead] = useState(false);
-  console.log("VideoPlayer -> isRead", isRead, isLocked);
 
+  if (!playbackId) return null;
   return (
     <div className="relative aspect-video max-w-7xl  mx-auto  bg-transparent rounded-2xl overflow-hidden">
       {!isRead && !isLocked && (
