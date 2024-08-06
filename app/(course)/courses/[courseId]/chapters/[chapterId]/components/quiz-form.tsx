@@ -4,7 +4,14 @@ import React, { FC } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 import {
   Form,
   FormControl,
@@ -38,6 +45,7 @@ const QuizConfigForm = ({
     defaultValues: initialConfig || {
       noOfQuestions: 0,
       questionTypes: [],
+      difficulty: "easy",
     },
   });
 
@@ -81,6 +89,34 @@ const QuizConfigForm = ({
               <FormControl>
                 <Input {...field} type="number" min={1} />
               </FormControl>
+              <FormMessage {...field} />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          name="difficulty"
+          control={form.control}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>
+                Difficulty <Gamepad className="h-6 w-6 ml-2 inline-block" />
+              </FormLabel>
+              <FormDescription>
+                Select the desired difficulty level for the quiz.
+              </FormDescription>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a verified email to display" />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value="easy">Easy</SelectItem>
+                  <SelectItem value="medium">Medium</SelectItem>
+                  <SelectItem value="hard">Hard</SelectItem>
+                </SelectContent>
+              </Select>
               <FormMessage {...field} />
             </FormItem>
           )}

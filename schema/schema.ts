@@ -71,4 +71,6 @@ export const quizFormSchema = z.object({
   questionTypes: z.array(z.enum(["multiple choice", "true/false"])).min(1, {
     message: "At least one question type is required",
   }),
+
+  difficulty: z.enum(["easy", "medium", "hard"]).default("easy"),
 });

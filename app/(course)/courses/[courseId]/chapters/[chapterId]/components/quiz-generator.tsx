@@ -54,6 +54,7 @@ const QuizGenerator = ({
   const [quizConfig, setQuizConfig] = useState<z.infer<typeof quizFormSchema>>({
     noOfQuestions: 0,
     questionTypes: [],
+    difficulty: "easy",
   });
   const [loading, setLoading] = useState(false);
 
@@ -108,6 +109,7 @@ const QuizGenerator = ({
           description: HtmlToText(description),
           num_questions: config.noOfQuestions,
           question_types: config.questionTypes,
+          difficulty: config.difficulty,
         },
         3
       );

@@ -165,7 +165,7 @@ const generateQuiz = async ({
   title,
   num_questions,
   question_types,
-  difficulty = "hard",
+  difficulty = "easy",
   description,
 }: GenerateQuizProps): Promise<Question[]> => {
   let prompt = `Create a quiz with ${num_questions} questions on the topic of "${title}". i need ${question_types.length} ${question_types.join(" ")} question type
