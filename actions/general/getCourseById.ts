@@ -13,6 +13,10 @@ export const getCourseById = async (id: string) => {
           where: {
             isPublished: true,
           },
+          include: {
+            muxData: true,
+          },
+          take: 1,
           orderBy: {
             position: "asc",
           },
@@ -23,6 +27,7 @@ export const getCourseById = async (id: string) => {
     if (!course) {
       return null;
     }
+    console.log("[INFO] app/api/courses/route.ts: GET()", course);
 
     return course;
   } catch (err) {
