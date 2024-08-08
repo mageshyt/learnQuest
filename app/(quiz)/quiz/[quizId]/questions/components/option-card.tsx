@@ -22,9 +22,16 @@ const OptionCard = ({
   disabled,
 }: OptionCardProps) => {
   return (
-    useKey(shortcut, () => {
-      if (!disabled) onClick();
-    }),
+    useKey(
+      shortcut,
+      () => {
+        if (!disabled) onClick();
+      },
+      {
+        event: "keypress",
+      },
+      [shortcut, disabled, onClick]
+    ),
     (
       <button
         onClick={() => {

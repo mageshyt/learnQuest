@@ -4,6 +4,7 @@ import { getQuizById } from "@/actions/quiz/get-quiz-by-id";
 import { Chapter, Quiz } from "@prisma/client";
 import { QuizContainer } from "@/components/containers/quiz/quiz-container";
 import LoadingScreen from "@/components/global/loading-screen";
+import { redirect } from "next/navigation";
 
 interface QuizTestPageProps {
   params: {
@@ -25,7 +26,9 @@ const QuizTestPage = ({ params }: QuizTestPageProps) => {
   if (isLoading) {
     return <LoadingScreen />;
   }
-
+  if (quiz?.isCompleted) {
+    return redirect(`/quiz/${params.quizId}/analytics`);
+  }
 
   return (
     <div className="min-h-screen flex flex-col">
