@@ -27,7 +27,7 @@ export const getQuizResultById = async ({ quizId }: quizProps) => {
       },
     });
 
-    console.log("[getQuizResultById] quiz", quiz);
+    // console.log("[getQuizResultById] quiz", quiz);
     return quiz;
   } catch (error) {
     console.log("[createQuiz] error", error);
