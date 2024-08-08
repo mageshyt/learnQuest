@@ -29,7 +29,7 @@ export const ourFileRouter = {
 
   chapterVideo: f({
     video: {
-      maxFileSize: "128MB",
+      maxFileSize: "512MB",
       maxFileCount: 1,
     },
   })
