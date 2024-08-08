@@ -4,7 +4,6 @@ import { db } from "@/lib";
 import { userAnswerType } from "@/types/typings";
 import { auth } from "@clerk/nextjs/server";
 
-
 interface quizProps {
   quizId: string;
   answers: userAnswerType[];
@@ -22,6 +21,19 @@ export const createQuizResult = async ({
     if (!userId) {
       return {
         error: "User not authenticated",
+      };
+    }
+
+    const IsExitingResult = await db.quizResult.findFirst({
+      where: {
+        userId,
+        quizId,
+      },
+    });
+
+    if (IsExitingResult) {
+      return {
+        error: "Quiz result already exists",
       };
     }
 

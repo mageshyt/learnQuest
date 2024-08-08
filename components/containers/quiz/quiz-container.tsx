@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useState } from "react";
 import toast from "react-hot-toast";
 import { Chapter, Quiz } from "@prisma/client";
 import { useQuiz } from "@/hooks/use-quiz";
@@ -22,6 +22,8 @@ type QuizWithChapter = Quiz & {
 };
 
 export const QuizContainer = ({ quiz, quizId }: QuizContainerProps) => {
+  // =======================STATEw=======================
+  const [isPending, setPending] = useState(false);
   // =======================hooks=======================
   const {
     setQuestions,
@@ -65,64 +67,52 @@ export const QuizContainer = ({ quiz, quizId }: QuizContainerProps) => {
   }, [status]);
 
   // =======================functions=======================
+  const saveQuizResult = useCallback(async () => {
+    if (!quiz || quiz.isCompleted) return;
+
+    try {
+      setPending(true);
+      const save = await createQuizResult({
+        quizId,
+        answers: usersAnswers,
+        startTime,
+      });
+
+      if ("error" in save) {
+        toast.error(save.error);
+        return false;
+      }
+
+      toast.success("Quiz completed successfully");
+      return true;
+    } catch (error) {
+      toast.error("Failed to save quiz result");
+      return false;
+    } finally {
+      setPending(false);
+    }
+  }, [quiz, quizId, usersAnswers, startTime]);
+
   const handleContinue = useCallback(async () => {
-    if (status === "completed") {
-      showConfetti();
+    if (status !== "completed") return;
 
-      // Backend call to save quiz result
-      if (quiz && !quiz.isCompleted) {
-        try {
-          const save = await createQuizResult({
-            quizId,
-            answers: usersAnswers,
-            startTime,
-          });
+    showConfetti();
+    const success = await saveQuizResult();
+    if (!success) return;
 
-          if ("error" in save) {
-            toast.error(save.error);
-            return;
-          }
-
-          toast.success("Quiz completed successfully");
-        } catch (error) {
-          toast.error("Failed to save quiz result");
-        }
-      }
-
-      const redirectTo = quiz?.chapterId
-        ? `/courses/${quiz.chapter?.courseId}/chapters/${quiz.chapterId}`
-        : "/dashboard";
-      setTimeout(() => router.push(redirectTo), 2000);
-    }
-  }, [status, quiz, quizId, usersAnswers, router, showConfetti]);
-
+    const redirectTo = quiz?.chapterId
+      ? `/courses/${quiz.chapter?.courseId}/chapters/${quiz.chapterId}`
+      : "/dashboard";
+    setTimeout(() => router.push(redirectTo), 2000);
+  }, [status, quiz, saveQuizResult, router, showConfetti]);
   const showAnalytics = useCallback(async () => {
-    // if the quiz is completed, then save it and redirect to the analytics page
+    if (status !== "completed") return;
 
-    if (status === "completed") {
-      // Backend call to save quiz result
-      if (quiz && !quiz.isCompleted) {
-        try {
-          const save = await createQuizResult({
-            quizId,
-            answers: usersAnswers,
-            startTime: startTime,
-          });
-
-          if ("error" in save) {
-            toast.error(save.error);
-            return;
-          }
-
-          toast.success("Quiz completed successfully");
-        } catch (error) {
-          toast.error("Failed to save quiz result");
-        }
-      }
-    }
+    const success = await saveQuizResult();
+    if (!success) return;
 
     router.push(`/quiz/${quizId}/analytics`);
-  }, [status, quiz, quizId, usersAnswers, router]);
+  }, [status, saveQuizResult, quizId, router]);
 
   const handleSubmit = useCallback(async () => {
     if (selectedOption === null) {
@@ -130,26 +120,21 @@ export const QuizContainer = ({ quiz, quizId }: QuizContainerProps) => {
       return;
     }
 
-    switch (status) {
-      case "none":
-      case "completed":
-        submitAnswer();
-        await handleContinue();
-        break;
-      case "correct":
-        nextQuestion();
-        break;
-      case "wrong":
-        tryAgain();
-        break;
+    if (status === "none" || status === "completed") {
+      submitAnswer();
+      await handleContinue();
+    } else if (status === "correct") {
+      nextQuestion();
+    } else if (status === "wrong") {
+      tryAgain();
     }
   }, [
     selectedOption,
     status,
     submitAnswer,
-    tryAgain,
-    nextQuestion,
     handleContinue,
+    nextQuestion,
+    tryAgain,
   ]);
 
   return (
@@ -163,7 +148,7 @@ export const QuizContainer = ({ quiz, quizId }: QuizContainerProps) => {
       <QuizFooter
         quizId={quizId}
         status={status}
-        disabled={selectedOption === null}
+        disabled={selectedOption === null || isPending}
         showAnalytics={showAnalytics}
         onCheck={handleSubmit}
       />
