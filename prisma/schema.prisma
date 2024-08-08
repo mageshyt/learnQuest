@@ -145,17 +145,18 @@ model stripeCustomer {
 }
 
 model Quiz {
-  id          String       @id @default(uuid())
-  title       String
-  userId      String
-  chapterId   String?
-  questions   Json[]
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-  chapter     Chapter?     @relation(fields: [chapterId], references: [id])
-  user        User         @relation(fields: [userId], references: [id])
-  result      QuizResult[]
-  isCompleted Boolean      @default(false)
+  id        String   @id @default(uuid())
+  title     String
+  userId    String
+  chapterId String?
+  questions Json[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  chapter   Chapter? @relation(fields: [chapterId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+
+  result      QuizResult?
+  isCompleted Boolean     @default(false)
 
   @@index([userId])
   @@index([chapterId])
@@ -163,7 +164,7 @@ model Quiz {
 
 model QuizResult {
   id         String    @id @default(uuid())
-  quizId     String
+  quizId     String    @unique
   userId     String
   answers    Json[]
   errorCount Int
