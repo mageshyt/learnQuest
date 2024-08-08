@@ -166,4 +166,5 @@ export const GRADE_CONSTANTS = {
   grade2: "/icons/grades/grade-2.svg",
   grade3: "/icons/grades/grade-3.svg",
   grade4: "/icons/grades/grade-4.svg",
+  test:"/icons/grades/test.svg"
 };
