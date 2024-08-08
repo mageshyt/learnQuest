@@ -67,6 +67,8 @@ export const QuizContainer = ({ quiz, quizId }: QuizContainerProps) => {
   }, [status]);
 
   // =======================functions=======================
+
+  // Save quiz result
   const saveQuizResult = useCallback(async () => {
     if (!quiz || quiz.isCompleted) return;
 
@@ -93,6 +95,7 @@ export const QuizContainer = ({ quiz, quizId }: QuizContainerProps) => {
     }
   }, [quiz, quizId, usersAnswers, startTime]);
 
+  // Handle continue button
   const handleContinue = useCallback(async () => {
     if (status !== "completed") return;
 
@@ -105,6 +108,8 @@ export const QuizContainer = ({ quiz, quizId }: QuizContainerProps) => {
       : "/dashboard";
     setTimeout(() => router.push(redirectTo), 2000);
   }, [status, quiz, saveQuizResult, router, showConfetti]);
+
+  // Show analytics
   const showAnalytics = useCallback(async () => {
     if (status !== "completed") return;
 
@@ -114,6 +119,7 @@ export const QuizContainer = ({ quiz, quizId }: QuizContainerProps) => {
     router.push(`/quiz/${quizId}/analytics`);
   }, [status, saveQuizResult, quizId, router]);
 
+  // Handle submit button
   const handleSubmit = useCallback(async () => {
     if (selectedOption === null) {
       toast.error("Please select an option");
