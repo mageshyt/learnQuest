@@ -1,9 +1,7 @@
 "use server";
 
 import { db } from "@/lib";
-import { Question } from "@/types/typings";
 import { auth } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
 
 interface quizProps {
   quizId: string;
@@ -14,8 +12,7 @@ export const getQuizById = async ({ quizId }: quizProps) => {
     const { userId } = auth();
 
     if (!userId) {
-      redirect("/");
-      // return null;
+      return null;
     }
 
     // get the quiz
@@ -30,7 +27,7 @@ export const getQuizById = async ({ quizId }: quizProps) => {
     });
 
     if (!quiz) {
-      return redirect("/dashboard");
+      return null;
     }
     return quiz;
   } catch (error) {
