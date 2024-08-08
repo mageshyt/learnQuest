@@ -18,7 +18,6 @@ export function ChatList({ messages, generating }: ChatListProps) {
 
   React.useEffect(() => {
     if (messagesContainerRef.current) {
-      console.log("scrolling to bottom");
       messagesContainerRef.current.scrollTop =
         messagesContainerRef.current.scrollHeight;
     }

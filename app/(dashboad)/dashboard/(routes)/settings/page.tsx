@@ -146,13 +146,15 @@ const SettingsPage = () => {
             <button
               disabled={theme === "system"}
               onClick={() => setTheme("system")}
-              className={`flex rounded-md border-2 p-1 hover:border-accent items-center justify-center h-[148px] w-[168px] text-3xl font-semibold ${
-                theme === "system" ? "border-accent" : "border-muted"
+              className={`items-center rounded-md border-2 p-1 hover:border-accent ${
+                theme === "dark" ? "border-accent" : "border-muted"
               }`}
             >
-              ?
-              <span className="block w-full sr-only p-2 text-center font-normal">
-                System
+              <div className="space-y-2 rounded-sm w-[140px] h-[130px] flex items-center justify-center text-3xl font-bold border-b ">
+                <span>?</span>
+              </div>
+              <span className="block w-full p-2 text-center font-normal">
+                system
               </span>
             </button>
           </div>

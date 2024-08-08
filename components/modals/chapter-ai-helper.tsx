@@ -86,7 +86,7 @@ export const ChapterAiHelperModal = () => {
 
   return (
     <ResponsiveModal open={isModelOpen} onOpenChange={onClose}>
-      <ResponsiveModalContent className=" md:max-w-xl  2xl:max-w-2xl">
+      <ResponsiveModalContent className=" md:max-w-xl focus-visible:outline-0 2xl:max-w-2xl">
         <ResponsiveModalHeader>
           <ResponsiveModalTitle>AI Assistance</ResponsiveModalTitle>
           {chapterDetails?.messages.length === 0 && (
@@ -103,7 +103,7 @@ export const ChapterAiHelperModal = () => {
           />
         </div>
 
-        <ResponsiveModalFooter className="pt-0">
+        <ResponsiveModalFooter className="pt-0 ">
           <Form {...form}>
             <form className="w-full" onSubmit={form.handleSubmit(onSubmit)}>
               <FormField
