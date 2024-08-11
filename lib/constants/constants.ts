@@ -7,7 +7,7 @@ import {
   Trophy,
 } from "lucide-react";
 
-export const clients = [...new Array(3)].map((client, index) => ({
+export const clients = [...new Array(4)].map((client, index) => ({
   href: `/sponsers/${index + 1}.png`,
 }));
 
@@ -166,5 +166,5 @@ export const GRADE_CONSTANTS = {
   grade2: "/icons/grades/grade-2.svg",
   grade3: "/icons/grades/grade-3.svg",
   grade4: "/icons/grades/grade-4.svg",
-  test:"/icons/grades/test.svg"
+  test: "/icons/grades/test.svg",
 };
