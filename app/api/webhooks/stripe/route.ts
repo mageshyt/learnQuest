@@ -7,7 +7,7 @@ import Stripe from "stripe";
 
 export async function POST(req: Request) {
   const body = await req.text();
-  const signature = headers().get("Stripe-Signature") as string;
+  const signature = headers().get("stripe-signature") as string;
 
   let event: Stripe.Event;
 
@@ -42,11 +42,10 @@ export async function POST(req: Request) {
       },
     });
   } else {
-
     return new NextResponse(`WEbhook : unhandled Event Type ${event.type}`, {
       status: 200,
     });
   }
 
-  return new NextResponse(null,{status:200})
+  return new NextResponse(null, { status: 200 });
 }
