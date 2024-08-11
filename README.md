@@ -28,6 +28,47 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
+To get started with the project, follow these steps:
+
+1. Add Environment Variables: Create a `.env.local` file in the root directory of the project and add the required environment variables from `.env.local.example`.
+
+required environment variables:
+
+```bash
+
+DATABASE_URL=""
+DATABASE_URL=""
+
+
+
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=
+CLERK_SECRET_KEY=
+
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+
+UPLOADTHING_SECRET=
+UPLOADTHING_APP_ID=
+WEBHOOK_SECRET=
+
+
+GEMINI_API_KEY=
+NEXT_PUBLIC_GEMINI_API_KEY=""
+
+MUX_TOKEN_ID=
+MUX_TOKEN_SECRET=
+MUX_WEBHOOK_SECRET=
+
+
+# Luffychan@@2705
+STRIPE_API_KEY=
+STRIPE_WEBHOOK_SECRET=
+
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+
+
+```
+
 First, run the development server:
 
 ```bash
@@ -59,4 +100,4 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Check out our [Next.js deployment documentation](https://learn-quest.vercel.app/) for more details.
