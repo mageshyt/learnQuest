@@ -1,6 +1,7 @@
 import { getDashboardCourses } from "@/actions/dashboard/get-dashboard";
 import { currentUser } from "@clerk/nextjs/server";
 import { redirect } from "next/navigation";
+
 import { Summary } from "./components/summary";
 import CoursesList from "@/components/courses/courses-list";
 import Heading from "@/components/global/heading";
@@ -11,9 +12,7 @@ export default async function Home() {
 
   if (!user) return redirect("/");
 
-  const { completedCourse, coursesInProgress } = await getDashboardCourses(
-    user.id
-  );
+  const { completedCourse, coursesInProgress } = await getDashboardCourses();
 
   return (
     <main className="p-4 space-y-4 h-full overflow-y-auto pb-10 container ">

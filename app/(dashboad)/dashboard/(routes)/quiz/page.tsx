@@ -7,7 +7,7 @@ import { redirect } from "next/navigation";
 import React from "react";
 import { columns } from "./components/columns";
 
-const QuizPage = async() => {
+const QuizPage = async () => {
   const { userId } = auth();
 
   if (!userId) {
@@ -30,8 +30,8 @@ const QuizPage = async() => {
       <DashboardCardWrapper title="Quiz">
         <div>
           <DataTable
-          columns={columns}
-          data={quiz!}
+            columns={columns}
+            data={quiz!}
           />
         </div>
       </DashboardCardWrapper>
