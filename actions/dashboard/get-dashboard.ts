@@ -1,7 +1,9 @@
 "use server";
+
 import { db } from "@/lib";
 import { Category, Chapter, Course } from "@prisma/client";
 import { getProgress } from "../general/get-progress";
+import { auth } from "@clerk/nextjs/server";
 
 type CourseWithPRogressWithCategory = Course & {
   category: Category;
@@ -14,24 +16,43 @@ type DashboardCourse = {
   quizAttempts: number;
 };
 
-export const getDashboardCourses = async (
-  userId: string
-): Promise<DashboardCourse> => {
+export const getDashboardCourses = async (): Promise<DashboardCourse> => {
+
+
   try {
+
+    const { userId } = auth();
+
+    if (!userId) {
+      return {
+        completedCourse: [],
+        coursesInProgress: [],
+        quizAttempts: 0,
+      };
+    }
+
+
     const purchasedCourse = await db.purchase.findMany({
       where: {
         userId,
       },
       select: {
         course: {
-          include: {
+          select: {
+            id: true,
+            imageUrl: true,
+            price: true,
+            title: true,
             category: true,
             chapters: {
-              where: {
+              select: {
+                id: true,
+                title: true,
                 isPublished: true,
-              },
-            },
-          },
+              }
+            }
+
+          }
         },
       },
     });
