@@ -93,6 +93,7 @@
     "@types/remarkable": "^2.0.8",
     "eslint": "^8",
     "eslint-config-next": "14.2.3",
+    "eslint-plugin-react": "^7.37.2",
     "postcss": "^8",
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.6.1",
