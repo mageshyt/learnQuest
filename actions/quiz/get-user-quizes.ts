@@ -2,7 +2,6 @@
 
 import { db } from "@/lib";
 import { auth } from "@clerk/nextjs/server";
-import { Quiz, QuizResult } from "@prisma/client";
 
 export const getUserQuiz = async () => {
   try {
