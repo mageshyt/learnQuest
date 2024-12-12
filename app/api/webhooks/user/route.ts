@@ -44,12 +44,12 @@ async function handler(request: Request) {
         id: id as string,
         attributes,
         email: email_addresses[0].email_address,
-        name: `${attributes?.first_name} ${attributes?.last_name}`,
+        name: `${attributes?.first_name} ${attributes?.last_name || ""}`,
       },
       update: {
         attributes,
         email: email_addresses[0].email_address,
-        name: `${attributes?.first_name} ${attributes?.last_name}`,
+        name: `${attributes?.first_name} ${attributes?.last_name || ""}`,
       },
     });
 
