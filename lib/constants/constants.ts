@@ -4,6 +4,7 @@ import {
   Compass,
   GraduationCap,
   Layout,
+  Swords,
   Trophy,
 } from "lucide-react";
 
@@ -141,6 +142,11 @@ export const USER_NAV_ITEM: SideBar[] = [
         path: "/quiz",
         icon: Trophy,
       },
+      {
+        title: "Leaderboard",
+        path: "/leaderboard",
+        icon: Swords,
+      }
     ],
   },
 ];

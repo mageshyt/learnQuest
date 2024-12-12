@@ -3,8 +3,6 @@ import React from "react";
 import Logo from "@/components/global/logo";
 import SidebarRoutes from "./sidebar-routes";
 import Link from "next/link";
-import SidebarItem from "./sidebar-item";
-import { Settings } from "lucide-react";
 import { SidebarSettings } from "./sidebar-settings";
 
 const Sidebar = () => {

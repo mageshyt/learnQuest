@@ -35,7 +35,7 @@ const Heading: React.FC<HeadingProps> = ({
       {/* bottom border */}
       <div
         className={
-          isUnderlined ? "bg-secondary mt-2 h-1 w-28  rounded-full" : ""
+          isUnderlined ? "dark:bg-secondary bg-primary mt-2 h-1 w-28  rounded-full" : ""
         }
       ></div>
     </section>
