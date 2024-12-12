@@ -35,3 +35,12 @@ export type userAnswerType = {
   answer: string;
   isCorrect: boolean;
 };
+
+
+export type LeaderboardUser = {
+  id: string
+  name: string | null;
+  email: string | null;
+  points: number;
+}
+
