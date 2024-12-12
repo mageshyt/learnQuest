@@ -1,4 +1,4 @@
-import { db } from "@/lib";
+import { db } from "@/lib/db";
 import { IncomingHttpHeaders } from "http";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";

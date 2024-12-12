@@ -1,6 +1,6 @@
 "use server";
 
-import { db } from "@/lib";
+import { db } from "@/lib/db";
 import { Category, Chapter, Course } from "@prisma/client";
 import { getProgress } from "../general/get-progress";
 import { auth } from "@clerk/nextjs/server";
@@ -30,7 +30,6 @@ export const getDashboardCourses = async (): Promise<DashboardCourse> => {
         quizAttempts: 0,
       };
     }
-
 
     const purchasedCourse = await db.purchase.findMany({
       where: {

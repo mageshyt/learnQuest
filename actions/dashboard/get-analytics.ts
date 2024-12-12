@@ -1,5 +1,5 @@
 "use server";
-import { db } from "@/lib";
+import { db } from "@/lib/db";
 import { Course, Purchase } from "@prisma/client";
 
 export type PurchaseWithCourse = Purchase & {
