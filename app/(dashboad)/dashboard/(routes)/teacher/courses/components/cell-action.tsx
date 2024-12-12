@@ -5,7 +5,6 @@ import {
   Clipboard,
   Eye,
   MoreHorizontal,
-  Pencil,
   PencilIcon,
   Trash,
 } from "lucide-react";
@@ -15,7 +14,6 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
@@ -64,7 +62,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
           Copy ID
         </DropdownMenuItem>
 
-        <DropdownMenuItem onClick={() => {}} className="text-red-400">
+        <DropdownMenuItem onClick={() => { }} className="text-red-400">
           <Trash className="h-4 w-4 mr-2" />
           Delete
         </DropdownMenuItem>
