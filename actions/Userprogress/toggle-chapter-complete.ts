@@ -54,12 +54,34 @@ export const toggleChapterComplete = async ({
         },
       });
 
+      // update in db
+      await db.user.update(
+        {
+          where:{
+            id:userId
+          },
+          data:{
+            points: xp + 10
+          }
+        }
+      )
+
     } else {
       await clerkClient.users.updateUserMetadata(userId, {
         publicMetadata: {
           xp: Math.max(xp - 10, 0),
         },
       });
+
+      // update in db
+      await db.user.update({
+        where:{
+          id:userId
+        },
+        data:{
+          points: Math.max(xp - 10, 0)
+          }
+      })
     }
 
     return userProgress;
