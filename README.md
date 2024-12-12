@@ -12,6 +12,11 @@ Learn Quest is a platform that provides educational resources, courses, and expe
 
 - **User Dashboard**: Learn Quest provides a user dashboard where users can track their progress, view their enrolled courses, and access their certificates.
 
+- **Quizzes**: Learn Quest provides quizzes for each course. Users can take these quizzes to test their knowledge and understanding of the course material.
+
+- **Leaderboard**: Learn Quest provides a leaderboard where users can see their ranking based on their performance in the quizzes.
+
+
 ## Development 🛠
 
 **Database**: Learn Quest uses a PostgreSQL database to store data. The database schema is as follows:
@@ -25,6 +30,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - PostgreSQL
 - Prisma
 - clerk
+- Gemini
 
 ## Getting Started
 
