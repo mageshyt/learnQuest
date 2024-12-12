@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 
 import { LeaderboardUser } from "@/types/typings";
-import { cn } from "@/lib/utils";
+import { cn, truncate } from "@/lib/utils";
 
 import UserAvatar from "@/components/global/user-avatar";
 
@@ -43,10 +43,10 @@ const TopPlayers = ({ playerList }: TopPlayersProps) => {
               items-center justify-between bg-slate-50 dark:bg-neutral-800
               p-4 cursor-pointer  transition rounded-lg"
             >
-              <span >
-                {index + 4}. {player.name || "User"}
+              <span className="text-sm md:text-base">
+                {index + 4}. {truncate(player.name || "Anonymous", 18)}
               </span>
-              <span>{player.points} Points</span>
+              <span className="text-sm md:text-base" >{player.points} Points</span>
             </li>
           ))}
         </ul>
@@ -82,10 +82,10 @@ const Player = ({
       />
 
       {/* Name */}
-      <p className="text-lg font-semibold mt-2">{player.name || "User"}</p>
+      <p className="md:text-lg text-sm font-semibold mt-2">{truncate(player?.name || "Ana",12)}</p>
 
       {/* Points */}
-      <p className="text-sm p-2 bg-gray-100 dark:bg-neutral-700 rounded-md font-medium">
+      <p className="md:text-sm text-xs p-2 bg-gray-100 dark:bg-neutral-700 rounded-md font-medium">
         {player.points} Points
       </p>
 
